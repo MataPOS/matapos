@@ -9,6 +9,7 @@ MataPOS is a robust, compact and affordable POS device aimed for small and mediu
 [Muktansh Chaturvedi](https://github.com/muktansh)  
 [Abubakar Yusuf](https://github.com/fatherofcamels)
 
+## Follow us on
 
 ## Installation
 
