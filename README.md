@@ -1,6 +1,6 @@
 # MataPOS
 
-MataPOS is a robust, compact and affordable POS device aimed for small and medium sized retailers. 
+MataPOS is a robust, compact and affordable Point of Sale (POS) device with a target market of small and medium scale retail outlets across the world. The project is part of a continous assessment for Real-time Embedded Programming course taken by masters students at the prestigious University of Glasgow in the United Kingdom. The design will demonstrate the power and dynamism of the Raspberry Pi with C++ codes in performing real-time operations that would be beneficial to the intended market.
 
 ## Initiated By
 
