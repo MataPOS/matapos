@@ -11,11 +11,21 @@ MataPOS is a robust, compact and affordable Point of Sale (POS) device with a ta
 
 ## Follow us on
 
-## Installation
+## Setup on Linux
 
+* Fork this repo to your github account.
+* Clone it to your local machine.
+* Create a 'build' directory in root directory matapos.
 ```bash
-
+mkdir build
 ```
+* Go to the build directory and run following commands to build the project.
+```bash
+cd build
+cmake ..
+make
+```
+
 
 ## Usage
 
