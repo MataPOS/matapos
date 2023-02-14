@@ -2,6 +2,8 @@ cmake_minimum_required (VERSION 3.8)
 
 project ("matapos")
 
+find_package(Qt5 REQUIRED COMPONENTS Widgets)
+
 # Looks for CMakeLists in these directories and builds them
 add_subdirectory(include)
 add_subdirectory(src)
