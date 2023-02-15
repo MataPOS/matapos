@@ -3,8 +3,8 @@ cmake_minimum_required (VERSION 3.8)
 project ("matapos")
 
 find_package(Qt5 REQUIRED COMPONENTS Widgets)
+find_package(OpenCV REQUIRED)
 
-# Looks for CMakeLists in these directories and builds them
 add_subdirectory(include)
 add_subdirectory(src)
 add_subdirectory(dependencies)
