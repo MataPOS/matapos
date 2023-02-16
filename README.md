@@ -26,7 +26,13 @@ cmake ..
 make
 ./src/main
 ```
+## Run tests
 
+* Build project as instructed above.
+* go to build directory and enter the following command
+```bash
+ctest
+```
 
 ## Usage
 
