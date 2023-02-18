@@ -24,9 +24,15 @@ mkdir build
 cd build
 cmake ..
 make
-./main
+./src/main
 ```
+## Run tests
 
+* Build project as instructed above.
+* go to build directory and enter the following command
+```bash
+ctest
+```
 
 ## Usage
 
