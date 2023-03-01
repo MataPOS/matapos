@@ -21,6 +21,8 @@ public:
 	// Constructor
 	camera() = default;
 	
+	camera(CameraSettings cameraSettings);
+	
 	// destructor
 	~camera();
 	

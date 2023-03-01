@@ -2,6 +2,10 @@
 
 #include <thread>
 
+Camera::camera(CameraSettings cameraSettings) {
+	running = 1;
+}
+
 Camera::~camera() {
 	stop();
 }
