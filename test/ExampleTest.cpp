@@ -2,5 +2,5 @@
 
 TEST(ExampleTests, DemonstrateGTestMacros) {
 
-	EXPECT_true(TRUE);
+	EXPECT_TRUE(true);
 }
