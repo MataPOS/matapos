@@ -31,12 +31,14 @@ void Camera::qrDecoderCallback(cv::Mat frame) {
 }
 
 void Camera::runCamera() {
+	cv::namedWindow("Video Player");
 	while(isRunning) {
 		cv::Mat frame;
 		videoCapture->read(frame);
 		if(frame.empty()) {
 			std::cerr << "empty frame!";
 		}
+		imshow("Video Player", frame);
 		qrDecoderCallback(frame);
 
 	}
@@ -55,5 +57,5 @@ void Camera::stop() {
 }
 
 Camera::~Camera() {
-	
+
 }
