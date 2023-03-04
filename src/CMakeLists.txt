@@ -13,5 +13,5 @@ target_include_directories(cameralib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../inclu
 
 add_executable(main main.cpp)
 
-target_link_libraries(main PRIVATE simplecameralib cameralib Qt5::Widgets ${OpenCV_LIBS})
+target_link_libraries(main PRIVATE Threads::Threads simplecameralib cameralib Qt5::Widgets ${OpenCV_LIBS})
 
