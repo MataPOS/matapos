@@ -39,7 +39,7 @@ public:
 
 private:
 	
-	int isRunning;
+	int isRunning = 0;
 	int deviceId;
 	int apiId;
 
