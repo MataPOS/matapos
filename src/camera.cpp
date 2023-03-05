@@ -64,7 +64,7 @@ void Camera::start() {
 
 	if(videoCapture->isOpened()) {
 		#ifdef DEBUG
-			std::cout << srd::endl << "Camera opened successfully!" << std::endl;
+			std::cout << std::endl << "Camera opened successfully!" << std::endl;
 		#endif
 		
 		isRunning = 1;
