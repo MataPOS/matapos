@@ -42,15 +42,21 @@ void Camera::qrDecoderCallback(cv::Mat frame) {
 }
 
 void Camera::runCamera() {
+	
 	cv::namedWindow("Video Player");
+	
 	while(isRunning) {
 		cv::Mat frame;
 		videoCapture->read(frame);
 		if(frame.empty()) {
-			std::cerr << "empty frame!";
+
+			#ifdef DEBUG
+				std::cerr << std::endl << "empty frame!" << std::endl;
+			#endif
 		}
+
 		imshow("Video Player", frame);
-		qrDecoderCallback(frame);
+		//qrDecoderCallback(frame);
 
 	}
 }
@@ -77,7 +83,8 @@ void Camera::start() {
 		return;
 	}
 	
-	//cameraThread = std::thread(&Camera::runCamera, this);
+	// run camera in a separate thread
+	cameraThread = std::make_unique<std::thread>(&Camera::runCamera, this);
 
 }
 

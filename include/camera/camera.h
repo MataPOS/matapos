@@ -44,7 +44,7 @@ private:
 	int apiId;
 
 	std::unique_ptr<cv::VideoCapture> videoCapture;
-	std::thread cameraThread;
+	std::unique_ptr<std::thread> cameraThread;
 };
 
 #endif
