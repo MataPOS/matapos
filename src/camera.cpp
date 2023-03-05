@@ -42,9 +42,8 @@ void Camera::qrDecoderCallback(cv::Mat frame) {
 
 void Camera::runCamera() {
 	
-	cv::namedWindow("Video Player");
-	
-	while(isRunning) {
+	while(isRunning){
+		
 		cv::Mat frame;
 		videoCapture.read(frame);
 		if(frame.empty()) {
@@ -55,6 +54,10 @@ void Camera::runCamera() {
 		}
 
 		imshow("Video Player", frame);
+		if (cv::waitKey(5) >= 0){
+			stop();
+		}
+        
 		//qrDecoderCallback(frame);
 
 	}
@@ -67,13 +70,15 @@ void Camera::start() {
 	
 
 	if(videoCapture.isOpened()) {
-		#ifdef DEBUG
+		
+		ifdef DEBUG
 			std::cout << std::endl << "Camera opened successfully!" << std::endl;
 		#endif
 		
 		isRunning = 1;
 	}
 	else {
+		
 		#ifdef DEBUG
 			std::cerr << std::endl << "Error occured...Unable to open camera..." << std::endl;
 		#endif
@@ -90,6 +95,13 @@ void Camera::stop() {
 	isRunning = 0;
 }
 
+ 
 Camera::~Camera() {
-
+	
+	#ifdef DEBUG
+		std::cout << std::endl << "Inside Camera destructor" << std::endl;
+		std::cout << std::endl << "isRunning: " << isRunning << std::endl;
+	#endif
+	
+	cameraThread.join();
 }
