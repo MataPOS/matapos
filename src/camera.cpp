@@ -20,7 +20,6 @@
 Camera::Camera(int deviceId, int apiId) {
 	deviceId = deviceId;
 	apiId = apiId;
-	videoCapture = std::make_unique<cv::VideoCapture>();
 }
 
 Camera::Camera() {
@@ -47,7 +46,7 @@ void Camera::runCamera() {
 	
 	while(isRunning) {
 		cv::Mat frame;
-		videoCapture->read(frame);
+		videoCapture.read(frame);
 		if(frame.empty()) {
 
 			#ifdef DEBUG
@@ -64,11 +63,10 @@ void Camera::runCamera() {
 
 void Camera::start() {
 	
-	videoCapture = std::make_unique<cv::VideoCapture>();
-	videoCapture->open(deviceId, apiId);
+	videoCapture.open(deviceId, apiId);
 	
 
-	if(videoCapture->isOpened()) {
+	if(videoCapture.isOpened()) {
 		#ifdef DEBUG
 			std::cout << std::endl << "Camera opened successfully!" << std::endl;
 		#endif
@@ -84,7 +82,7 @@ void Camera::start() {
 	}
 	
 	// run camera in a separate thread
-	cameraThread = std::make_unique<std::thread>(&Camera::runCamera, this);
+	cameraThread = std::thread(&Camera::runCamera, this);
 
 }
 
