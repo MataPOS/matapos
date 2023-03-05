@@ -1,3 +1,5 @@
+#define DEBUG
+
 #include "camera/camera.h"
 
 #include <thread>
@@ -14,11 +16,20 @@
 #include <iostream>
 
 
-
 Camera::Camera(int deviceId, int apiId) {
 	deviceId = deviceId;
 	apiId = apiId;
 	videoCapture = std::make_unique<cv::VideoCapture>();
+}
+
+Camera::Camera() {
+	deviceId = 0;
+	apiId = cv::CAP_ANY;
+	
+	#ifdef DEBUG
+		std::cout << "deviceId: " << deviceId << std::endl;
+		std::cout << "apiId: " << apiId << std::endl;
+	#endif	
 }
 
 void Camera::qrDecoderCallback(cv::Mat frame) {
@@ -45,9 +56,27 @@ void Camera::runCamera() {
 
 
 void Camera::start() {
-	isRunning = 1;
+	
+	videoCapture = std::make_unique<cv::VideoCapture>();
 	videoCapture->open(deviceId, apiId);
-	cameraThread = std::thread(&Camera::runCamera, this);
+	
+
+	if(videoCapture->isOpened()) {
+		#ifdef DEBUG
+			std::cout << "Camera opened successfully!";
+		#endif
+		
+		isRunning = 1;
+	}
+	else {
+		#ifdef DEBUG
+			std::cerr << "Error occured...Unable to open camera...";
+		#endif
+
+		return;
+	}
+	
+	//cameraThread = std::thread(&Camera::runCamera, this);
 
 }
 

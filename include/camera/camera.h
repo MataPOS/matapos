@@ -16,6 +16,8 @@ class Camera {
 
 public:
 
+	// Constructor with default settings
+	Camera();
 
 	// Constructor
 	Camera(int deviceId, int apiId);
