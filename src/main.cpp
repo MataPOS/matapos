@@ -1,19 +1,11 @@
-#include<iostream>
-#include "simplecameralib/printhello.h"
-#include "simplecameralib/Camera_reader.h"
+#include "camera/camera.h"
+
 
 int main() {
-	printhello();
+	
 
-	Mat frame;
-	string window_name = "Captured Image";
-
-	CameraReader C;
-	frame = C.FeedCapture();
-	namedWindow(window_name);
-
-	imshow(window_name, frame);
-	waitKey(0);
-
+	std::unique_ptr<Camera> camera = std::make_unique<Camera>();
+	camera->start();
+	
 	return 0;
 }

@@ -2,9 +2,11 @@ cmake_minimum_required (VERSION 3.8)
 
 project ("matapos")
 
+set(THREADS_PREFER_PTHREAD_FLAG ON)
+
 find_package(Qt5 REQUIRED COMPONENTS Widgets)
 find_package(OpenCV REQUIRED)
-
+find_package(Threads REQUIRED)
 
 include(FetchContent)
 FetchContent_Declare(
