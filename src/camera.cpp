@@ -15,9 +15,11 @@
 #include <opencv2/core.hpp>
 #include <opencv2/opencv.hpp>
 #include <iostream>
+#include <zbar.h>
 
 using namespace cv;
 using namespace std;
+using namespace zbar;
 
 void Camera::decode(Mat &im, vector<decodedObject>&decodedObjects) {
  
@@ -29,7 +31,7 @@ void Camera::decode(Mat &im, vector<decodedObject>&decodedObjects) {
  
   // Convert image to grayscale
   Mat imGray;
-  cvtColor(im, imGray,CV_BGR2GRAY);
+  cvtColor(im, imGray,COLOR_BGR2GRAY);
  
   // Wrap image data in a zbar image
   Image image(im.cols, im.rows, "Y800", (uchar *)imGray.data, im.cols * im.rows);
