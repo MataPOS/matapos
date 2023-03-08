@@ -12,6 +12,14 @@
 #include <opencv2/core.hpp>
 #include <opencv2/videoio.hpp>
 
+typedef struct
+{
+  string type;
+  string data;
+  vector <Point> location;
+} decodedObject;
+
+
 class Camera {
 
 public:
@@ -36,6 +44,8 @@ public:
 
 	// qrcode decode callback
 	void qrDecoderCallback(cv::Mat frame);
+
+	void decode(Mat &im, vector<decodedObject>&decodedObjects);
 
 private:
 	
