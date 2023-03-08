@@ -19,7 +19,7 @@
 using namespace cv;
 using namespace std;
 
-Camera::void decode(Mat &im, vector<decodedObject>&decodedObjects) {
+void Camera::decode(Mat &im, vector<decodedObject>&decodedObjects) {
  
   // Create zbar scanner
   ImageScanner scanner;
