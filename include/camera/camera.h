@@ -11,16 +11,16 @@
 #include <opencv2/opencv.hpp>
 #include <opencv2/core.hpp>
 #include <opencv2/videoio.hpp>
+#include <zbar.h>
 
-using namespace std;
-using namespace cv;
-
-typedef struct
-{
-  string type;
-  string data;
-  vector <Point> location;
-} decodedObject;
+/*
+ * Barcodes are of 1D and 2D.
+ * 1D barcode is also called QR code.
+ */
+typedef struct{
+  std::string barcodeType;
+  std::string decodedData;
+} Barcode;
 
 
 class Camera {
@@ -45,18 +45,24 @@ public:
 	// start running camera and acquiring frames
 	void runCamera();
 
-	// qrcode decode callback
-	void qrDecoderCallback(cv::Mat frame);
-
-	void decode(Mat &im, vector<decodedObject>&decodedObjects);
+	void decodeQRAndBarcode(cv::Mat &frame);
+	
+	void configureZbarScanner();
 
 private:
+	
+	zbar::ImageScanner zbarImageScanner;
+	
+	cv::Mat grayImage;
+	
+	std::vector<Barcode> barcodes;
 	
 	int isRunning = 0;
 	int deviceId;
 	int apiId;
 
 	cv::VideoCapture videoCapture;
+	
 	std::thread cameraThread;
 };
 
