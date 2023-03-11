@@ -17,35 +17,6 @@
 #include <iostream>
 #include <zbar.h>
 
-void Camera::decodeQRAndBarcode(cv::Mat &frame) {
-
-	// convert frame to grayscale image
-	cvtColor(frame, grayImage, cv::COLOR_BGR2GRAY);
-	 
-	// wrap frame into a zbar image
-	zbar::Image zbarImageWrapper(frame.cols, frame.rows, "Y800", (uchar *)grayImage.data, frame.cols * frame.rows);
-	 
-	// Scan for barcodes
-	zbarImageScanner.scan(zbarImageWrapper);
-	
-	for(zbar::Image::SymbolIterator symbol = zbarImageWrapper.symbol_begin(); symbol != zbarImageWrapper.symbol_end(); ++symbol){
-		
-		Barcode barcode;
-		
-		barcode.barcodeType = symbol->get_type_name();
-		barcode.decodedData = symbol->get_data();
-		
-		 
-		#ifdef DEBUG
-			std::cout << std::endl << "Type : " << barcode.barcodeType << std::endl;
-			std::cout << std::endl << "Data : " << barcode.decodedData << std::endl;
-		#endif
-		
-		barcodes.push_back(barcode);
-	}
-}
-
-
 
 Camera::Camera(int deviceId, int apiId) {
 	deviceId = deviceId;
@@ -64,10 +35,6 @@ Camera::Camera() {
 	configureZbarScanner();
 }
 
-void Camera::configureZbarScanner() {
-	zbarImageScanner.set_config(zbar::ZBAR_NONE, zbar::ZBAR_CFG_ENABLE, 1);
-
-}
 
 void Camera::runCamera() {
 	
@@ -87,8 +54,8 @@ void Camera::runCamera() {
 			stop();
 		}
         
-        // QR decode callback
-		decodeQRAndBarcode(frame);
+        // frame available callback
+		frameAvailableCallback->decodeQRAndBarcode(frame);
  
 
 	}

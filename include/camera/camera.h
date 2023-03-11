@@ -51,16 +51,17 @@ public:
 	
 	void configureZbarScanner();
 
-	// callback whenever a frame is available for use
-	virtual void frameAvailable(cv::Mat &frame) = 0;
+	struct CameraCallback {
+			
+		virtual void frameAvailable(cv::Mat &frame) = 0;
+	}
+
+	void registerFrameAvailableCallback(CameraCallback* callback) {
+		frameAvailableCallback = callback;
+	}
+
 
 private:
-	
-	zbar::ImageScanner zbarImageScanner;
-	
-	cv::Mat grayImage;
-	
-	std::vector<Barcode> barcodes;
 	
 	int isRunning = 0;
 	int deviceId;
@@ -69,6 +70,8 @@ private:
 	cv::VideoCapture videoCapture;
 	
 	std::thread cameraThread;
+
+	CameraCallback* frameAvailableCallback = nullptr;
 };
 
 #endif
