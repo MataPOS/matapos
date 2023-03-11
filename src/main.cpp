@@ -1,19 +1,76 @@
+#include <opencv2\opencv.hpp>
+#include"LoadCell.h"
 #include<iostream>
-#include "simplecameralib/printhello.h"
-#include "simplecameralib/Camera_reader.h"
+#include<unistd.h>
+
+using namespace cv;
+
+using namespace std;
+
+
+struct MyLoadCellCallback :LoadCellCallback {
+public:
+	void hasData(unsigned long weight) {
+
+		std::cout << "Weight";
+
+	}
+
+
+};
+
+
+void LoadCellMain()
+{
+	MyLoadCellCallback callback;
+
+	LoadCell loadcell;
+
+	loadcell.registerCallback(&callback);
+
+	loadcell.start();
+
+	std::cout << "Load Cell reading started";
+
+	sleep(5);
+
+	loadcell.stop();
+
+	std::cout << "Load Cell Main thread finished";
+
+}
+
+
+
+
 
 int main() {
-	printhello();
 
-	Mat frame;
-	string window_name = "Captured Image";
 
-	CameraReader C;
-	frame = C.FeedCapture();
-	namedWindow(window_name);
+LoadCellMain();
+/*
+Mat image;
 
-	imshow(window_name, frame);
-	waitKey(0);
+namedWindow("Display window");
 
-	return 0;
+VideoCapture cap(0);
+
+if (!cap.isOpened()) {
+
+cout << "cannot open camera";
+
+}
+
+while (true) {
+
+cap >> image;
+
+imshow("Display window", image);
+
+waitKey(25);
+
+}
+*/
+return 0;
+
 }
