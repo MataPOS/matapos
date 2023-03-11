@@ -1,13 +1,11 @@
 #include "camera/camera.h"
-
+#include "barcodereader/barcodereader.h"
 
 int main() {
 	
-
-	std::unique_ptr<Camera> camera = std::make_unique<Camera>();
-	std::unique_ptr<BarcodeReader> barcodeReader = std::make_unique<BarcodeReader>();
+	std::unique_ptr<BarcodeReader> barcodeReaderPtr = std::make_unique<BarcodeReader>();
 	
-	camera->start();
+	
 	
 	return 0;
 }

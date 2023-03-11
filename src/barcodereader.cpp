@@ -19,26 +19,32 @@
 #include <zbar.h>
 
 BarcodeReader::BarcodeReader() {
-
-	BarcodeReaderCallback.barcodeReader = this;
-
-	camera.registerFrameAvailableCallback(barcodeReaderCallback);
-
-	configureZbarScanner();
+	
+	barcodeReaderCallback.barcodeReaderPtr = this;
+	
+	
+	cameraPtr = std::make_unique<Camera>();
+	
+	cameraPtr -> registerFrameAvailableCallback(&barcodeReaderCallback);
+	
+	cameraPtr -> start();
 
 }
 
 BarcodeReader::~BarcodeReader() {
-
+	cameraPtr -> stop();
+	
 }
 
-void BarcodeReader::ConfigureZbarScanner() {
+void BarcodeReader::configureZbarScanner() {
 	zbarImageScanner.set_config(zbar::ZBAR_NONE, zbar::ZBAR_CFG_ENABLE, 1);
 }
 
 
 void BarcodeReader::decodeQRAndBarcode(cv::Mat& frame) {
-// convert frame to grayscale image
+	configureZbarScanner();
+	
+	// convert frame to grayscale image
 	cvtColor(frame, grayImage, cv::COLOR_BGR2GRAY);
 	 
 	// wrap frame into a zbar image

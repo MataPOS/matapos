@@ -32,7 +32,6 @@ Camera::Camera() {
 		std::cout << "apiId: " << apiId << std::endl;
 	#endif	
 	
-	configureZbarScanner();
 }
 
 
@@ -55,7 +54,7 @@ void Camera::runCamera() {
 		}
         
         // frame available callback
-		frameAvailableCallback->decodeQRAndBarcode(frame);
+		cameraCallBackPtr -> frameAvailable(frame);
  
 
 	}

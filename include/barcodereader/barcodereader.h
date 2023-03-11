@@ -18,10 +18,6 @@ class BarcodeReader {
 
 public:
 	
-	Camera camera;
-
-	BarcodeReaderCallback barcodeReaderCallback;
-
 	BarcodeReader();
 	
 	~BarcodeReader();
@@ -31,26 +27,20 @@ public:
 	void configureZbarScanner();
 
 	struct BarcodeReaderCallback: Camera::CameraCallback {
-		BarcodeReader* barcodeReader = nullptr;
-
-		virtual void frameAvailable(cv::Mat &frame) {
-			if(nullptr != barcodeReader){
-				BarcodeReader -> decodeQRAndBarcode(frame);
+		BarcodeReader* barcodeReaderPtr = nullptr;
+		virtual void frameAvailable(cv::Mat& frame) {
+			if(nullptr != barcodeReaderPtr) {
+					barcodeReaderPtr -> decodeQRAndBarcode(frame);
 			}
 		}
+	};
+	
 
-		// callback to be called when a unique id is available
-		virtual void uniqueIdAvailable(std::string itemId) = 0;
+	BarcodeReaderCallback barcodeReaderCallback;
 
-	}
+	std::unique_ptr<Camera> cameraPtr;
 
-	void registerBarcodeReaderCallback(BarcodeReaderCallback* barcodeReaderCallback) {
-		uniqueIdAvailableCallback = barcodeReaderCallback;
-	}
-
-private:
-
-	BarcodeReaderCallback* uniqueIdAvailableCallback = nullptr;
+	std::unique_ptr<BarcodeReaderCallback> uniqueIdAvailableCallback = nullptr;
 
 	zbar::ImageScanner zbarImageScanner;
 	
@@ -58,6 +48,6 @@ private:
 	
 	std::vector<Barcode> barcodes;
 	
-}
+};
 
 #endif

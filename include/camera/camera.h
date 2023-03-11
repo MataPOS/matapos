@@ -45,19 +45,16 @@ public:
 	// start running camera and acquiring frames
 	void runCamera();
 
-	void qrDecoderCallback(cv::Mat frame);
-
-	void decodeQRAndBarcode(cv::Mat &frame);
-	
-	void configureZbarScanner();
 
 	struct CameraCallback {
-			
+		
+		// Callback to be implemented by client to make use of available frame	
 		virtual void frameAvailable(cv::Mat &frame) = 0;
-	}
+	};
 
-	void registerFrameAvailableCallback(CameraCallback* callback) {
-		frameAvailableCallback = callback;
+	// method to register client with the callback to make use of it
+	void registerFrameAvailableCallback(CameraCallback* clientCallbackPtr) {
+		cameraCallBackPtr = clientCallbackPtr;
 	}
 
 
@@ -71,7 +68,7 @@ private:
 	
 	std::thread cameraThread;
 
-	CameraCallback* frameAvailableCallback = nullptr;
+	CameraCallback* cameraCallBackPtr = nullptr;
 };
 
 #endif
