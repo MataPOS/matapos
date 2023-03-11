@@ -1,6 +1,8 @@
 #ifndef CAMERA_H
 #define CAMERA_H
 
+#define DEBUG
+
 #include <thread>
 #include <opencv2/core.hpp>
 #include <opencv2/objdetect.hpp>
@@ -55,6 +57,9 @@ public:
 	// method to register client with the callback to make use of it
 	void registerFrameAvailableCallback(CameraCallback* clientCallbackPtr) {
 		cameraCallBackPtr = clientCallbackPtr;
+		#ifdef DEBUG
+			std::cout << std::endl << "inside register callback method" << std::endl;
+		#endif
 	}
 
 

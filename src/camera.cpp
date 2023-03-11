@@ -85,7 +85,7 @@ void Camera::start() {
 	
 	// run camera in a separate thread
 	cameraThread = std::thread(&Camera::runCamera, this);
-
+	cameraThread.join();
 }
 
 void Camera::stop() {
@@ -99,6 +99,4 @@ Camera::~Camera() {
 		std::cout << std::endl << "Inside Camera destructor" << std::endl;
 		std::cout << std::endl << "isRunning: " << isRunning << std::endl;
 	#endif
-	
-	cameraThread.join();
 }
