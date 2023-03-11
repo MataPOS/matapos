@@ -45,9 +45,14 @@ public:
 	// start running camera and acquiring frames
 	void runCamera();
 
+	void qrDecoderCallback(cv::Mat frame);
+
 	void decodeQRAndBarcode(cv::Mat &frame);
 	
 	void configureZbarScanner();
+
+	// callback whenever a frame is available for use
+	virtual void frameAvailable(cv::Mat &frame) = 0;
 
 private:
 	
