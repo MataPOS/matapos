@@ -6,6 +6,5 @@ int main() {
 	std::unique_ptr<BarcodeReader> barcodeReaderPtr = std::make_unique<BarcodeReader>();
 	
 	
-	
 	return 0;
 }
