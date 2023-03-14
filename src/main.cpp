@@ -12,7 +12,7 @@ struct MyLoadCellCallback :LoadCellCallback {
 public:
 	void hasData(unsigned long weight) {
 
-		std::cout << "Weight";
+		std::cout << "Weight "<<weight;
 
 	}
 
