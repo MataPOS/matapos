@@ -1,7 +1,10 @@
-#include<iostream>
-#include "simplecameralib/printhello.h"
+#include "camera/camera.h"
+#include "barcodereader/barcodereader.h"
 
 int main() {
-	printhello();
+	
+	std::unique_ptr<BarcodeReader> barcodeReaderPtr = std::make_unique<BarcodeReader>();
+	
+	
 	return 0;
 }
