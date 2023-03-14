@@ -3,7 +3,6 @@
 #include<iostream>
 #include<unistd.h>
 
-
 using namespace cv;
 
 using namespace std;
@@ -13,7 +12,7 @@ struct MyLoadCellCallback :LoadCellCallback {
 public:
 	void hasData(unsigned long weight) {
 
-		std::cout << "Weight "<<weight;
+		std::cout << "Weight " << weight;
 
 	}
 
@@ -42,11 +41,3 @@ void LoadCellMain()
 }
 
 
-
-
-
-int main() {
-
-
-
-}
