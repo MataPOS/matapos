@@ -11,37 +11,10 @@
 #include <QPushButton>
 #include <QTimer>
 #include <QLineEdit>
-#include <QtSql>
-#include <QSqlDatabase>
-#include <QMessageBox>
 
 class Window : public QWidget
 {
     Q_OBJECT
-
-// FUNCTIONS TO OPEN AND CLOSE DATABASE CONNECTION
-public:
-    QSqlDatabase myDb;
-
-    void connClose(){
-        myDb.close();
-        myDb.removeDatabase(QSqlDatabase::defaultConnection);
-    }
-
-    bool connOpen(){
-        // DATABASE CONNECTION
-        myDb = QSqlDatabase::addDatabase("QSQLITE");
-        myDb.setDatabaseName("/Users/tobiabass11/gui pushed/database.db");
-
-        if(!myDb.open()) {
-            qDebug()<<("Database failed to open");
-            return false;
-        }
-        else {
-            qDebug()<<("Database opened successfully");
-            return true;
-        }
-    }
 
 public:
     explicit Window(QWidget *parent = nullptr);
@@ -51,7 +24,7 @@ private:
     QWidget *page1;
     QWidget *page2;
     QWidget *page3;
-    QStackedWidget *stackedWidget;
+    QStackedWidget *stackedPages;
     QVBoxLayout *vLayout;
     QVBoxLayout *vLayout2;
     QVBoxLayout *vLayout3;
@@ -59,14 +32,14 @@ private:
     QHBoxLayout *hLayout;
     QHBoxLayout *hLayout2;
     QHBoxLayout *hLayout3;
-    QLabel *label;
-    QLabel *label2;
-    QLabel *label3;
-    QLabel *label4;
-    QLabel *label5;
-    QLabel *logoLabel;
-    QScrollArea *scrollArea;
-    QListWidget *listWidget;
+    QLabel *welcomeMessage;
+    QLabel *scanMessage;
+    QLabel *totalPriceLabel;
+    QLabel *pinMessage;
+    QLabel *pinLabel;
+    QLabel *logo;
+    QScrollArea *cameraArea;
+    QListWidget *shoppingCart;
     QPushButton *cancel;
     QPushButton *checkout;
     QPushButton *back;
@@ -75,16 +48,13 @@ private:
     QLineEdit *lineEditPin;
     QFont *font;
 
-
-
 signals:
 private slots:
     void goToPage1();
     void goToPage2();
     void goToPage3();
-    void getCustomerInfo();
-    void getProductInfo();
-    void transactionVerification();
+    void paymentVerification(double);
+    void scanItem();
 };
 
 #endif // WINDOW_H
