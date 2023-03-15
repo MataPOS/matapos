@@ -8,7 +8,7 @@ Product::Product(QObject *parent)
 }
 
 
-void Product::getProductInfo(int productIds)
+void Product::getProduct(int productIds)
 {
     QString pro = QString::number(productIds);
     QSqlQuery qry;

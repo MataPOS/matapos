@@ -6,6 +6,7 @@
 #include <QString>
 #include <QPixmap>
 #include <QVector>
+#include <numeric>
 
 Customer customer;
 Product product;
@@ -148,7 +149,6 @@ void Window::goToPage1() {
 }
 
 void Window::goToPage2() {
-    scanItem(); // REMOVE LATER
     stackedPages->setCurrentIndex(1);
 }
 
@@ -157,27 +157,32 @@ void Window::goToPage3() {
 }
 
 // DUMMY FUNCTION FOR SCANNING ITEM AND INCREASING TOTAL PRICE
+QVector<QString>scannedProducts;
+QVector<double>scannedPrices;
+
 void Window::scanItem() {
-    QVector<QString> products;
     double totalPrice = 0.00;
     for (int i = 0; i < 6; i++){
-        product.getProductInfo(i);
-        products.push_back(product.productInfo);
+        product.getProduct(i+1);
+        scannedProducts.push_back(product.productInfo);
+        scannedPrices.push_back(product.productPrice.toDouble());
         shoppingCart->addItem(product.productInfo);
-        totalPrice = totalPrice + product.productPrice.toDouble();
-        QString total = "Total = £ " + QString::number(totalPrice);
-        totalPriceLabel->setText(total);
+        totalPrice += scannedPrices.value(i);
     }
-    paymentVerification(totalPrice);
+    QString totalDisplayed = "Total = £ " + QString::number(totalPrice);
+    totalPriceLabel->setText(totalDisplayed);
 }
 
 // DUMMY FOR PAYMENT VERIFICATION
-void Window::paymentVerification(double totalPrice) {
-    double total = totalPrice;
+void Window::paymentVerification() {
+    double amountToBePaid = 0.00;
     QString pin = lineEditPin->text();
-    if(customer.customerAccountBalance.toDouble() >= total && pin == customer.customerPin) {
+    for(int n = 0; n < 6; n++){
+        amountToBePaid += scannedPrices.value(n);
+    }
+    if(customer.customerAccountBalance.toDouble() >= amountToBePaid && pin == customer.customerPin) {
         stackedPages->setCurrentIndex(0);
-        qDebug()<<(total);
+        qDebug()<<(amountToBePaid)<<(customer.customerAccountBalance);
     }
     else {
         qDebug()<<("Wrong Pin");

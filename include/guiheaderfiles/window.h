@@ -53,7 +53,7 @@ private slots:
     void goToPage1();
     void goToPage2();
     void goToPage3();
-    void paymentVerification(double);
+    void paymentVerification();
     void scanItem();
 };
 

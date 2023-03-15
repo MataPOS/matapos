@@ -6,7 +6,7 @@ Database::Database(QObject *parent)
 
 }
 
- // TO CONNECT THE DATABASE
+ // CREATE CONNECTION TO THE DATABASE
 bool Database::connOpen(){
     mydb.setDatabaseName("/Users/tobiabass11/Project matapos v1/database.db");
 
@@ -20,7 +20,7 @@ bool Database::connOpen(){
     }
 }
 
-// TO DISCONNECT THE DATABASE
+// DISCONNECT FROM DATABASE
 void Database::connClose(){
     mydb.close();
     mydb.removeDatabase(QSqlDatabase::defaultConnection);

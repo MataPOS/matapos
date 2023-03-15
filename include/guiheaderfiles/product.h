@@ -9,7 +9,7 @@ class Product : public QObject
 
 public:
     QString productId, productName, productPrice, productWeight, productQuantity, productInfo;
-    void getProductInfo(int proudctIds);
+    void getProduct(int proudctIds);
 
 public:
     explicit Product(QObject *parent = nullptr);

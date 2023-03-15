@@ -19,7 +19,7 @@ void Customer::getCustomerInfo(QString customerId)
             customerPin = qry.value(5).toString();
             customerEmail = qry.value(6).toString();
         }
-        customerInfo = customerId + "\t\t" + customerAccountBalance + "\t\t" + customerPin;
+        customerInfo = customerId + "\t\t" + customerAccountBalance + "\t\t" + customerPin + "\t\t" + customerEmail;
         qDebug()<<(customerId);
     }
 
