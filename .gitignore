@@ -10,6 +10,7 @@ build/
 
 #VSCode 
 .vscode/
+.vs/
 
 # Executables
 *.swf
