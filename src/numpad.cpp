@@ -133,4 +133,7 @@ while (1)
 
 }
 
-
+void NumpadDriver::stop()
+{
+    running = false;
+}

@@ -33,6 +33,7 @@ class NumpadDriver{
         void start();
 
         void readNumpad();
+        void stop();
 
 
         
