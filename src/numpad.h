@@ -18,7 +18,6 @@ class NumpadDriver{
 
     std::thread t;
     int wake(int);
-    void Readnumpad();
     std::vector<NumpadCallback*>numpadcallback;
     std::vector<int>data;
 
@@ -28,16 +27,12 @@ class NumpadDriver{
 
         NumpadDriver();
 
-        void registerCallback(NumpadCallback* lc);
+        void registerCallback(NumpadCallback* np);
 
         void start();
 
         void readNumpad();
         void stop();
-
-
-        
-
 
 }
 
