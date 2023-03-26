@@ -15,9 +15,7 @@ int NumpadDriver::wake(int data_pin)
 void NumpadDriver::Readnumpad()
 {
 
-}
-
-void NumpadDriver::registerCallback(NumpadCallback *lc)
+void NumpadDriver::registerCallback(NumpadCallback *np)
 {
 }
 
