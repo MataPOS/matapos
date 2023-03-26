@@ -55,7 +55,6 @@ void NumpadDriver::readNumpad()
     gpioSetPullUpDown(c1, PI_PUD_UP);
     gpioSetPullUpDown(c2, PI_PUD_UP);
     gpioSetPullUpDown(c3, PI_PUD_UP);
-    gpioSetPullUpDown(c4, PI_PUD_UP);
 
     int lookup[4][3] = {{1,2,3},{4,5,6},{7,8,9},{10,0,11}};
 
