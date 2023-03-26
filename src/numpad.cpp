@@ -122,12 +122,14 @@ while (1)
     else
     {
         data[0] = 0;
+        }
+    }
+    for (auto np : numpadcallback)
+    {
+        np->hasData(data);
     }
 
-
-
-
-
+    gpioTerminate();
 }
 
 void NumpadDriver::stop()
