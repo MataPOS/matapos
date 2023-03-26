@@ -12,11 +12,10 @@ int NumpadDriver::wake(int data_pin)
     t = thread::(&NumpadDriver::Readnumpad, this);
 }
 
-void NumpadDriver::Readnumpad()
-{
 
 void NumpadDriver::registerCallback(NumpadCallback *np)
 {
+    numpadcallback.push_back(np);
 }
 
 vector<int> NumpadDriver::insertAtEnd(vector<int> v, int x){
@@ -28,7 +27,7 @@ void NumpadDriver::readNumpad()
 {
     int data = [0,0,0,0];
 
-    int r1 = 7 ,r2 = 9 ,r3 = 11, r4 = 13 ,c1 = 15,c2 = 17 ,c3 = 19,c4 = 21;
+    int r1 = 7 ,r2 = 9 ,r3 = 11, r4 = 13 ,c1 = 15,c2 = 17 ,c3 = 19;
 
     //Initialising GPIO Pins
     if (gpioInitialise() < 0)
@@ -45,7 +44,6 @@ void NumpadDriver::readNumpad()
     gpioSetMode(c1, PI_INPUT);
     gpioSetMode(c2, PI_INPUT);
     gpioSetMode(c3, PI_INPUT);
-    gpioSetMode(c4, PI_INPUT);
 
     //Setting Pull Up Resistor
     gpioSetPullUpDown(r1, PI_PUD_UP);
@@ -58,70 +56,70 @@ void NumpadDriver::readNumpad()
 
     int lookup[4][3] = {{1,2,3},{4,5,6},{7,8,9},{10,0,11}};
 
-while (1)
-    if (gpioRead(r1) == 0)
-    {
-        if (gpioRead(c1) == 0)
+    while (1){
+        if (gpioRead(r1) == 0)
         {
-            data = insertAtEnd(data,lookup[0][0]);
+            if (gpioRead(c1) == 0)
+            {
+                data = insertAtEnd(data,lookup[0][0]);
+            }
+            else if (gpioRead(c2) == 0)
+            {
+                data = insertAtEnd(data,lookup[0][1]);
+            }
+            else if (gpioRead(c3) == 0)
+            {
+                data = insertAtEnd(data,lookup[0][2]);
+            }
         }
-        else if (gpioRead(c2) == 0)
+        else if (gpioRead(r2) == 0)
         {
-            data = insertAtEnd(data,lookup[0][0]);
+            if (gpioRead(c1) == 0)
+            {
+                data = insertAtEnd(data,lookup[1][0]);
+            }
+            else if (gpioRead(c2) == 0)
+            {
+                data = insertAtEnd(data,lookup[1][1]);
+            }
+            else if (gpioRead(c3) == 0)
+            {
+                data = insertAtEnd(data,lookup[1][2]);
+            }
         }
-        else if (gpioRead(c3) == 0)
+        else if (gpioRead(r3) == 0)
         {
-            data = insertAtEnd(data,lookup[0][0]);
+            if (gpioRead(c1) == 0)
+            {
+                data = insertAtEnd(data,lookup[2][0]);
+            }
+            else if (gpioRead(c2) == 0)
+            {
+                data = insertAtEnd(data,lookup[2][1]);
+            }
+            else if (gpioRead(c3) == 0)
+            {
+                data = insertAtEnd(data,lookup[2][2]);
+            }
         }
-    }
-    else if (gpioRead(r2) == 0)
-    {
-        if (gpioRead(c1) == 0)
+        else if (gpioRead(r4) == 0)
         {
-            data = insertAtEnd(data,lookup[0][0]);
+            if (gpioRead(c1) == 0)
+            {
+                break;
+            }
+            else if (gpioRead(c2) == 0)
+            {
+                data = insertAtEnd(data,lookup[3][1]);
+            }
+            else if (gpioRead(c3) == 0)
+            {
+                break;
+            }
         }
-        else if (gpioRead(c2) == 0)
+        else
         {
-            data = insertAtEnd(data,lookup[0][0]);
-        }
-        else if (gpioRead(c3) == 0)
-        {
-            data = insertAtEnd(data,lookup[0][0]);
-        }
-    }
-    else if (gpioRead(r3) == 0)
-    {
-        if (gpioRead(c1) == 0)
-        {
-            data = insertAtEnd(data,lookup[0][0]);
-        }
-        else if (gpioRead(c2) == 0)
-        {
-            data = insertAtEnd(data,lookup[0][0]);
-        }
-        else if (gpioRead(c3) == 0)
-        {
-            data = insertAtEnd(data,lookup[0][0]);
-        }
-    }
-    else if (gpioRead(r4) == 0)
-    {
-        if (gpioRead(c1) == 0)
-        {
-            data = insertAtEnd(data,lookup[0][0]);
-        }
-        else if (gpioRead(c2) == 0)
-        {
-            data = insertAtEnd(data,lookup[0][0]);
-        }
-        else if (gpioRead(c3) == 0)
-        {
-            data = insertAtEnd(data,lookup[0][0]);
-        }
-    }
-    else
-    {
-        data[0] = 0;
+            data[0] = 0;
         }
     }
     for (auto np : numpadcallback)
