@@ -1,7 +1,12 @@
 #ifndef WINDOW_H
 #define WINDOW_H
 
+
+
+
 #include <QWidget>
+#include <QSqlDatabase>
+#include <QMessageBox>
 #include <QMainWindow>
 #include <QStackedWidget>
 #include <QBoxLayout>
@@ -12,8 +17,6 @@
 #include <QTimer>
 #include <QLineEdit>
 #include <QtSql>
-#include <QSqlDatabase>
-#include <QMessageBox>
 
 class Window : public QWidget
 {
@@ -44,7 +47,7 @@ public:
     }
 
 public:
-    explicit Window(QWidget *parent = nullptr);
+    Window();
 
 private:
     QMainWindow *mainWindow;
