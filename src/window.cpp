@@ -1,11 +1,10 @@
-#include "window.h"
+#include "guiheaderfiles/window.h"
 #include <QString>
 
 #include <QPixmap>
 
 // MAINWINDOW CONTAINER
-Window::Window(QWidget *parent)
-    : QWidget{parent}
+Window::Window()
 {
     setWindowTitle("name_of_the_application");
 
