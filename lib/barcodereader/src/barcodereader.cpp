@@ -1,7 +1,7 @@
 #define DEBUG
 
-#include "camera/camera.h"
-#include "barcodereader/barcodereader.h"
+#include "camera.h"
+#include "barcodereader.h"
 
 #include <thread>
 #include <stdlib.h>

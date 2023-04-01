@@ -3,13 +3,13 @@ cmake_minimum_required(VERSION 3.8)
 project(matapos)
 
 add_executable(
-  ExampleTest
-  ExampleTest.cpp
+  camera_test
+  camera_test.cpp
 )
 target_link_libraries(
-  ExampleTest
+  camera_test
   GTest::gtest_main
 )
 
 include(GoogleTest)
-gtest_discover_tests(ExampleTest)
+gtest_discover_tests(camera_test)
