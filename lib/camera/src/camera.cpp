@@ -1,6 +1,6 @@
 #define DEBUG
 
-#include "camera/camera.h"
+#include "camera.h"
 
 #include <thread>
 #include <stdlib.h>

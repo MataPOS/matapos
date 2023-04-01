@@ -1,4 +1,4 @@
-#include "guiheaderfiles/window.h"
+#include "window.h"
 #include <QString>
 
 #include <QPixmap>
@@ -49,12 +49,12 @@ Window::Window()
     timer->singleShot(5000, this, SLOT(goToPage2()));
 
     // DATABASE CONNECTION
-    if(!connOpen()) {
+    /*if(!connOpen()) {
         QMessageBox::information(this,"Not connected", "Database not connected");
     }
     else {
         QMessageBox::information(this, "Connected", "Database is connected Successfully");
-    }
+    }*/
 
     // PAGE 2
     label2 = new QLabel;
@@ -141,7 +141,7 @@ void Window::goToPage3()
 // GET CUSTOMER DATA FROM DATABASE
 void Window::getCustomerInfo()
 {
-    connOpen();
+    //connOpen();
     QString customerId = "1", customerAccountBalance, customerAccountPin, customerEmail;
     QSqlQuery qry;
     qry.prepare("select * from customers where customerId= '"+ customerId+"'");
@@ -152,7 +152,7 @@ void Window::getCustomerInfo()
             customerAccountPin = qry.value(5).toString();
             customerEmail = qry.value(6).toString();
         }
-        connClose();
+        //connClose();
     }
 
 }
