@@ -1,14 +1,14 @@
-#include <iostream>
+#include <QString>
 
 class Customer {
 
 	public:
-		int id;
-		std::string uniqueId;
-		std::string firstName;
-		std::string lastName;
-		std::cardNumber;
-		std::emailId;
+		QString id;
+		QString uniqueId;
+		QString firstName;
+		QString lastName;
+		QString cardNumber;
+		QString emailId;
 	
 
 };

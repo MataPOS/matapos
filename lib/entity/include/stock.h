@@ -1,12 +1,12 @@
-#include <iostream>
+#include <QString>
 
 class Stock {
 
 public:
-	int id;
-	std::string uniqueId;
-	std::string itemName;
-	float price;
-	int qty;
+	QString id;
+	QString uniqueId;
+	QString itemName;
+	QString price;
+	QString qty;
 
 };
