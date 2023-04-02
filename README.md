@@ -24,7 +24,7 @@ mkdir build
 cd build
 cmake ..
 make
-./src/main
+./matapos
 ```
 ## Run tests
 
