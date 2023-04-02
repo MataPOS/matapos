@@ -11,8 +11,18 @@ class Database {
 		Database();
 		~Database();
 
-		connOpen();
-		connClose();
+		void createCustomerTable();
+		void createStockTable();
+
+		void queryCustomerDetails();
+		void queryItemDetails();
+
+		void connOpen();
+		void connClose();
+
+	private:
+		QSqlDatabase mataposDb;
+		
 
 
 };
