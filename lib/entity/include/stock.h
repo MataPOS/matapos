@@ -1,3 +1,6 @@
+#ifndef STOCK_H
+#define STOCK_H
+
 #include <QString>
 
 class Stock {
@@ -10,3 +13,5 @@ public:
 	QString qty;
 
 };
+
+#endif

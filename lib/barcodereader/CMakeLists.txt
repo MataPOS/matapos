@@ -1,4 +1,4 @@
-add_library(barcodereader src/barcodereader.cpp include/barcodereader.h)
+add_library(barcodereader src/barcodereader.cpp include/barcodereader.h include/barcodereadercallback.h)
 
 target_include_directories(barcodereader PUBLIC include/)
 

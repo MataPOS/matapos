@@ -3,7 +3,10 @@
 #include "database.h"
 #include <iostream>
 
+
 Database::Database() {
+	
+	uniqueIdAvailableCallback.databasePtr = this;
 
 	mataposDb = QSqlDatabase::addDatabase("QSQLITE");
 	mataposDb.setDatabaseName("/home/avinash/coursework/real_time_embedded/matapos_proj/matapos/lib/database/src/matapos_db.db");
@@ -16,7 +19,12 @@ Database::~Database() {
 
 }
 
-Customer Database::queryCustomerDetails(std::string uniqueId) {
+void Database::registerCallback(DatabaseCallback* clientCallbackPtr) {
+	databaseCallbackPtr = databaseCallbackPtr;
+}
+
+
+void Database::queryCustomerDetails(std::string uniqueId) {
 	
 	connOpen();
 	
@@ -31,9 +39,7 @@ Customer Database::queryCustomerDetails(std::string uniqueId) {
 		#endif
 
 		connClose();
-
-		return prepareCustomerObj(query);
-		
+		databaseCallbackPtr -> customerDataAvailable(prepareCustomerObj(query));
 
 	} else {
 		#ifdef DEBUG
@@ -42,7 +48,7 @@ Customer Database::queryCustomerDetails(std::string uniqueId) {
 	}
 
 	connClose();
-	return null;
+
 
 }
 
@@ -63,7 +69,7 @@ Customer Database::prepareCustomerObj(QSqlQuery query) {
 }
 
 
-Stock Database::queryItemDetails(std::string uniqueId) {
+void Database::queryItemDetails(std::string uniqueId) {
 	
 	connOpen();
 	
@@ -78,9 +84,7 @@ Stock Database::queryItemDetails(std::string uniqueId) {
 		#endif
 
 		connClose();
-
-		return prepareItemObj(query);
-		
+		databaseCallbackPtr -> itemDataAvailable(prepareItemObj(query));
 
 	} else {
 		#ifdef DEBUG
