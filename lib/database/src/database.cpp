@@ -29,9 +29,8 @@ void Database::queryCustomerDetails(std::string uniqueId) {
 	connOpen();
 	
 	QSqlQuery query(mataposDb);
-	
-	query.prepare("SELECT * from customer WHERE unique_id like '?'");
-	query.addBindValue(QString::fromStdString(uniqueId));
+	QString uniqueIdQString = QString::fromStdString(uniqueId)
+	query.prepare("SELECT * from customer WHERE unique_id like '"+uniqueIdQString+"'");
 
 	if(query.exec()) {
 		#ifdef DEBUG
@@ -75,8 +74,8 @@ void Database::queryItemDetails(std::string uniqueId) {
 	
 	QSqlQuery query(mataposDb);
 	
-	query.prepare("SELECT * from stock WHERE unique_id like '?'");
-	query.addBindValue(QString::fromStdString(uniqueId));
+	QString uniqueIdQString = QString::fromStdString(uniqueId);
+	query.prepare("SELECT * from stock WHERE unique_id like '"+uniqueIdQString+"'");
 
 	if(query.exec()) {
 		#ifdef DEBUG
