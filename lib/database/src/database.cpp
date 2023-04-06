@@ -29,7 +29,7 @@ void Database::queryCustomerDetails(std::string uniqueId) {
 	connOpen();
 	
 	QSqlQuery query(mataposDb);
-	QString uniqueIdQString = QString::fromStdString(uniqueId)
+	QString uniqueIdQString = QString::fromStdString(uniqueId);
 	query.prepare("SELECT * from customer WHERE unique_id like '"+uniqueIdQString+"'");
 
 	if(query.exec()) {
