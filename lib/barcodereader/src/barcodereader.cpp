@@ -20,19 +20,11 @@
 
 BarcodeReader::BarcodeReader() {
 	
-	barcodeReaderCallback.barcodeReaderPtr = this;
-	
-	
-	cameraPtr = std::make_unique<Camera>();
-	
-	cameraPtr -> registerFrameAvailableCallback(&barcodeReaderCallback);
-	
-	cameraPtr -> start();
+	frameAvailableCallback.barcodeReaderPtr = this;
 
 }
 
 BarcodeReader::~BarcodeReader() {
-	cameraPtr -> stop();
 	
 }
 
@@ -40,6 +32,9 @@ void BarcodeReader::configureZbarScanner() {
 	zbarImageScanner.set_config(zbar::ZBAR_NONE, zbar::ZBAR_CFG_ENABLE, 1);
 }
 
+void BarcodeReader::registerBarcodereaderCallback(BarcodeReaderCallback* clientCallbackPtr) {
+	barcodeReaderCallbackPtr = clientCallbackPtr;
+}
 
 void BarcodeReader::decodeQRAndBarcode(cv::Mat& frame) {
 	configureZbarScanner();
@@ -66,6 +61,6 @@ void BarcodeReader::decodeQRAndBarcode(cv::Mat& frame) {
 			std::cout << std::endl << "Data : " << barcode.decodedData << std::endl;
 		#endif
 		
-		barcodes.push_back(barcode);
+		barcodeReaderCallbackPtr -> uniqueIdAvailable(barcode.decodedData, "customer_identification");		
 	}
 }
