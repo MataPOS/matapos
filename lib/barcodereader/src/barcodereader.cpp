@@ -23,11 +23,13 @@
 //Modify this constructor to differentiate whether the object is created to read customer data, or the item data - 12 April 2023
 BarcodeReader::BarcodeReader() {
 
+
 	
 	time(&start);
 	frameAvailableCallback.barcodeReaderPtr = this;
 	camera.registerFrameAvailableCallback(&frameAvailableCallback);
-	
+
+
 }
 
 BarcodeReader::~BarcodeReader() {
@@ -67,15 +69,17 @@ void BarcodeReader::decodeQRAndBarcode(cv::Mat& frame) {
 		
 		barcode.barcodeType = symbol->get_type_name();
 		barcode.decodedData = symbol->get_data();
-				 
+
 		/*
 		#ifdef DEBUG
 			std::cout << std::endl << "Type : " << barcode.barcodeType << std::endl;
 			std::cout << std::endl << "Data : " << barcode.decodedData << std::endl;
 		#endif
 		*/
+
 		if(duration > 2){
 		barcodeReaderCallbackPtr -> uniqueIdAvailable(barcode.decodedData, "customer_identification");	// Replace the term "customer_identification" with the suitable variable name depending on the customer or item identification - 12 April 2023	
 		}
+
 	}
 }

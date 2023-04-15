@@ -25,7 +25,9 @@ public:
 	BarcodeReader();
 	~BarcodeReader();
 	
+
 	time_t start, end;
+
 	
 	
 	struct Barcode
