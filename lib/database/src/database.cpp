@@ -9,7 +9,7 @@ Database::Database() {
 	uniqueIdAvailableCallback.databasePtr = this;
 
 	mataposDb = QSqlDatabase::addDatabase("QSQLITE");
-	mataposDb.setDatabaseName("/home/avinash/coursework/real_time_embedded/matapos_proj/matapos/lib/database/src/matapos_db.db");
+	mataposDb.setDatabaseName("../lib/database/src/matapos_db.db");
 
 }
 
@@ -39,6 +39,7 @@ void Database::queryCustomerDetails(std::string uniqueId) {
 
 		connClose();
 		databaseCallbackPtr -> customerDataAvailable(prepareCustomerObj(query));
+		
 
 	} else {
 		#ifdef DEBUG
@@ -56,12 +57,14 @@ Customer Database::prepareCustomerObj(QSqlQuery query) {
 	Customer customer;
 
 	while(query.next()){
-        customer.id = query.value(1).toString();
-        customer.uniqueId = query.value(2).toString();
-        customer.firstName = query.value(3).toString();
-        customer.lastName = query.value(4).toString();
-        customer.cardNumber = query.value(5).toString();
-        customer.emailId = query.value(6).toString();
+        customer.id = query.value(0).toString();
+        customer.uniqueId = query.value(1).toString();
+        customer.firstName = query.value(2).toString();
+        customer.lastName = query.value(3).toString();
+        customer.cardNumber = query.value(4).toString();
+        customer.emailId = query.value(5).toString();
+        customer.credit = query.value(6).toString();
+        
     }	
 
     return customer;
@@ -100,11 +103,11 @@ Stock Database::prepareItemObj(QSqlQuery query) {
 	Stock stock;
 
 	while(query.next()){
-        stock.id = query.value(1).toString();
-        stock.uniqueId = query.value(2).toString();
-        stock.itemName = query.value(3).toString();
-        stock.price = query.value(4).toString();
-        stock.qty = query.value(5).toString();
+        stock.id = query.value(0).toString();
+        stock.uniqueId = query.value(1).toString();
+        stock.itemName = query.value(2).toString();
+        stock.price = query.value(3).toString();
+        stock.qty = query.value(4).toString();
         
     }	
 
