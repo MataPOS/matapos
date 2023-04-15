@@ -18,6 +18,8 @@ private:
 	QStackedWidget *stackedWidget;
 	
 	Camera& camera = Camera::getCamera();
+    
+    QFont *font;
 
 
 public:
