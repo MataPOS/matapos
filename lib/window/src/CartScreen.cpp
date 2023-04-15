@@ -21,7 +21,7 @@ CartScreen::CartScreen()
 	image = new QLabel;
 
 	label_ScanMessage = new QLabel;
-	label_ScanMessage->setText("Scan Your Items");
+	label_ScanMessage->setText("SCAN YOUR ITEMS");
 
 
 
@@ -35,10 +35,10 @@ CartScreen::CartScreen()
 	
 		
 
-	cancel = new QPushButton("Cancel");
+	cancel = new QPushButton("CANCEL");
 
 
-	checkout = new QPushButton("Checkout");
+	checkout = new QPushButton("CHECKOUT");
 
 	connect(checkout, &QPushButton::clicked, this, &CartScreen::checkout_pressed);
 	
@@ -48,27 +48,24 @@ CartScreen::CartScreen()
 	hLayout_buttons->addWidget(cancel);
 	hLayout_buttons->addWidget(checkout);
 
-	vLayout_display = new QVBoxLayout;
-	vLayout_display->addWidget(label_ScanMessage);
-	vLayout_display->addWidget(item_list);
-	vLayout_display->addWidget(label_Price);
+	vLayout_cart = new QVBoxLayout;
+	vLayout_cart->addWidget(item_list);
+	vLayout_cart->addWidget(label_Price);
 
 
 	hLayout_display = new QHBoxLayout;
 	hLayout_display->addWidget(image);
-	hLayout_display->addLayout(vLayout_display);
+	hLayout_display->addLayout(vLayout_cart);
 
 
 
 	vLayout = new QVBoxLayout;
+	vLayout->addWidget(label_ScanMessage);
 	vLayout->addLayout(hLayout_display);
 	vLayout->addLayout(hLayout_buttons);
-
-	//vLayout->addWidget(image);
 	
 
 	this->setLayout(vLayout);
-	//this->start();
 	
 
 }
