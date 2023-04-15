@@ -10,11 +10,8 @@
 	
 	camera.registerFrameAvailableCallback(&mycameracallback);
 	
-	
-	mbreadercallback.welcomescreenptr = this;
-	
-	barcodereader.registerBarcodereaderCallback(&mbreadercallback);
-	
+	mydatabasecallback.welcomescreenptr = this;
+	database.registerCallback(&mydatabasecallback);	
 	
 	
 	image = new QLabel;
@@ -32,10 +29,12 @@
 
      logolabel = new QLabel;
      logolabel->setText("");
-     QPixmap pix("/Users/tobiabass11/Desktop/matapos/lib/window/src/Logo.png");
+     QPixmap pix("../lib/window/src/Logo.png");
      int w = logolabel->width();
      int h = logolabel->height();
+    
      logolabel->setPixmap(pix.scaled(w,h,Qt::KeepAspectRatio));
+
      logolabel->setAlignment(Qt::AlignCenter);
 
 
@@ -78,10 +77,13 @@ void WelcomeScreen::post_frames(const cv::Mat &mat)
 
 void WelcomeScreen::start()
 {
+	
+	mydatabasecallback.welcomescreenptr = this;
 
+	
 	//camera.start();
 	mycameracallback.WScreen = this;
-	mbreadercallback.welcomescreenptr = this;
+	//mbreadercallback.welcomescreenptr = this;
 
 }
 
@@ -89,19 +91,16 @@ void WelcomeScreen::stop()
 {
 
 	mycameracallback.WScreen = nullptr;
-	mbreadercallback.welcomescreenptr = nullptr;
+	mydatabasecallback.welcomescreenptr = nullptr;
 
 }
 
 
-void WelcomeScreen::customer_identified(std::string data)
+void WelcomeScreen::customer_identified(Customer customer) // 15 April 2023 : plan to do something with the customer data here.
 {
 
-if(data == "Muktansh")
-{
 	customeridentifiedptr->customeridentifiedfunction();
 
-}
 
 }
 
