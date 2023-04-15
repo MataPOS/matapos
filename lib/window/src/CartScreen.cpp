@@ -33,12 +33,15 @@ CartScreen::CartScreen()
 	item_list = new QListWidget;
 	
 	
-		
+	// SETTING UP THE NECESSARY
+	cancel = new QPushButton("CANCEL", this);
+	cancel->setStyleSheet("background-color: red;"
+                          "qproperty-icon: url(../lib/window/src/close.png);");
 
-	cancel = new QPushButton("CANCEL");
 
-
-	checkout = new QPushButton("CHECKOUT");
+	checkout = new QPushButton("CHECKOUT", this);
+	checkout->setStyleSheet("background-color: green;"
+                            "qproperty-icon: url(../lib/window/src/check.png);");
 
 	connect(checkout, &QPushButton::clicked, this, &CartScreen::checkout_pressed);
 	

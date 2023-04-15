@@ -14,7 +14,6 @@
 #include <QPushButton>
 #include <QTimer>
 #include <QLineEdit>
-
 #include "camera.h"
 #include "barcodereader.h"
 #include "barcodereadercallback.h"
