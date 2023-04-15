@@ -4,6 +4,12 @@
 #include <iostream>
 
 
+std::unique_ptr<Database> Database::getDatabaseInstance() {
+	static std::unique_ptr<Database> databaseSingletonPtr = std::make_unique<Database>();
+	return databaseSingletonPtr;
+	
+}
+
 Database::Database() {
 	
 	uniqueIdAvailableCallback.databasePtr = this;
