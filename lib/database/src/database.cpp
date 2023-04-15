@@ -7,9 +7,12 @@
 Database::Database() {
 	
 	uniqueIdAvailableCallback.databasePtr = this;
+	
+	databasetype = "QSQLITE";
+	databasepath = "../lib/database/src/matapos_db.db";
 
-	mataposDb = QSqlDatabase::addDatabase("QSQLITE");
-	mataposDb.setDatabaseName("../lib/database/src/matapos_db.db");
+	mataposDb = QSqlDatabase::addDatabase(databasetype);
+	mataposDb.setDatabaseName(databasepath);
 
 }
 
