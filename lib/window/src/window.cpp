@@ -13,9 +13,10 @@
      
      stackedWidget = new QStackedWidget;
 	
+     c= new CartScreen;
      w = new WelcomeScreen;
 	
-     c= new CartScreen;
+     
 	
      cartscreen_mycheckout.win = this;
      c->registerCheckoutPressed(&cartscreen_mycheckout);

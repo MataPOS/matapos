@@ -5,7 +5,6 @@
 #include "stock.h"
 #include "barcodereader.h"
 #include "databasecallback.h"
-#include "cart.h"
 
 
 #include <QSqlDatabase>
@@ -25,8 +24,6 @@ class Database {
 
 		void queryCustomerDetails(std::string uniqueId);
 		void queryItemDetails(std::string uniqueId);
-		void checkoutCustomer(Cart cart);
-		void debitTotal(std::string customerId, float totalCost)
 
 		void connOpen();
 		void connClose();
@@ -34,12 +31,17 @@ class Database {
 		/**
 		 * BarcodeReader callback implementation	
 		 * */
+		 
+		 BarcodeReader barcodereader;
+		 
 		struct UniqueIdAvailableCallback: BarcodeReaderCallback {
 			Database* databasePtr = nullptr;
 			public:
 				void uniqueIdAvailable(std::string uniqueId, std::string flow) {
 					if(nullptr != databasePtr) {
 						if(flow == "customer_identification") {
+						
+						std::cout<<"Calling customer query ";
 							databasePtr -> queryCustomerDetails(uniqueId);
 						} else {
 							databasePtr -> queryItemDetails(uniqueId);
