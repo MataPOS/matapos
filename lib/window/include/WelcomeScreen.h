@@ -35,7 +35,7 @@ private:
 	QVBoxLayout *vLayout;
 	QScrollArea *scrollarea;
 	QLabel *image;
-
+    QFont *font
 
 public:
 	
