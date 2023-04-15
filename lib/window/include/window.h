@@ -4,6 +4,7 @@
 #include <QStackedWidget>
 #include"WelcomeScreen.h"
 #include "CartScreen.h"
+#include "PaymentScreen.h"
 #include<iostream>
 
 
@@ -14,6 +15,7 @@ private:
 
 	WelcomeScreen *w;
 	CartScreen *c;
+	PaymentScreen *p;
 	
 	QStackedWidget *stackedWidget;
 	
