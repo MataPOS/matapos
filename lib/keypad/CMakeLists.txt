@@ -10,3 +10,8 @@ target_link_libraries(keypad PUBLIC ${PIGPIO_LIBRARY})
 target_compile_features(keypad PUBLIC cxx_std_11)
 
 
+
+target_include_directories(keypad PUBLIC include/)
+
+target_link_libraries(keypad PUBLIC wiringPi)
+
