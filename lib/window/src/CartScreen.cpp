@@ -10,6 +10,13 @@ CartScreen::CartScreen()
 	cartcameracallback.CScreen = this;
 	
 	camera.registerFrameAvailableCallback(&cartcameracallback);
+	
+	
+	
+	mbreadercallback.Cartscreenptr = this;
+	barcodereader.registerBarcodereaderCallback(&mbreadercallback);
+	
+	
 
 	image = new QLabel;
 
@@ -24,7 +31,9 @@ CartScreen::CartScreen()
 
 
 	item_list = new QListWidget;
-
+	
+	
+		
 
 	cancel = new QPushButton("Cancel");
 
@@ -59,7 +68,7 @@ CartScreen::CartScreen()
 	
 
 	this->setLayout(vLayout);
-	this->start();
+	//this->start();
 	
 
 }
@@ -71,16 +80,19 @@ CartScreen::CartScreen()
 	
 	
 
-	void CartScreen::getProductInfo(){
-
-
+	void CartScreen::getProductInfo(std::string data)
+	
+	{
+		
+		
+		item_list->addItem(QString::fromStdString(data));
 
 	}
 	
 
 	void CartScreen::cancel_pressed() // define all the actions here to be taken to verify if all conditions are meeting before cancel can be pressed, and then execute the callback function
 	{
-
+		
 		cancelPressed->cancelpressed();
 
 	}
@@ -88,6 +100,7 @@ CartScreen::CartScreen()
 	void CartScreen::checkout_pressed() // define all the actions here to be taken to verify if all conditions are meeting before checkout can be pressed, and then execute the callback function
 
 	{
+		
 		checkoutPressed->checkoutpressed();
 		
 
@@ -109,15 +122,18 @@ CartScreen::CartScreen()
 	
 	void CartScreen::start()
 {
-
-	camera.start();
+	cartcameracallback.CScreen = this;
+	mbreadercallback.Cartscreenptr = this;
+	//camera.start();
 
 }
 
 void CartScreen::stop()
 {
 
-	camera.stop();
+	cartcameracallback.CScreen = nullptr;
+	mbreadercallback.Cartscreenptr = nullptr;
+	//camera.stop();
 
 }
 

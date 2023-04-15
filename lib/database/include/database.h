@@ -6,6 +6,7 @@
 #include "barcodereader.h"
 #include "databasecallback.h"
 
+
 #include <QSqlDatabase>
 #include <QtSql>
 #include <QString>
@@ -52,6 +53,8 @@ class Database {
 		Customer prepareCustomerObj(QSqlQuery query);
 		Stock prepareItemObj(QSqlQuery query);
 		QSqlDatabase mataposDb;
+		QString databasetype;
+		QString databasepath;
 
 };
 #endif

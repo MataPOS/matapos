@@ -1,16 +1,19 @@
-#include <QApplication>
+
 #include "window.h"
-#include "database.h"
+#include<QApplication>
 
-int main(int argc, char* argv[]) {
 
-	QApplication app(argc, argv);
+int main(int argc, char *argv[])
+{
+	QApplication app(argc,argv);
 	
-	Database* db = new Database();
+	window *w;
+	w = new window();
+
+	w->start();
 	
-	
-	db->createCustomerTable();
 	
 	
 	return app.exec();
+
 }

@@ -16,8 +16,11 @@
 #include <QLineEdit>
 
 #include "camera.h"
+#include "barcodereader.h"
+#include "barcodereadercallback.h"
 
 #include<iostream>
+#include<string>
 
 
 
@@ -44,9 +47,35 @@ private:
 	QLabel *image;
 	
 	
+	
+	
+
 
 
 public:
+	BarcodeReader barcodereader;
+	
+	class mybarcodereadercallback : public BarcodeReaderCallback {
+
+	public:
+		CartScreen* Cartscreenptr = nullptr;
+		
+		virtual void uniqueIdAvailable(std::string data, std::string flow){
+		
+		if(nullptr != Cartscreenptr)
+		{
+		
+			Cartscreenptr->getProductInfo(data);
+					
+		}
+		
+		
+		}
+		};
+		
+	mybarcodereadercallback mbreadercallback;
+	
+	
 	
 	
 	struct CheckoutPressed
@@ -86,7 +115,7 @@ public:
 	CartScreen();
 	~CartScreen();
 	
-	void getProductInfo();
+	void getProductInfo(std::string);
 	
 	void start(); // for starting the camera
 	void stop(); // for stopping the camera

@@ -11,23 +11,33 @@
 	camera.registerFrameAvailableCallback(&mycameracallback);
 	
 	
+	mbreadercallback.welcomescreenptr = this;
+	
+	barcodereader.registerBarcodereaderCallback(&mbreadercallback);
+	
+	
 	
 	image = new QLabel;
 	
 	
 	label_WelcomeMessage = new QLabel;
+
 	label_WelcomeMessage->setText("Welcome Please scan your QR code");
+
 	label_WelcomeMessage->setAlignment(Qt::AlignCenter);
 	label_WelcomeMessage->show();
 	
 	
 	//Add logo to the screen
-	logolabel = new QLabel;
-	logolabel->setText("");
-	//int w = logolabel->width();
-    //int h = logolabel->height();
-    //logolabel->setPixmap(pix.scaled(w,h,Qt::KeepAspectRatio));
-    //logolabel->setAlignment(Qt::AlignCenter);
+
+     logolabel = new QLabel;
+     logolabel->setText("");
+     QPixmap pix("/Users/tobiabass11/Desktop/matapos/lib/window/src/Logo.png");
+     int w = logolabel->width();
+     int h = logolabel->height();
+     logolabel->setPixmap(pix.scaled(w,h,Qt::KeepAspectRatio));
+     logolabel->setAlignment(Qt::AlignCenter);
+
 
     //Screen Layout
 
@@ -37,7 +47,7 @@
     vLayout->addWidget(image);
     vLayout->addWidget(logolabel);
     this->setLayout(vLayout);
-    this->start();
+    //this->start();
 
 }
 
@@ -69,16 +79,30 @@ void WelcomeScreen::post_frames(const cv::Mat &mat)
 void WelcomeScreen::start()
 {
 
-	camera.start();
+	//camera.start();
+	mycameracallback.WScreen = this;
+	mbreadercallback.welcomescreenptr = this;
 
 }
 
 void WelcomeScreen::stop()
 {
 
-	//camera.stop();
+	mycameracallback.WScreen = nullptr;
+	mbreadercallback.welcomescreenptr = nullptr;
 
 }
 
+
+void WelcomeScreen::customer_identified(std::string data)
+{
+
+if(data == "Muktansh")
+{
+	customeridentifiedptr->customeridentifiedfunction();
+
+}
+
+}
 
 

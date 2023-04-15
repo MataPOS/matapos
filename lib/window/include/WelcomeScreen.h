@@ -17,6 +17,8 @@
 #include <QLineEdit>
 
 #include "camera.h"
+#include "barcodereader.h"
+#include "barcodereadercallback.h"
 #include<iostream>
 
 
@@ -37,6 +39,44 @@ private:
 
 public:
 	
+	BarcodeReader barcodereader;
+	
+	class mybarcodereadercallback : public BarcodeReaderCallback {
+
+	public:
+		WelcomeScreen* welcomescreenptr = nullptr;
+		
+		virtual void uniqueIdAvailable(std::string data, std::string flow){
+		
+		if(nullptr != welcomescreenptr)
+		{
+		
+			welcomescreenptr->customer_identified(data);
+					
+		}
+		
+		
+		}
+		};
+		
+	mybarcodereadercallback mbreadercallback;
+	
+	struct CustomerIdentified
+	{
+		virtual void customeridentifiedfunction() = 0;
+		
+	
+	};
+	
+	CustomerIdentified* customeridentifiedptr;
+	
+	void registerCustomerIdentified(CustomerIdentified* ci)
+	{
+		customeridentifiedptr = ci;
+	
+	}
+	
+	
 	Camera& camera = Camera::getCamera();
 	WelcomeScreen();
 	~WelcomeScreen();
@@ -48,7 +88,7 @@ public:
 	void stop();
 	
 	
-	void customer_identified(); // this function will call the callback for the next screen after the customer is identified
+	void customer_identified(std::string); // this function will call the callback for the next screen after the customer is identified
 	
 	//Camera Image callback structure to be implemented
 	struct MyCameraCallback :CameraCallback {
