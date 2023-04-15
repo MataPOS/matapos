@@ -20,6 +20,7 @@ class NumpadDriver{
     int wake(int);
     std::vector<NumpadCallback*>numpadcallback;
     std::vector<int>data;
+    std::vector<DeleteItemCall*>
 
     vector<int> insertAtEnd(vector<int> v, int x);
 
@@ -29,7 +30,7 @@ class NumpadDriver{
 
         void registerCallback(NumpadCallback* np);
 
-        void start();
+     //   void start();
 
         void readNumpad();
         void stop();

@@ -18,6 +18,8 @@ void NumpadDriver::registerCallback(NumpadCallback *np)
     numpadcallback.push_back(np);
 }
 
+
+
 vector<int> NumpadDriver::insertAtEnd(vector<int> v, int x){
     v.push_back(x);
     return v;
@@ -27,7 +29,7 @@ void NumpadDriver::readNumpad()
 {
     int data = [0,0,0,0];
 
-    int r1 = 7 ,r2 = 9 ,r3 = 11, r4 = 13 ,c1 = 15,c2 = 17 ,c3 = 19;
+    int r1 = 29 ,r2 = 31 ,r3 = 33, r4 = 35 ,c1 = 15,c2 = 17 ,c3 = 19;
 
     //Initialising GPIO Pins
     if (gpioInitialise() < 0)
