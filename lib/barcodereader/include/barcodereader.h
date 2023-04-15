@@ -16,6 +16,7 @@
 #include <opencv2/core.hpp>
 #include <opencv2/videoio.hpp>
 #include <zbar.h>
+#include<ctime>
 
 class BarcodeReader {
 
@@ -24,6 +25,9 @@ public:
 	BarcodeReader();
 	~BarcodeReader();
 	
+
+	time_t start, end;
+
 	
 	
 	struct Barcode
