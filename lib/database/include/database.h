@@ -11,13 +11,13 @@
 #include <QSqlDatabase>
 #include <QtSql>
 #include <QString>
+#include <memory>
 
 class Database {
-
+	
 	public:
-		Database();
-		~Database();
 
+		static std::unique_ptr<Database> getDatabaseInstance();
 		void createCustomerTable();
 		void createStockTable();
 
@@ -52,6 +52,8 @@ class Database {
 		DatabaseCallback* databaseCallbackPtr = nullptr;
 
 	private:
+		Database();
+		~Database();
 		
 		Customer prepareCustomerObj(QSqlQuery query);
 		Stock prepareItemObj(QSqlQuery query);
