@@ -5,27 +5,32 @@
  window::window()
 {
 	
-	stackedWidget = new QStackedWidget;
+     setWindowTitle("MATAPOS v2.0");
+     setFixedSize(400,500);
+     QFont font("Courier New");
+     font.setStyleHint(QFont::Monospace);
+     QWidget::setFont(font);
+     
+     stackedWidget = new QStackedWidget;
 	
-	w = new WelcomeScreen;
+     w = new WelcomeScreen;
+	
+     c= new CartScreen;
+	
+     cartscreen_mycheckout.win = this;
+     c->registerCheckoutPressed(&cartscreen_mycheckout);
+	
+     cartscreen_mycancel.win = this;
+     c->registerCancelPressed(&cartscreen_mycancel);
 	
 	
-	c= new CartScreen;	
+     stackedWidget->addWidget(w);
+     stackedWidget->addWidget(c);
 	
-	cartscreen_mycheckout.win = this;
-	c->registerCheckoutPressed(&cartscreen_mycheckout);
+     welcomescreen_customeridentified.win = this;
+     w->registerCustomerIdentified(&welcomescreen_customeridentified);
 	
-	cartscreen_mycancel.win = this;
-	c->registerCancelPressed(&cartscreen_mycancel);
-	
-	
-	stackedWidget->addWidget(w);
-	stackedWidget->addWidget(c);
-	
-	welcomescreen_customeridentified.win = this;
-	w->registerCustomerIdentified(&welcomescreen_customeridentified);
-	
-	camera.start();
+     camera.start();
 		
 
 }
