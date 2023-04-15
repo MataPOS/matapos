@@ -12,7 +12,7 @@ class Customer {
 		QString lastName;
 		QString cardNumber;
 		QString emailId;
-	
+		QString credit;
 
 };
 
