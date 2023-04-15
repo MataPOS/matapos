@@ -21,18 +21,19 @@
 	
 	
 	label_WelcomeMessage = new QLabel;
-	label_WelcomeMessage->setText("Welcome Please scan your QR code");
+	label_WelcomeMessage->setText("Welcome, please scan your QR code");
 	label_WelcomeMessage->setAlignment(Qt::AlignCenter);
 	label_WelcomeMessage->show();
 	
 	
 	//Add logo to the screen
-	logolabel = new QLabel;
-	logolabel->setText("");
-	//int w = logolabel->width();
-    //int h = logolabel->height();
-    //logolabel->setPixmap(pix.scaled(w,h,Qt::KeepAspectRatio));
-    //logolabel->setAlignment(Qt::AlignCenter);
+     logolabel = new QLabel;
+     logolabel->setText("");
+     QPixmap pix("/Users/tobiabass11/Desktop/matapos/lib/window/src/Logo.png");
+     int w = logolabel->width();
+     int h = logolabel->height();
+     logolabel->setPixmap(pix.scaled(w,h,Qt::KeepAspectRatio));
+     logolabel->setAlignment(Qt::AlignCenter);
 
     //Screen Layout
 
