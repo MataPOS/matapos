@@ -1,22 +1,28 @@
 #define DEBUG
 
 #include "camera.h"
-
-#include <thread>
-#include <stdlib.h>
-#include <opencv2/core.hpp>
-#include <opencv2/videoio.hpp>
-#include <memory>
-#include <thread>
-#include <opencv2/objdetect.hpp>
-#include <opencv2/imgcodecs.hpp>
-#include <opencv2/highgui/highgui.hpp>
-#include <opencv2/imgproc/imgproc.hpp>
-#include <opencv2/core.hpp>
-#include <opencv2/opencv.hpp>
 #include <iostream>
-#include <zbar.h>
 
+
+Camera& Camera::getCamera()
+{
+
+	static Camera singleCamera;
+	return singleCamera;
+}
+
+
+
+Camera& Camera::getCamera(int deviceId, int apiId)
+{
+
+
+		
+		static Camera singleCamera(deviceId,apiId);
+		return singleCamera;
+
+
+}
 
 Camera::Camera(int deviceId, int apiId) {
 	deviceId = deviceId;
@@ -37,10 +43,14 @@ Camera::Camera() {
 
 void Camera::runCamera() {
 	
-	while(isRunning){
+	
+		
+		if(cameraCallBackPtr.empty())
+		return;
 		
 		cv::Mat frame;
 		videoCapture.read(frame);
+		
 		if(frame.empty()) {
 
 			#ifdef DEBUG
@@ -48,20 +58,41 @@ void Camera::runCamera() {
 			#endif
 		}
 
-		imshow("Video Player", frame);
-		if (cv::waitKey(5) >= 0){
-			stop();
+        	cv::cvtColor(frame,frame,cv::COLOR_BGR2RGB);
+		
+		for(auto cc: cameraCallBackPtr)
+		{
+		
+		
+		cc->frameAvailable(frame);
+		
 		}
-        
-        // frame available callback
-		cameraCallBackPtr -> frameAvailable(frame);
+
  
 
+	
+}
+
+
+void Camera::threadloop()
+{
+
+	while(isRunning)
+	{
+		
+		runCamera();
+		
 	}
+
 }
 
 
 void Camera::start() {
+	
+	if(camera_open)
+	return;
+	
+	camera_open = 1;
 	
 	videoCapture.open(deviceId, apiId);
 	
@@ -84,19 +115,41 @@ void Camera::start() {
 	}
 	
 	// run camera in a separate thread
-	cameraThread = std::thread(&Camera::runCamera, this);
-	cameraThread.join();
+	cameraThread = std::thread(&Camera::threadloop, this);
+	
+	
 }
 
 void Camera::stop() {
 	isRunning = 0;
+	camera_open = 0;
+	cameraThread.join();
 }
 
  
 Camera::~Camera() {
+
+
+		
 	
 	#ifdef DEBUG
 		std::cout << std::endl << "Inside Camera destructor" << std::endl;
 		std::cout << std::endl << "isRunning: " << isRunning << std::endl;
 	#endif
+	
+	this->stop();
 }
+
+
+
+
+void Camera::registerFrameAvailableCallback(CameraCallback* clientCallbackPtr) {
+		
+
+		cameraCallBackPtr.push_back(clientCallbackPtr);
+		#ifdef DEBUG
+			std::cout << std::endl << "inside register callback method" << std::endl;
+		#endif
+	}
+
+

@@ -3,6 +3,7 @@
 
 #include "camera.h"
 #include "barcodereadercallback.h"
+#include <string>
 
 #include <thread>
 #include <opencv2/core.hpp>
@@ -22,6 +23,17 @@ public:
 	
 	BarcodeReader();
 	~BarcodeReader();
+	
+	
+	
+	struct Barcode
+	{
+	
+	public:
+	std::string barcodeType;
+	std::string decodedData;
+	
+	};
 
 	void decodeQRAndBarcode(cv::Mat &frame);
 	void configureZbarScanner();
@@ -30,7 +42,7 @@ public:
 	/**
 	* Implement Camera callback interface
 	**/
-	struct FrameAvailableCallback: Camera::CameraCallback {
+	struct FrameAvailableCallback:CameraCallback {
 		BarcodeReader* barcodeReaderPtr = nullptr;
 		virtual void frameAvailable(cv::Mat& frame) {
 			if(nullptr != barcodeReaderPtr) {
@@ -46,6 +58,7 @@ public:
 	
 	cv::Mat grayImage;
 	std::vector<Barcode> barcodes;
+	Camera& camera = Camera::getCamera();
 	
 };
 
