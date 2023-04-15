@@ -36,7 +36,7 @@
 	//ADD LOGO TO WELCOME SCREEN
      logolabel = new QLabel;
      logolabel->setText("");
-     QPixmap pix("./lib/window/src/Logo.png");
+     QPixmap pix("../lib/window/src/Logo.png");
      int w = logolabel->width();
      int h = logolabel->height();
      logolabel->setPixmap(pix.scaled(w,h,Qt::KeepAspectRatio));
