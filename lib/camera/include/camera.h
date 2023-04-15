@@ -6,18 +6,27 @@
 #include <thread>
 #include <opencv2/core.hpp>
 #include <opencv2/videoio.hpp>
-#include<iostream>
+#include <iostream>
 #include <opencv2/opencv.hpp>
 
 
-// This struct to be inherited by client and the frameAvailable function to be defined by the client as per their requirement. They can then register the struct object to the camera callback.
+/*
+This struct to be inherited by client and the frameAvailable 
+function to be defined by the client as per their requirement. 
+They can then register the struct object to the camera callback.
+*/
 struct CameraCallback {
 		
 		// Callback to be implemented by client to make use of available frame	
 		virtual void frameAvailable(cv::Mat &frame) = 0;
 	};
 
-//The class implements singleton pattern for the camera so that multiple threads can share the camera resources at the same time.
+
+/*
+The class implements singleton pattern for 
+the camera so that multiple threads can share
+the camera resources at the same time.
+*/
 class Camera {
 
 public:
