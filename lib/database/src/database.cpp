@@ -4,7 +4,7 @@
 #include <iostream>
 
 
-Database Database::getDatabaseInstance() {
+Database& Database::getDatabaseInstance() {
 	static Database databaseSingleton;
 	return databaseSingleton;
 	

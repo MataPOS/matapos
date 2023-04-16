@@ -92,7 +92,8 @@ public:
 	
 	myDatabaseCallback mydatabasecallback;
 	void item_identified(Stock);
-	Database Cdatabase;
+
+	Database& Cdatabase = Database::getDatabaseInstance();
 	
 	
 	/*

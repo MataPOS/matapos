@@ -61,7 +61,9 @@ public:
 	};
 	
 	myDatabaseCallback mydatabasecallback;
-	Database database;
+	
+	Database& database = Database::getDatabaseInstance();
+
 	
 	
 	

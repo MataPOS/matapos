@@ -17,10 +17,8 @@ class Database {
 	
 	public:
 		
-		Database();
-		~Database();
 		
-		static Database getDatabaseInstance();
+		static Database& getDatabaseInstance();
 		void createCustomerTable();
 		
 		void registerCallback(DatabaseCallback* clientCallbackPtr);
@@ -59,6 +57,13 @@ class Database {
 		UniqueIdAvailableCallback uniqueIdAvailableCallback;
 
 	private:
+		
+		
+		Database();
+		~Database();
+		
+		Database(const Database&) = delete;
+		Database& operator=(const Database&) = delete;
 		
 		Customer prepareCustomerObj(QSqlQuery query);
 		Stock prepareItemObj(QSqlQuery query);
