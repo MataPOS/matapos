@@ -14,7 +14,6 @@
 #include <QPushButton>
 #include <QTimer>
 #include <QLineEdit>
-
 #include "camera.h"
 #include "stock.h"
 #include "database.h"
@@ -42,6 +41,7 @@ private:
 	QHBoxLayout *hLayout_buttons;
 	QHBoxLayout *hLayout_display;
 	QVBoxLayout *vLayout_display;
+	QVBoxLayout *vLayout_cart;
 	QVBoxLayout *vLayout;
 	
 	QLabel *image;

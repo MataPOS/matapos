@@ -20,7 +20,7 @@ CartScreen::CartScreen()
 	image = new QLabel;
 
 	label_ScanMessage = new QLabel;
-	label_ScanMessage->setText("Scan Your Items");
+	label_ScanMessage->setText("SCAN YOUR ITEMS");
 
 
 
@@ -32,12 +32,15 @@ CartScreen::CartScreen()
 	item_list = new QListWidget;
 	
 	
-		
+	// SETTING UP THE NECESSARY
+	cancel = new QPushButton("CANCEL", this);
+	cancel->setStyleSheet("background-color: red;"
+                          "qproperty-icon: url(../lib/window/src/close.png);");
 
-	cancel = new QPushButton("Cancel");
 
-
-	checkout = new QPushButton("Checkout");
+	checkout = new QPushButton("CHECKOUT", this);
+	checkout->setStyleSheet("background-color: green;"
+                            "qproperty-icon: url(../lib/window/src/check.png);");
 
 	connect(checkout, &QPushButton::clicked, this, &CartScreen::checkout_pressed);
 	
@@ -47,27 +50,24 @@ CartScreen::CartScreen()
 	hLayout_buttons->addWidget(cancel);
 	hLayout_buttons->addWidget(checkout);
 
-	vLayout_display = new QVBoxLayout;
-	vLayout_display->addWidget(label_ScanMessage);
-	vLayout_display->addWidget(item_list);
-	vLayout_display->addWidget(label_Price);
+	vLayout_cart = new QVBoxLayout;
+	vLayout_cart->addWidget(item_list);
+	vLayout_cart->addWidget(label_Price);
 
 
 	hLayout_display = new QHBoxLayout;
 	hLayout_display->addWidget(image);
-	hLayout_display->addLayout(vLayout_display);
+	hLayout_display->addLayout(vLayout_cart);
 
 
 
 	vLayout = new QVBoxLayout;
+	vLayout->addWidget(label_ScanMessage);
 	vLayout->addLayout(hLayout_display);
 	vLayout->addLayout(hLayout_buttons);
-
-	//vLayout->addWidget(image);
 	
 
 	this->setLayout(vLayout);
-	//this->start();
 	
 
 }

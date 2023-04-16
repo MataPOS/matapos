@@ -12,10 +12,11 @@
      QWidget::setFont(font);
      
      stackedWidget = new QStackedWidget;
-	
-     c= new CartScreen;
      w = new WelcomeScreen;
 	
+     c= new CartScreen;
+     
+     p = new PaymentScreen;
      
 	
      cartscreen_mycheckout.win = this;
@@ -30,6 +31,11 @@
 	
      welcomescreen_customeridentified.win = this;
      w->registerCustomerIdentified(&welcomescreen_customeridentified);
+     
+     
+     stackedWidget->addWidget(p);
+     
+     
 	
      camera.start();
 		
@@ -44,7 +50,7 @@ void window::start() // start the initial screen here
 
 
 
-	stackedWidget->setCurrentIndex(0);
+	stackedWidget->setCurrentIndex(2);
 	c->stop();
 	w->start();
 

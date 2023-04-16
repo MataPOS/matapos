@@ -5,6 +5,13 @@
 
  WelcomeScreen::WelcomeScreen()
 {
+     
+     //BASIC SETTINGS FOR THE APPLICATION WINDOW
+     setWindowTitle("MATAPOS v1.0");
+     setFixedSize(400,500);
+     QFont font("Courier New");
+     font.setStyleHint(QFont::Monospace);
+     QWidget::setFont(font);
 
 	mycameracallback.WScreen = this;
 	
@@ -18,15 +25,12 @@
 	
 	
 	label_WelcomeMessage = new QLabel;
-
-	label_WelcomeMessage->setText("Welcome Please scan your QR code");
-
+	label_WelcomeMessage->setText("Welcome, please scan your QR code");
 	label_WelcomeMessage->setAlignment(Qt::AlignCenter);
 	label_WelcomeMessage->show();
 	
 	
-	//Add logo to the screen
-
+	//ADD LOGO TO WELCOME SCREEN
      logolabel = new QLabel;
      logolabel->setText("");
      QPixmap pix("../lib/window/src/Logo.png");
@@ -38,15 +42,13 @@
      logolabel->setAlignment(Qt::AlignCenter);
 
 
-    //Screen Layout
+    //SCREEN LAYOUT
 
     vLayout = new QVBoxLayout;
     vLayout->addWidget(label_WelcomeMessage);
-    //vLayout->addWidget(scrollarea);
     vLayout->addWidget(image);
     vLayout->addWidget(logolabel);
     this->setLayout(vLayout);
-    //this->start();
 
 }
 

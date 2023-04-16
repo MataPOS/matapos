@@ -27,6 +27,16 @@ class WelcomeScreen : public QWidget {
 
 //Q_OBJECT
 
+private:
+
+	QLabel *label_WelcomeMessage;
+	QLabel *logolabel;
+	QVBoxLayout *vLayout;
+	QScrollArea *scrollarea;
+	QLabel *image;
+    QFont *font;
+
+
 public:
 		
 	struct myDatabaseCallback : public DatabaseCallback {
@@ -119,13 +129,6 @@ public:
 	
 	MyCameraCallback mycameracallback;
   
-private:
-
-	QLabel *label_WelcomeMessage;
-	QLabel *logolabel;
-	QVBoxLayout *vLayout;
-	QScrollArea *scrollarea;
-	QLabel *image;
 
 };
 
