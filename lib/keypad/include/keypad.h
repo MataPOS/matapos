@@ -14,25 +14,28 @@ struct NumpadCallback{
 class NumpadDriver{
 
 
-    private:
+    public:
 
     std::thread t;
     int wake(int);
     std::vector<NumpadCallback*>numpadcallback;
     std::vector<int>data;
 
+
+    NumpadDriver();
+        
     vector<int> insertAtEnd(vector<int> v, int x);
 
-    public:
+    void registerCallback(NumpadCallback* np);
+    //Interupts
+    static void backITR(int gpio, int level, unsigned int tick, void *userdata);
+        //
+    static void forwardITR(int gpio, int level, unsigned int tick, void *userdata); 
 
-        NumpadDriver();
+    void start();
 
-        void registerCallback(NumpadCallback* np);
-
-        void start();
-
-        void readNumpad();
-        void stop();
+    void readNumpad();
+    void stop();
 
 }
 
