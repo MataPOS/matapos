@@ -51,7 +51,6 @@ class Database {
 		};
 
 		UniqueIdAvailableCallback uniqueIdAvailableCallback;
-		DatabaseCallback* databaseCallbackPtr = nullptr;
 
 	private:
 		Database();
@@ -62,6 +61,8 @@ class Database {
 		QSqlDatabase mataposDb;
 		QString databasetype;
 		QString databasepath;
+		
+		std::vector<DatabaseCallback*> databaseCallbackPtr;
 
 };
 #endif
