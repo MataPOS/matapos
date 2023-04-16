@@ -14,6 +14,6 @@ class Cart {
 		std::vector<CartItem> itemList;
 		float totalCost;
 
-}
+};	
 
 #endif

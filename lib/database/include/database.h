@@ -5,6 +5,7 @@
 #include "stock.h"
 #include "barcodereader.h"
 #include "databasecallback.h"
+#include "cart.h"
 
 
 #include <QSqlDatabase>
@@ -16,7 +17,7 @@ class Database {
 	
 	public:
 
-		static std::unique_ptr<Database> getDatabaseInstance();
+		static Database& getDatabaseInstance();
 		void createCustomerTable();
 		void createStockTable();
 
@@ -24,6 +25,9 @@ class Database {
 
 		void queryCustomerDetails(std::string uniqueId);
 		void queryItemDetails(std::string uniqueId);
+		void checkoutCustomer(Cart cart);
+		void debitTotal(std::string customerId, float totalCost);
+		void updateStock(std::vector<CartItem> itemList);
 
 		void connOpen();
 		void connClose();

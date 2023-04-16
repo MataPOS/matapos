@@ -6,7 +6,7 @@
 
 Database& Database::getDatabaseInstance() {
 	static Database* databaseSingletonPtr = new Database;
-	return databaseSingletonPtr;
+	return *databaseSingletonPtr;
 	
 }
 
@@ -57,9 +57,9 @@ void Database::updateStock(std::vector<CartItem> itemList) {
 	for (CartItem item : itemList) {
 	
 		QString uniqueIdQString = QString::fromStdString(item.uniqueId);
-		int purchasedQty = item.qty;
+		QString purchasedQty = QString::number(item.qty);
 		
-		query.prepare("UPDATE stock SET qty=qty-'"+purchasedQty+"' WHERE unique_id like '"+uniqueIdQString+"' ");
+		query.prepare("UPDATE stock SET qty=qty- '"+purchasedQty+"' WHERE unique_id like '"+uniqueIdQString+"' ");
 
 		if(query.exec()) {
 			#ifdef DEBUG
@@ -107,7 +107,7 @@ void Database::debitTotal(std::string customerId, float totalCost) {
 
 void Database::registerCallback(DatabaseCallback* clientCallbackPtr) {
 	std::cout<<"Inside database register callback ";
-	databaseCallbackPtr.push_back(databaseCallbackPtr);
+	databaseCallbackPtr.push_back(clientCallbackPtr);
 }
 
 
