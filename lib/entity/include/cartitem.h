@@ -11,6 +11,6 @@ class CartItem {
 		int qty;
 		std::string itemName;
 
-}
+};
 
 #endif

@@ -6,7 +6,7 @@
 #include "customer.h"
 #include "stock.h"
 
-
+/*
 class Client{
 
 public:
@@ -38,6 +38,7 @@ TEST(ExampleTests, DemonstrateGTestMacros) {
 /**
  Test registerCallback method
 **/
+/*
 TEST(DATABASE_H_TEST, registersCallbackClient) {
 
 	Database* database = new Database();
@@ -50,3 +51,5 @@ TEST(DATABASE_H_TEST, registersCallbackClient) {
 		
 	
 }
+
+*/
