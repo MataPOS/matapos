@@ -46,8 +46,10 @@ public:
 	
 			virtual void customerDataAvailable(Customer customerData) {
 				std::cout<<"Customer data available ";
+				if(nullptr != welcomescreenptr)
+				{
 				welcomescreenptr->customer_identified(customerData);
-	
+				}
 			}
 	
 			// Welcomescreen does not need item scan, so method not defined here.

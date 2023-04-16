@@ -58,7 +58,7 @@ CartScreen::CartScreen()
 	hLayout_display = new QHBoxLayout;
 	hLayout_display->addWidget(image);
 	hLayout_display->addLayout(vLayout_cart);
-
+	hLayout_display->addWidget(item_list);
 
 
 	vLayout = new QVBoxLayout;
@@ -82,10 +82,9 @@ CartScreen::CartScreen()
 	void CartScreen::item_identified(Stock itemData)
 	
 	{
-		// customize here to edit the list of items
-		
-		//item_list->addItem(QString::fromStdString(itemData.itemName));
+		std::cout<<"Item adding to the list ";
 		item_list->addItem(itemData.itemName);
+		std::cout<<"Item name is "<<itemData.itemName.toStdString()<<"\n ";
 
 	}
 	

@@ -50,7 +50,7 @@ void window::start() // start the initial screen here
 
 
 
-	stackedWidget->setCurrentIndex(2);
+	stackedWidget->setCurrentIndex(0);
 	c->stop();
 	w->start();
 
