@@ -12,15 +12,12 @@
      QWidget::setFont(font);
      
      stackedWidget = new QStackedWidget;
-	
      w = new WelcomeScreen;
 	
      c= new CartScreen;
      
      p = new PaymentScreen;
      
-
-	
 	
      cartscreen_mycheckout.win = this;
      c->registerCheckoutPressed(&cartscreen_mycheckout);
