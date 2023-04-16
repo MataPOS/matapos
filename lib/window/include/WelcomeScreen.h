@@ -27,6 +27,16 @@ class WelcomeScreen : public QWidget {
 
 //Q_OBJECT
 
+private:
+
+	QLabel *label_WelcomeMessage;
+	QLabel *logolabel;
+	QVBoxLayout *vLayout;
+	QScrollArea *scrollarea;
+	QLabel *image;
+    QFont *font;
+
+
 public:
 		
 	struct myDatabaseCallback : public DatabaseCallback {
@@ -36,8 +46,10 @@ public:
 	
 			virtual void customerDataAvailable(Customer customerData) {
 				std::cout<<"Customer data available ";
+				if(nullptr != welcomescreenptr)
+				{
 				welcomescreenptr->customer_identified(customerData);
-	
+				}
 			}
 	
 			// Welcomescreen does not need item scan, so method not defined here.
@@ -119,13 +131,6 @@ public:
 	
 	MyCameraCallback mycameracallback;
   
-private:
-
-	QLabel *label_WelcomeMessage;
-	QLabel *logolabel;
-	QVBoxLayout *vLayout;
-	QScrollArea *scrollarea;
-	QLabel *image;
 
 };
 

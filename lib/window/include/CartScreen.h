@@ -14,7 +14,6 @@
 #include <QPushButton>
 #include <QTimer>
 #include <QLineEdit>
-
 #include "camera.h"
 #include "stock.h"
 #include "database.h"
@@ -42,6 +41,7 @@ private:
 	QHBoxLayout *hLayout_buttons;
 	QHBoxLayout *hLayout_display;
 	QVBoxLayout *vLayout_display;
+	QVBoxLayout *vLayout_cart;
 	QVBoxLayout *vLayout;
 	
 	QLabel *image;
@@ -70,18 +70,22 @@ public:
 		
 		}
 	
-		virtual void itemDataAvailable(Stock itemData) // Welcomescreen does not need item scan, so method not defined here.
+		virtual void itemDataAvailable(Stock itemData)
 		{
 		
+		
+			std::cout<<"Inside itemDataAvailable function item name is "<<itemData.itemName.toStdString();
+			if(nullptr != cartscreenptr)
+			{
 			std::cout<<"Inside cartscreen item data available function ";
 			cartscreenptr->item_identified(itemData);
-		
+			}
 		}
 		
-		virtual void checkoutSuccess() // Welcomescreen does not need item scan, so method not defined here.
+		virtual void checkoutSuccess() 
 		{
 		
-			std::cout<<"Inside cartscreen item data available function ";
+			std::cout<<"Inside Checkoutsuccess function ";
 			
 		
 		}
