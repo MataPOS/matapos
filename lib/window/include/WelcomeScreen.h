@@ -15,51 +15,57 @@
 #include <QPushButton>
 #include <QTimer>
 #include <QLineEdit>
-
 #include "camera.h"
-#include "barcodereader.h"
-#include "barcodereadercallback.h"
+#include "customer.h"
+#include "database.h"
+#include "databasecallback.h"
 #include<iostream>
 
 
 
-class WelcomeScreen : public QWidget
-{
+class WelcomeScreen : public QWidget {
 
 //Q_OBJECT
 
-private:
-
-	QLabel *label_WelcomeMessage;
-	QLabel *logolabel;
-	QVBoxLayout *vLayout;
-	QScrollArea *scrollarea;
-	QLabel *image;
-
-
 public:
+		
+	struct myDatabaseCallback : public DatabaseCallback {
 	
-	BarcodeReader barcodereader;
+		public : 
+			WelcomeScreen* welcomescreenptr = nullptr;
 	
-	class mybarcodereadercallback : public BarcodeReaderCallback {
+			virtual void customerDataAvailable(Customer customerData) {
+				std::cout<<"Customer data available ";
+				welcomescreenptr->customer_identified(customerData);
+	
+			}
+	
+			// Welcomescreen does not need item scan, so method not defined here.
+			virtual void itemDataAvailable(Stock itemData){ 
+			
+				std::cout<<"Inside welcomescreen Item data available ";
+				return;
+			
+			}
+			
+			// Welcomescreen does not need checkoutsuccess, so method not defined here.
+			virtual void checkoutSuccess(){ 
+			
+				std::cout<<"Inside welcomescreen Item data available ";
+				return;
+			
+			}
+			
+	
+	
+	};
+	
+	myDatabaseCallback mydatabasecallback;
+	
+	Database& database = Database::getDatabaseInstance();
 
-	public:
-		WelcomeScreen* welcomescreenptr = nullptr;
-		
-		virtual void uniqueIdAvailable(std::string data, std::string flow){
-		
-		if(nullptr != welcomescreenptr)
-		{
-		
-			welcomescreenptr->customer_identified(data);
-					
-		}
-		
-		
-		}
-		};
-		
-	mybarcodereadercallback mbreadercallback;
+	
+	
 	
 	struct CustomerIdentified
 	{
@@ -77,6 +83,7 @@ public:
 	}
 	
 	
+	
 	Camera& camera = Camera::getCamera();
 	WelcomeScreen();
 	~WelcomeScreen();
@@ -88,7 +95,7 @@ public:
 	void stop();
 	
 	
-	void customer_identified(std::string); // this function will call the callback for the next screen after the customer is identified
+	void customer_identified(Customer); // this function will call the callback for the next screen after the customer is identified
 	
 	//Camera Image callback structure to be implemented
 	struct MyCameraCallback :CameraCallback {
@@ -112,6 +119,13 @@ public:
 	
 	MyCameraCallback mycameracallback;
   
+private:
+
+	QLabel *label_WelcomeMessage;
+	QLabel *logolabel;
+	QVBoxLayout *vLayout;
+	QScrollArea *scrollarea;
+	QLabel *image;
 
 };
 

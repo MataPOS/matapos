@@ -22,6 +22,8 @@ class BarcodeReader {
 
 public:
 	
+	
+	
 	BarcodeReader();
 	~BarcodeReader();
 	

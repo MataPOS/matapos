@@ -13,9 +13,8 @@ CartScreen::CartScreen()
 	
 	
 	
-	mbreadercallback.Cartscreenptr = this;
-	barcodereader.registerBarcodereaderCallback(&mbreadercallback);
-	
+	mydatabasecallback.cartscreenptr = this;
+	Cdatabase.registerCallback(&mydatabasecallback);	
 	
 
 	image = new QLabel;
@@ -80,12 +79,13 @@ CartScreen::CartScreen()
 	
 	
 
-	void CartScreen::getProductInfo(std::string data)
+	void CartScreen::item_identified(Stock itemData)
 	
 	{
+		// customize here to edit the list of items
 		
-		
-		item_list->addItem(QString::fromStdString(data));
+		//item_list->addItem(QString::fromStdString(itemData.itemName));
+		item_list->addItem(itemData.itemName);
 
 	}
 	
@@ -123,7 +123,10 @@ CartScreen::CartScreen()
 	void CartScreen::start()
 {
 	cartcameracallback.CScreen = this;
-	mbreadercallback.Cartscreenptr = this;
+	
+	mydatabasecallback.cartscreenptr = this;
+	
+
 	//camera.start();
 
 }
@@ -132,7 +135,9 @@ void CartScreen::stop()
 {
 
 	cartcameracallback.CScreen = nullptr;
-	mbreadercallback.Cartscreenptr = nullptr;
+
+	mydatabasecallback.cartscreenptr = nullptr;
+	
 	//camera.stop();
 
 }

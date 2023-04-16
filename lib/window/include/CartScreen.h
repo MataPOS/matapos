@@ -16,9 +16,9 @@
 #include <QLineEdit>
 
 #include "camera.h"
-#include "barcodereader.h"
-#include "barcodereadercallback.h"
-
+#include "stock.h"
+#include "database.h"
+#include "databasecallback.h"
 #include<iostream>
 #include<string>
 
@@ -53,29 +53,68 @@ private:
 
 
 public:
-	BarcodeReader barcodereader;
 	
-	class mybarcodereadercallback : public BarcodeReaderCallback {
-
-	public:
-		CartScreen* Cartscreenptr = nullptr;
+	
+	class myDatabaseCallback : public DatabaseCallback {
+	
+		public : CartScreen* cartscreenptr = nullptr;
 		
-		virtual void uniqueIdAvailable(std::string data, std::string flow){
+	
+		public: 
 		
-		if(nullptr != Cartscreenptr)
+		virtual void customerDataAvailable(Customer customerData) // Cartscreen do not need customer data
+		{
+			
+			std::cout<<"Inside Cartscreen customer data available function ";
+			return;
+		
+		}
+	
+		virtual void itemDataAvailable(Stock itemData) // Welcomescreen does not need item scan, so method not defined here.
 		{
 		
-			Cartscreenptr->getProductInfo(data);
-					
-		}
-		
+			std::cout<<"Inside cartscreen item data available function ";
+			cartscreenptr->item_identified(itemData);
 		
 		}
-		};
 		
-	mybarcodereadercallback mbreadercallback;
+		virtual void checkoutSuccess() // Welcomescreen does not need item scan, so method not defined here.
+		{
+		
+			std::cout<<"Inside cartscreen item data available function ";
+			
+		
+		}
 	
 	
+	};
+	
+	
+	myDatabaseCallback mydatabasecallback;
+	void item_identified(Stock);
+
+	Database& Cdatabase = Database::getDatabaseInstance();
+	
+	
+	/*
+	struct ItemIdentified
+	{
+		virtual void itemidentifiedfunction() = 0;
+		
+	
+	};
+	
+	ItemIdentified* itemidentifiedptr;
+	
+	
+	void registerItemIdentified(ItemIdentified* ii)
+	{
+		itemidentifiedptr = ii;
+	
+	}
+	*/
+	
+	///////////////////////////////////////
 	
 	
 	struct CheckoutPressed
@@ -115,7 +154,7 @@ public:
 	CartScreen();
 	~CartScreen();
 	
-	void getProductInfo(std::string);
+
 	
 	void start(); // for starting the camera
 	void stop(); // for stopping the camera

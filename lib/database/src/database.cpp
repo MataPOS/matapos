@@ -4,15 +4,16 @@
 #include <iostream>
 
 
-std::unique_ptr<Database> Database::getDatabaseInstance() {
-	static std::unique_ptr<Database> databaseSingletonPtr = std::make_unique<Database>();
-	return databaseSingletonPtr;
+Database& Database::getDatabaseInstance() {
+	static Database databaseSingleton;
+	return databaseSingleton;
 	
 }
 
 Database::Database() {
 	
 	uniqueIdAvailableCallback.databasePtr = this;
+	barcodereader.registerBarcodereaderCallback(&uniqueIdAvailableCallback);
 	
 	databasetype = "QSQLITE";
 	databasepath = "../lib/database/src/matapos_db.db";
@@ -38,7 +39,11 @@ void Database::checkoutCustomer(Cart cart) {
 	debitTotal(cart.customerId, cart.totalCost);
 	//update stock
 	updateStock(cart.itemList);
-
+	
+	for(auto dbCallback : databaseCallbackPtr) {
+			dbCallback -> checkoutSuccess();
+	}
+		
 }
 
 
@@ -52,9 +57,9 @@ void Database::updateStock(std::vector<CartItem> itemList) {
 	for (CartItem item : itemList) {
 	
 		QString uniqueIdQString = QString::fromStdString(item.uniqueId);
-		int purchasedQty = item.qty;
+		QString purchasedQty = QString::number(item.qty);
 		
-		query.prepare("UPDATE stock SET qty=qty-'"+purchasedQty+"' WHERE unique_id like '"+uniqueIdQString+"' ");
+		query.prepare("UPDATE stock SET qty=qty- '"+purchasedQty+"' WHERE unique_id like '"+uniqueIdQString+"' ");
 
 		if(query.exec()) {
 			#ifdef DEBUG
@@ -101,7 +106,8 @@ void Database::debitTotal(std::string customerId, float totalCost) {
 }
 
 void Database::registerCallback(DatabaseCallback* clientCallbackPtr) {
-	databaseCallbackPtr = databaseCallbackPtr;
+	std::cout<<"Inside database register callback ";
+	databaseCallbackPtr.push_back(clientCallbackPtr);
 }
 
 
@@ -119,7 +125,10 @@ void Database::queryCustomerDetails(std::string uniqueId) {
 		#endif
 
 		connClose();
-		databaseCallbackPtr -> customerDataAvailable(prepareCustomerObj(query));
+	
+		for(auto dbCallback : databaseCallbackPtr) {
+			dbCallback -> customerDataAvailable(prepareCustomerObj(query));
+		}
 		
 
 	} else {
@@ -138,6 +147,7 @@ Customer Database::prepareCustomerObj(QSqlQuery query) {
 	Customer customer;
 
 	while(query.next()){
+            
         customer.id = query.value(0).toString();
         customer.uniqueId = query.value(1).toString();
         customer.firstName = query.value(2).toString();
@@ -145,7 +155,6 @@ Customer Database::prepareCustomerObj(QSqlQuery query) {
         customer.cardNumber = query.value(4).toString();
         customer.emailId = query.value(5).toString();
         customer.credit = query.value(6).toString();
-        
     }	
 
     return customer;
@@ -167,7 +176,11 @@ void Database::queryItemDetails(std::string uniqueId) {
 		#endif
 
 		connClose();
-		databaseCallbackPtr -> itemDataAvailable(prepareItemObj(query));
+		
+		for(auto dbCallback : databaseCallbackPtr) {
+			dbCallback -> itemDataAvailable(prepareItemObj(query));
+		}
+	
 
 	} else {
 		#ifdef DEBUG
@@ -184,6 +197,7 @@ Stock Database::prepareItemObj(QSqlQuery query) {
 	Stock stock;
 
 	while(query.next()){
+	
         stock.id = query.value(0).toString();
         stock.uniqueId = query.value(1).toString();
         stock.itemName = query.value(2).toString();
@@ -201,7 +215,7 @@ void Database::createCustomerTable(){
 	QSqlQuery query(mataposDb);
 	QString createCustomerTableQuery = "CREATE TABLE customer (id INTEGER PRIMARY KEY AUTOINCREMENT,"
 									   "unique_id TEXT,first_name TEXT,last_name TEXT,"
-									   "card_number TEXT,email_id TEXT);";
+									   "card_number TEXT,email_id TEXT, credit real);";
 
 	//QString createCustomerTableQuery = "CREATE TABLE weather(id INTEGER PRIMARY KEY AUTOINCREMENT, temperature REAL, humidity REAL, date DATETIME);";
 	if(query.exec(createCustomerTableQuery)) {
