@@ -18,59 +18,50 @@
 #include "camera.h"
 #include "customer.h"
 #include "database.h"
+#include "databasecallback.h"
 #include<iostream>
 
 
 
-class WelcomeScreen : public QWidget
-{
+class WelcomeScreen : public QWidget {
 
 //Q_OBJECT
 
-private:
-
-	QLabel *label_WelcomeMessage;
-	QLabel *logolabel;
-	QVBoxLayout *vLayout;
-	QScrollArea *scrollarea;
-	QLabel *image;
-
-
 public:
+		
+	struct myDatabaseCallback : public DatabaseCallback {
 	
+		public : 
+			WelcomeScreen* welcomescreenptr = nullptr;
 	
+			virtual void customerDataAvailable(Customer customerData) {
+				std::cout<<"Customer data available ";
+				welcomescreenptr->customer_identified(customerData);
 	
-	Database database;
+			}
 	
-	class myDatabaseCallback : public DatabaseCallback
-	{
-	
-	public : WelcomeScreen* welcomescreenptr = nullptr;
-	
-	
-	public: 
-	
-	virtual void customerDataAvailable(Customer customerData)
-	{
-		std::cout<<"Customer data available ";
-		welcomescreenptr->customer_identified(customerData);
-	
-	}
-	
-	virtual void itemDataAvailable(Stock itemData) // Welcomescreen does not need item scan, so method not defined here.
-	{
-	
-		std::cout<<"Inside welcomescreen Item data available ";
-		return;
-	
-	}
-	
+			// Welcomescreen does not need item scan, so method not defined here.
+			virtual void itemDataAvailable(Stock itemData){ 
+			
+				std::cout<<"Inside welcomescreen Item data available ";
+				return;
+			
+			}
+			
+			// Welcomescreen does not need checkoutsuccess, so method not defined here.
+			virtual void checkoutSuccess(){ 
+			
+				std::cout<<"Inside welcomescreen Item data available ";
+				return;
+			
+			}
+			
 	
 	
 	};
 	
 	myDatabaseCallback mydatabasecallback;
-	
+	Database database;
 	
 	
 	
@@ -126,6 +117,13 @@ public:
 	
 	MyCameraCallback mycameracallback;
   
+private:
+
+	QLabel *label_WelcomeMessage;
+	QLabel *logolabel;
+	QVBoxLayout *vLayout;
+	QScrollArea *scrollarea;
+	QLabel *image;
 
 };
 
