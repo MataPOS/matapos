@@ -4,7 +4,6 @@
 
 
 PaymentScreen::PaymentScreen()
-
 {
 	
     label_PinMessage = new QLabel;
@@ -45,12 +44,14 @@ PaymentScreen::PaymentScreen()
     vLayout->addLayout(hLayout_buttons);
     this->setLayout(vLayout);
 	
-	
+}	
+
+
 void PaymentScreen::payment_pressed()
 
 {
-    if amountInAccount >= totalPriceToBePaid {
+   /* if (amountInAccount >= totalPriceToBePaid) {
         //move to first page
         
-    } 
+    } */
 }

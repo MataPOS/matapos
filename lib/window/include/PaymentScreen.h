@@ -31,8 +31,10 @@ class PaymentScreen : public QWidget
 private:
 	
 
-	QLabel *label_EnterPin;
-	QPushButton *cancel;
+	QLabel *label_PinMessage, *pinLabel;
+	QLineEdit *pinEdit;
+	
+	QPushButton *back;
 	QPushButton *pay;
 
 	QHBoxLayout *hLayout_buttons;
@@ -49,6 +51,7 @@ private:
 
 public:
 	
+	PaymentScreen();
 signals:
 
 private slots:

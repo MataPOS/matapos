@@ -16,6 +16,11 @@
      w = new WelcomeScreen;
 	
      c= new CartScreen;
+     
+     p = new PaymentScreen;
+     
+
+	
 	
      cartscreen_mycheckout.win = this;
      c->registerCheckoutPressed(&cartscreen_mycheckout);
@@ -29,6 +34,11 @@
 	
      welcomescreen_customeridentified.win = this;
      w->registerCustomerIdentified(&welcomescreen_customeridentified);
+     
+     
+     stackedWidget->addWidget(p);
+     
+     
 	
      camera.start();
 		
@@ -43,7 +53,7 @@ void window::start() // start the initial screen here
 
 
 
-	stackedWidget->setCurrentIndex(0);
+	stackedWidget->setCurrentIndex(2);
 	c->stop();
 	w->start();
 
