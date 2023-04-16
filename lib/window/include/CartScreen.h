@@ -18,6 +18,7 @@
 #include "camera.h"
 #include "stock.h"
 #include "database.h"
+#include "databasecallback.h"
 #include<iostream>
 #include<string>
 
@@ -54,38 +55,44 @@ private:
 public:
 	
 	
-	void item_identified(Stock);
+	class myDatabaseCallback : public DatabaseCallback {
 	
-	Database Cdatabase;
-	
-	class myDatabaseCallback : public DatabaseCallback
-	{
-	
-	public : CartScreen* cartscreenptr = nullptr;
-	
-	
-	public: 
-	
-	virtual void customerDataAvailable(Customer customerData) // Cartscreen do not need customer data
-	{
+		public : CartScreen* cartscreenptr = nullptr;
 		
-		std::cout<<"Inside Cartscreen customer data available function ";
-		return;
 	
-	}
+		public: 
+		
+		virtual void customerDataAvailable(Customer customerData) // Cartscreen do not need customer data
+		{
+			
+			std::cout<<"Inside Cartscreen customer data available function ";
+			return;
+		
+		}
 	
-	virtual void itemDataAvailable(Stock itemData) // Welcomescreen does not need item scan, so method not defined here.
-	{
-	
-		std::cout<<"Inside cartscreen item data available function ";
-		cartscreenptr->item_identified(itemData);
-	
-	}
+		virtual void itemDataAvailable(Stock itemData) // Welcomescreen does not need item scan, so method not defined here.
+		{
+		
+			std::cout<<"Inside cartscreen item data available function ";
+			cartscreenptr->item_identified(itemData);
+		
+		}
+		
+		virtual void checkoutSuccess() // Welcomescreen does not need item scan, so method not defined here.
+		{
+		
+			std::cout<<"Inside cartscreen item data available function ";
+			
+		
+		}
 	
 	
 	};
 	
+	
 	myDatabaseCallback mydatabasecallback;
+	void item_identified(Stock);
+	Database Cdatabase;
 	
 	
 	/*

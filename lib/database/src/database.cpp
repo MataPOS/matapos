@@ -4,9 +4,9 @@
 #include <iostream>
 
 
-Database& Database::getDatabaseInstance() {
-	static Database* databaseSingletonPtr = new Database;
-	return *databaseSingletonPtr;
+Database Database::getDatabaseInstance() {
+	static Database databaseSingleton;
+	return databaseSingleton;
 	
 }
 
