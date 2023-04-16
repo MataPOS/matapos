@@ -78,7 +78,22 @@ void BarcodeReader::decodeQRAndBarcode(cv::Mat& frame) {
 		*/
 
 		if(duration > 2){
-		barcodeReaderCallbackPtr -> uniqueIdAvailable(barcode.decodedData, "customer_identification");	// Replace the term "customer_identification" with the suitable variable name depending on the customer or item identification - 12 April 2023	
+		
+		// 15 April 2023 - Move the check condition to the database class preferebly
+		
+		if(barcode.decodedData.substr(0,4) == "cust") // checks if the id detected is customer
+		{
+		
+		barcodeReaderCallbackPtr -> uniqueIdAvailable(barcode.decodedData, "customer_identification");
+		}
+		
+		else if(barcode.decodedData.substr(0,5) == "stock") // checks if the id detected is stock
+		{
+		
+		barcodeReaderCallbackPtr -> uniqueIdAvailable(barcode.decodedData, "stock_identification");
+		
+		}
+		
 		}
 
 	}

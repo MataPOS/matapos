@@ -16,9 +16,8 @@
 #include <QLineEdit>
 
 #include "camera.h"
-#include "barcodereader.h"
-#include "barcodereadercallback.h"
-
+#include "stock.h"
+#include "database.h"
 #include<iostream>
 #include<string>
 
@@ -53,29 +52,61 @@ private:
 
 
 public:
-	BarcodeReader barcodereader;
-	
-	class mybarcodereadercallback : public BarcodeReaderCallback {
-
-	public:
-		CartScreen* Cartscreenptr = nullptr;
-		
-		virtual void uniqueIdAvailable(std::string data, std::string flow){
-		
-		if(nullptr != Cartscreenptr)
-		{
-		
-			Cartscreenptr->getProductInfo(data);
-					
-		}
-		
-		
-		}
-		};
-		
-	mybarcodereadercallback mbreadercallback;
 	
 	
+	void item_identified(Stock);
+	
+	Database Cdatabase;
+	
+	class myDatabaseCallback : public DatabaseCallback
+	{
+	
+	public : CartScreen* cartscreenptr = nullptr;
+	
+	
+	public: 
+	
+	virtual void customerDataAvailable(Customer customerData) // Cartscreen do not need customer data
+	{
+		
+		std::cout<<"Inside Cartscreen customer data available function ";
+		return;
+	
+	}
+	
+	virtual void itemDataAvailable(Stock itemData) // Welcomescreen does not need item scan, so method not defined here.
+	{
+	
+		std::cout<<"Inside cartscreen item data available function ";
+		cartscreenptr->item_identified(itemData);
+	
+	}
+	
+	
+	};
+	
+	myDatabaseCallback mydatabasecallback;
+	
+	
+	/*
+	struct ItemIdentified
+	{
+		virtual void itemidentifiedfunction() = 0;
+		
+	
+	};
+	
+	ItemIdentified* itemidentifiedptr;
+	
+	
+	void registerItemIdentified(ItemIdentified* ii)
+	{
+		itemidentifiedptr = ii;
+	
+	}
+	*/
+	
+	///////////////////////////////////////
 	
 	
 	struct CheckoutPressed
@@ -115,7 +146,7 @@ public:
 	CartScreen();
 	~CartScreen();
 	
-	void getProductInfo(std::string);
+
 	
 	void start(); // for starting the camera
 	void stop(); // for stopping the camera
