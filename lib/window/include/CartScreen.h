@@ -70,8 +70,11 @@ public:
 		
 		}
 	
-		virtual void itemDataAvailable(Stock itemData) // Welcomescreen does not need item scan, so method not defined here.
+		virtual void itemDataAvailable(Stock itemData)
 		{
+		
+		
+			std::cout<<"Inside itemDataAvailable function item name is "<<itemData.itemName.toStdString();
 			if(nullptr != cartscreenptr)
 			{
 			std::cout<<"Inside cartscreen item data available function ";
@@ -79,10 +82,10 @@ public:
 			}
 		}
 		
-		virtual void checkoutSuccess() // Welcomescreen does not need item scan, so method not defined here.
+		virtual void checkoutSuccess() 
 		{
 		
-			std::cout<<"Inside cartscreen item data available function ";
+			std::cout<<"Inside Checkoutsuccess function ";
 			
 		
 		}

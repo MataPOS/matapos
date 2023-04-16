@@ -125,9 +125,11 @@ void Database::queryCustomerDetails(std::string uniqueId) {
 		#endif
 
 		connClose();
+		Customer customer;
+		customer = prepareCustomerObj(query);
 	
 		for(auto dbCallback : databaseCallbackPtr) {
-			dbCallback -> customerDataAvailable(prepareCustomerObj(query));
+			dbCallback -> customerDataAvailable(customer);
 		}
 		
 
@@ -176,9 +178,11 @@ void Database::queryItemDetails(std::string uniqueId) {
 		#endif
 
 		connClose();
+		Stock stock;
+		stock = prepareItemObj(query);
 		
 		for(auto dbCallback : databaseCallbackPtr) {
-			dbCallback -> itemDataAvailable(prepareItemObj(query));
+			dbCallback -> itemDataAvailable(stock);
 		}
 	
 
@@ -201,10 +205,13 @@ Stock Database::prepareItemObj(QSqlQuery query) {
         stock.id = query.value(0).toString();
         stock.uniqueId = query.value(1).toString();
         stock.itemName = query.value(2).toString();
+
         stock.price = query.value(3).toString();
         stock.qty = query.value(4).toString();
         
     }	
+    
+          
 
     return stock;
 }
