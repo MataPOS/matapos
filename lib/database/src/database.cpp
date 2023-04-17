@@ -121,21 +121,29 @@ void Database::queryCustomerDetails(std::string uniqueId) {
 
 	if(query.exec()) {
 		#ifdef DEBUG
-		std::cout << std::endl << "Customer details retrieved successfully!" << std::endl;
+		std::cout << std::endl << "Customer details looked up in the database successfully! " << std::endl;
 		#endif
 
 		connClose();
 		Customer customer;
 		customer = prepareCustomerObj(query);
+		
+	if(customer.uniqueId == uniqueIdQString) {
 	
+		std::cout<<"Customer found in the database ";
+		
 		for(auto dbCallback : databaseCallbackPtr) {
 			dbCallback -> customerDataAvailable(customer);
 		}
+		}
+		else {
 		
+		std::cout<<"Customer not found in database";
+		}
 
 	} else {
 		#ifdef DEBUG
-		std::cout << std::endl << "Could not retrieve customer details..." << std::endl;
+		std::cout << std::endl << "Could not look up customer details in the database ..." << std::endl;
 		#endif
 	}
 
@@ -174,17 +182,28 @@ void Database::queryItemDetails(std::string uniqueId) {
 
 	if(query.exec()) {
 		#ifdef DEBUG
-		std::cout << std::endl << "Item details retrieved successfully!" << std::endl;
+		std::cout << std::endl << "Item details looked up in database successfully!" << std::endl;
 		#endif
 
 		connClose();
 		Stock stock;
 		stock = prepareItemObj(query);
+		if(stock.uniqueId == uniqueIdQString)
+		{
+		
+		std::cout<<"Item found in the database ";
 		
 		for(auto dbCallback : databaseCallbackPtr) {
 			dbCallback -> itemDataAvailable(stock);
 		}
-	
+		
+		}
+		else
+		{
+		
+		std::cout<<" Item not present in the database ";
+		
+		}
 
 	} else {
 		#ifdef DEBUG
