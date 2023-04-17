@@ -160,6 +160,8 @@ int main()
 
     npd.wake(0);
     npd.readNumpad();
+    stdout::cout << NumpadDriver::data;
+
     return 0;
 }
 
