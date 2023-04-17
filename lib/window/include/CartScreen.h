@@ -22,7 +22,7 @@
 #include "database.h"
 #include "databasecallback.h"
 #include "cart.h"
-#include "cartitem.h"
+
 #include "customer.h"
 
 
@@ -52,13 +52,7 @@ private:
 	QVBoxLayout *vLayout;
 	
 	QLabel *image;
-	double total = 0;
-	
-	
-	
-	std::vector<CartItem> cartItem;
-	
-	
+	double total = 0;	
 	
 	
 	
@@ -119,25 +113,6 @@ public:
 	Database& Cdatabase = Database::getDatabaseInstance();
 	
 	
-	/*
-	struct ItemIdentified
-	{
-		virtual void itemidentifiedfunction() = 0;
-		
-	
-	};
-	
-	ItemIdentified* itemidentifiedptr;
-	
-	
-	void registerItemIdentified(ItemIdentified* ii)
-	{
-		itemidentifiedptr = ii;
-	
-	}
-	*/
-	
-	///////////////////////////////////////
 	
 	
 	struct CheckoutPressed
