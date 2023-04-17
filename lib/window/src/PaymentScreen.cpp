@@ -84,3 +84,13 @@ void PaymentScreen::back_pressed()
 	/* clear any temporary variable here, and clear the pinEdit text, then call the window callback to go back to Cartscreen*/
 
 }
+
+
+void PaymentScreen::cleardata()
+{
+
+
+
+
+}
+

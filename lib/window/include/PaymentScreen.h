@@ -88,6 +88,8 @@ public:
 	
 	PaymentScreen();
 	
+	void cleardata();
+	
 	
 signals:
 
