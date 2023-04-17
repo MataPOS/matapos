@@ -1,6 +1,7 @@
 #include "CartScreen.h"
 #include "window.h"
 #include <iostream>
+#include <QKeyEvent>
 
 
 CartScreen::CartScreen()
@@ -42,9 +43,18 @@ CartScreen::CartScreen()
 	checkout->setStyleSheet("background-color: green;"
                             "qproperty-icon: url(../lib/window/src/check.png);");
 
-	connect(checkout, &QPushButton::clicked, this, &CartScreen::checkout_pressed);
+
+	if (event->key() == Qt::Key_Escape){
+		cancel_pressed();
+	}
+
+	if (event->key() == Qt::Key_Enter){
+		checkout_pressed();
+	}
+
+	// connect(checkout, &QPushButton::clicked, this, &CartScreen::checkout_pressed);
 	
-	connect(cancel, &QPushButton::clicked, this, &CartScreen::cancel_pressed);
+	// connect(cancel, &QPushButton::clicked, this, &CartScreen::cancel_pressed);
 
 	hLayout_buttons = new QHBoxLayout;
 	hLayout_buttons->addWidget(cancel);
@@ -140,7 +150,3 @@ void CartScreen::stop()
 	//camera.stop();
 
 }
-
-
-
-
