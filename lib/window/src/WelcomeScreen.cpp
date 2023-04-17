@@ -5,7 +5,7 @@
 
  WelcomeScreen::WelcomeScreen()
 {
-     
+     setFixedSize(600,800);
      //BASIC SETTINGS FOR THE APPLICATION WINDOW
      setWindowTitle("MATAPOS v1.0");
      setFixedSize(400,500);
