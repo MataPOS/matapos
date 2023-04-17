@@ -84,3 +84,12 @@ void PaymentScreen::back_pressed()
 	/* clear any temporary variable here, and clear the pinEdit text, then call the window callback to go back to Cartscreen*/
 
 }
+
+	void PaymentScreen::keyPressEvent(QKeyEvent *event){
+		if (event->key() == Qt::Key_Escape){
+		back_pressed();
+		}
+		else if(event->key() == Qt::Key_Enter){
+		payment_pressed();
+		}
+	}

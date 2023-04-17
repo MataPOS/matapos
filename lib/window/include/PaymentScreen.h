@@ -28,6 +28,9 @@ class PaymentScreen : public QWidget
 
 	//Q_OBJECT
 
+protected:
+    void keyPressEvent(QKeyEvent *);
+
 private:
 	
 
