@@ -68,11 +68,6 @@ make
 ctest
 ```
 
-## Usage
-
-```cpp
-
-```
 
 ## Contributing 
 
