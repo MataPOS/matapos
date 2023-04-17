@@ -14,22 +14,32 @@
 #include <QPushButton>
 #include <QTimer>
 #include <QLineEdit>
+#include <iostream>
+#include <string>
 
 #include "camera.h"
-#include "barcodereader.h"
-#include "barcodereadercallback.h"
+#include "stock.h"
+#include "database.h"
+#include "databasecallback.h"
+#include "cart.h"
 
-#include<iostream>
-#include<string>
+#include "customer.h"
 
 
+/**
+* The Class displays the window for the Cart screen where scanned item details are present
 
+*/
 
 class CartScreen : public QWidget
 {
 
 	//Q_OBJECT
 
+
+protected:
+    void keyPressEvent(QKeyEvent *);
+	
 private:
 	
 
@@ -42,10 +52,11 @@ private:
 	QHBoxLayout *hLayout_buttons;
 	QHBoxLayout *hLayout_display;
 	QVBoxLayout *vLayout_display;
+	QVBoxLayout *vLayout_cart;
 	QVBoxLayout *vLayout;
 	
 	QLabel *image;
-	
+	double total = 0;	
 	
 	
 	
@@ -53,27 +64,57 @@ private:
 
 
 public:
-	BarcodeReader barcodereader;
 	
-	class mybarcodereadercallback : public BarcodeReaderCallback {
-
-	public:
-		CartScreen* Cartscreenptr = nullptr;
+	
+	Customer customer;
+	Cart customerCart;
+	
+	class myDatabaseCallback : public DatabaseCallback {
+	
+		public : CartScreen* cartscreenptr = nullptr;
 		
-		virtual void uniqueIdAvailable(std::string data, std::string flow){
+	
+		public: 
 		
-		if(nullptr != Cartscreenptr)
+		virtual void customerDataAvailable(Customer customerData) {
+			
+			
+			if(nullptr != cartscreenptr)
+			{
+			std::cout<<"Inside cartscreen item data available function ";
+			cartscreenptr->customer_identified(customerData);
+			}
+		
+		}
+	
+		virtual void itemDataAvailable(Stock itemData)
 		{
 		
-			Cartscreenptr->getProductInfo(data);
-					
+		
+			std::cout<<"Inside itemDataAvailable function item name is "<<itemData.itemName.toStdString();
+			if(nullptr != cartscreenptr)
+			{
+			std::cout<<"Inside cartscreen item data available function ";
+			cartscreenptr->item_identified(itemData);
+			}
 		}
 		
+		virtual void checkoutSuccess() 
+		{
+		
+			std::cout<<"Inside Checkoutsuccess function ";
+			
 		
 		}
-		};
-		
-	mybarcodereadercallback mbreadercallback;
+	
+	
+	};
+	
+	
+	myDatabaseCallback mydatabasecallback;
+	void item_identified(Stock);
+	void customer_identified(Customer);
+	Database& Cdatabase = Database::getDatabaseInstance();
 	
 	
 	
@@ -115,10 +156,11 @@ public:
 	CartScreen();
 	~CartScreen();
 	
-	void getProductInfo(std::string);
+
 	
 	void start(); // for starting the camera
 	void stop(); // for stopping the camera
+	void cleardata();
 	
 	void post_frames(const cv::Mat &mat); // this function recieves images and saves in QLabel varial "image", which is displayed on the screen
 	
@@ -137,7 +179,6 @@ public:
 		{
 			
 			CScreen->post_frames(frame);
-
 		
 		}
 	

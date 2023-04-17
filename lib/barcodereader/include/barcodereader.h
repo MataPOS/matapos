@@ -18,9 +18,16 @@
 #include <zbar.h>
 #include<ctime>
 
+
+/**
+	* Barcode Reader class - Reads the barcode from the camera.
+	*/
+
 class BarcodeReader {
 
 public:
+	
+	
 	
 	BarcodeReader();
 	~BarcodeReader();

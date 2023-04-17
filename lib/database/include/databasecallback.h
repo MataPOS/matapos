@@ -11,5 +11,6 @@ class DatabaseCallback {
 	public:
 		virtual void customerDataAvailable(Customer customerData) = 0;
 		virtual void itemDataAvailable(Stock itemData) = 0;
+		virtual void checkoutSuccess() = 0;
 };
 #endif
