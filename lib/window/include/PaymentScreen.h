@@ -56,7 +56,7 @@ signals:
 
 private slots:
  	void payment_pressed();
- 	void cancel_pressed();	
+ 	void back_pressed();	
   
 
 };

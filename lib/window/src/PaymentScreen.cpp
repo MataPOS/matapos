@@ -50,8 +50,15 @@ PaymentScreen::PaymentScreen()
 void PaymentScreen::payment_pressed()
 
 {
-   /* if (amountInAccount >= totalPriceToBePaid) {
-        //move to first page
-        
-    } */
+
+	/*call database method to check if pin is correct -> if correct then database checks if sufficient balance is available -> if available then deduct the total price from balance -> return success if all process is done, otherwise return the respective error message. In case of success call the window callback to proceed to the next screen */
+
+}
+
+
+
+void PaymentScreen::back_pressed()
+{
+	/* clear any temporary variable here, and clear the pinEdit text, then call the window callback to go back to Cartscreen*/
+
 }
