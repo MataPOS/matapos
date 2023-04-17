@@ -93,9 +93,9 @@ CartScreen::CartScreen()
 		std::cout<<"Item adding to the list ";
 		QString productInfo = itemData.itemName + "\t\t£" + itemData.price + "\n";
 		item_list->addItem(productInfo);
-    	double total += product.productPrice.toDouble();
+    	double total += itemData.price.toDouble();
     	QString totalDisplayed = "Total = £ " + QString::number(total);
-    	totalPriceLabel->setText(totalDisplayed);
+    	label_Price->setText(totalDisplayed);
 		std::cout<<"Item name is "<<itemData.itemName.toStdString()<<"\n ";
 
 	}
