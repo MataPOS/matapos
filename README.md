@@ -16,7 +16,7 @@ MataPOS is a robust, compact and affordable Point of Sale (POS) device with a ta
 [Muktansh Chaturvedi](https://github.com/muktansh)  
 [Abubakar Yusuf](https://github.com/fatherofcamels)
 
-## Follow us on
+
 
 ## Setup on Linux
 
@@ -41,11 +41,6 @@ make
 ctest
 ```
 
-## Usage
-
-```cpp
-
-```
 
 ## Contributing
 
