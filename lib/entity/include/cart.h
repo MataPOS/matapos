@@ -1,17 +1,17 @@
 #ifndef CART_H
 #define CART_H
 
-#include "cartitem.h"
+#include "stock.h"
 
 #include <iostream>
 
 class Cart {
 
 	public:
-		Cart();
+		Cart() {};
 		
 		std::string customerId;
-		std::vector<CartItem> itemList;
+		std::vector<Stock> itemList;
 		float totalCost;
 
 };	

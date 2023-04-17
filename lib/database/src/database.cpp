@@ -33,33 +33,39 @@ Database::~Database() {
 /*
 Implement checkout process
 */
-void Database::checkoutCustomer(Cart cart) {
+std::string Database::checkoutCustomer(Cart cart) {
 	
 	//deduct credit
-	debitTotal(cart.customerId, cart.totalCost);
+	std::string debitTotalStatus = debitTotal(cart.customerId, cart.totalCost);
 	//update stock
-	updateStock(cart.itemList);
+	std::string updateStockStatus = updateStock(cart.itemList);
 	
-	for(auto dbCallback : databaseCallbackPtr) {
+	/*for(auto dbCallback : databaseCallbackPtr) {
 			dbCallback -> checkoutSuccess();
+	}*/
+	
+	
+	if(debitTotalStatus=="success" && updateStockStatus=="success"){
+		return "success";
+	}else {
+		return "error";
 	}
-		
 }
 
 
-void Database::updateStock(std::vector<CartItem> itemList) {
+std::string Database::updateStock(std::vector<Stock> itemList) {
 	
 	connOpen();
 	
 	QSqlQuery query(mataposDb);
 	
 	
-	for (CartItem item : itemList) {
+	for (Stock item : itemList) {
 	
-		QString uniqueIdQString = QString::fromStdString(item.uniqueId);
-		QString purchasedQty = QString::number(item.qty);
+		QString uniqueIdQString = item.uniqueId;
+		//QString purchasedQty = QString::number(item.qty);
 		
-		query.prepare("UPDATE stock SET qty=qty- '"+purchasedQty+"' WHERE unique_id like '"+uniqueIdQString+"' ");
+		query.prepare("UPDATE stock SET qty=qty-1 WHERE unique_id like '"+uniqueIdQString+"' ");
 
 		if(query.exec()) {
 			#ifdef DEBUG
@@ -67,22 +73,25 @@ void Database::updateStock(std::vector<CartItem> itemList) {
 			#endif
 
 			connClose();
+			return "success";
 
 		} else {
 			#ifdef DEBUG
 			std::cout << std::endl << "Could not update item qty..." << std::endl;
 			#endif
+			connClose();
+			return "error";
 		}
 
-		connClose();
+		
 	}
-	
 }
+
 
 /*
 Update customer credit after purchase
 */
-void Database::debitTotal(std::string customerId, float totalCost) {
+std::string Database::debitTotal(std::string customerId, float totalCost) {
 	connOpen();
 	
 	QSqlQuery query(mataposDb);
@@ -95,14 +104,18 @@ void Database::debitTotal(std::string customerId, float totalCost) {
 		#endif
 
 		connClose();
+		return "success";
 
 	} else {
 		#ifdef DEBUG
 		std::cout << std::endl << "Could not debit amount..." << std::endl;
 		#endif
+		connClose();
+		return "error";
+		
 	}
 
-	connClose();
+	
 }
 
 void Database::registerCallback(DatabaseCallback* clientCallbackPtr) {
