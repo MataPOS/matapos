@@ -30,6 +30,9 @@ public:
 	void CartScreenCheckout();
 	void CartScreenCancel();
 	void WelcomeScreenCustomerIdentified();
+	void PaymentScreenPayment();
+	void PaymentScreenBack();
+	
 
 	struct mycheckout : CartScreen::CheckoutPressed
 	{
@@ -80,6 +83,41 @@ public:
 	
 	
 	mycustomeridentified welcomescreen_customeridentified;
+	
+	
+	
+	struct mypayment : PaymentScreen::PaymentPressed
+	{
+	
+		window* win = nullptr;
+		
+		virtual void paymentpressed()
+		{
+			win->PaymentScreenPayment();
+		
+		}
+	
+	};
+	
+	mypayment paymentscreen_mypayment;
+	
+	
+	
+	struct myback : PaymentScreen::BackPressed
+	{
+	
+		window* win = nullptr;
+		
+		virtual void backpressed()
+		{
+			win->PaymentScreenBack();
+		
+		}
+	
+	};
+	
+	myback paymentscreen_myback;
+	
 
 };
 

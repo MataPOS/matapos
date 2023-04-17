@@ -50,13 +50,50 @@ private:
 
 
 public:
+
+
+	struct PaymentPressed
+	{
+		virtual void paymentpressed() = 0;
+	
+	};
+	
+	PaymentPressed* paymentPressed = nullptr;
+	
+	void registerPaymentPressed(PaymentPressed* pp)
+	{
+		paymentPressed = pp;
+	
+	}
+
+
+
+	
+	struct BackPressed
+	{
+		virtual void backpressed() = 0;
+	
+	};
+	
+	BackPressed* backPressed = nullptr;
+	
+	void registerBackPressed(BackPressed* bp)
+	{
+		backPressed = bp;
+	
+	}
+
+
+
 	
 	PaymentScreen();
+	
+	
 signals:
 
 private slots:
  	void payment_pressed();
- 	void cancel_pressed();	
+ 	void back_pressed();	
   
 
 };

@@ -28,11 +28,16 @@ PaymentScreen::PaymentScreen()
     back = new QPushButton("BACK", this);
     back->setStyleSheet("background-color: red;"
                             "qproperty-icon: url(../lib/window/src/close.png);");
+                            
+   connect(back, &QPushButton::clicked, this, &PaymentScreen::back_pressed);
 
 
     pay = new QPushButton("PAY", this);
     pay->setStyleSheet("background-color: green;"
                             "qproperty-icon: url(../lib/window/src/check.png);");
+
+   connect(pay, &QPushButton::clicked, this, &PaymentScreen::payment_pressed);
+ 
 
 
     // SETTING PAGE LAYOUT
@@ -57,8 +62,25 @@ PaymentScreen::PaymentScreen()
 void PaymentScreen::payment_pressed()
 
 {
-   /* if (amountInAccount >= totalPriceToBePaid) {
-        //move to first page
-        
-    } */
+
+	std::cout<<" Payment pressed ";
+	
+	paymentPressed->paymentpressed();
+
+	/*call database method to check if pin is correct -> if correct then database checks if sufficient balance is available -> if available then deduct the total price from balance -> return success if all process is done, otherwise return the respective error message. In case of success call the window callback to proceed to the next screen */
+
+}
+
+
+
+void PaymentScreen::back_pressed()
+{
+
+
+	std::cout<<" Back button pressed ";
+	
+	backPressed->backpressed();
+	
+	/* clear any temporary variable here, and clear the pinEdit text, then call the window callback to go back to Cartscreen*/
+
 }
