@@ -7,7 +7,7 @@
 
 
 struct NumpadCallback{
-    public virtual void hasData(unsigned long number) = 0;
+    public : virtual void hasData(std::vector<long unsigned int>) = 0;
 };
 
 
@@ -19,12 +19,12 @@ class NumpadDriver{
     std::thread t;
     int wake(int);
     std::vector<NumpadCallback*>numpadcallback;
-    std::vector<int>data;
+    std::vector<long unsigned int>data;
 
 
     NumpadDriver();
         
-    vector<int> insertAtEnd(vector<int> v, int x);
+    //vector<int> insertAtEnd(vector<int> v, int x);
 
     void registerCallback(NumpadCallback* np);
     //Interupts
@@ -37,8 +37,7 @@ class NumpadDriver{
     void readNumpad();
     void stop();
 
-}
-
+};
 
 
 
