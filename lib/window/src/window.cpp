@@ -19,6 +19,11 @@
      
      p = new PaymentScreen;
      
+     paymentscreen_mypayment.win = this;
+     p->registerPaymentPressed(&paymentscreen_mypayment);
+     
+     paymentscreen_myback.win = this;
+     p->registerBackPressed(&paymentscreen_myback);
 	
      cartscreen_mycheckout.win = this;
      c->registerCheckoutPressed(&cartscreen_mycheckout);
@@ -93,6 +98,34 @@ void window::WelcomeScreenCustomerIdentified()
 	c->start();
 	
 
+
+}
+
+
+
+void window::PaymentScreenPayment() // define here what happens if customer presses the pay button in the paymentscreen.
+{
+
+	
+	stackedWidget->setCurrentIndex(0);
+
+	w->start();
+
+			
+	stackedWidget->show();
+	std::cout<<" In the Windows PaymentScreenPayment function ";
+
+}
+
+
+
+void window::PaymentScreenBack() //define here what happens if customer presses the back button in the paymentscreen.
+{
+
+	stackedWidget->setCurrentIndex(1);
+
+	c->start();
+	std::cout<<" In the Windows PaymentScreenBack function ";
 
 }
 
