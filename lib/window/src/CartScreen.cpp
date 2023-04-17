@@ -83,9 +83,10 @@ CartScreen::CartScreen()
 	
 	}
 	
-	void CartScreen::customer_identified(Customer customer) {
+	void CartScreen::customer_identified(Customer customerdata) {
 	
-		customer = customer;
+		customer = customerdata;
+		std::cout<<customer.uniqueId.toStdString();
 	}
 	
 	void CartScreen::item_identified(Stock itemData)
@@ -99,7 +100,7 @@ CartScreen::CartScreen()
 		customerCart.itemList.push_back(itemData);
 		
     		total += itemData.price.toDouble();
-    		//customerCart.totalCost += itemData.price.toDouble();
+    		customerCart.totalCost += itemData.price.toDouble();
     		std::cout<<"customer id "<<(customer.uniqueId).toStdString()<<std::endl;
     		customerCart.customerId = (customer.uniqueId).toStdString();
     		

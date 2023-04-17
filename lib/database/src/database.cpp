@@ -102,13 +102,15 @@ std::string Database::updateStock(std::vector<Stock> itemList) {
 /*
 Update customer credit after purchase
 */
-std::string Database::debitTotal(std::string customerId, float totalCost) {
+std::string Database::debitTotal(std::string customerId, double totalCost) {
 	connOpen();
 	std::cout << std::endl << "inside debit total" << std::endl;
 	QSqlQuery query(mataposDb);
 	std::cout << std::endl << customerId << std::endl;
 	QString uniqueIdQString = QString::fromStdString(customerId);
-	query.prepare("UPDATE customer SET credit=credit-totalCost WHERE unique_id like '"+uniqueIdQString+"' ");
+	query.prepare("UPDATE customer SET credit=credit-? WHERE unique_id like ?");
+	query.addBindValue(totalCost);
+	query.addBindValue(uniqueIdQString);
 
 	if(query.exec()) {
 		#ifdef DEBUG

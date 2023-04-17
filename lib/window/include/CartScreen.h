@@ -109,7 +109,7 @@ public:
 	
 	myDatabaseCallback mydatabasecallback;
 	void item_identified(Stock);
-	void customer_identified(Customer customer);
+	void customer_identified(Customer);
 	Database& Cdatabase = Database::getDatabaseInstance();
 	
 	
