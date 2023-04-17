@@ -1,8 +1,0 @@
-Purpose of this document is to define and describe the Classes which will control the information and processes at the abstract level of the system.
-There shall be one class each for each thread.
-Following are the description of the Classes - 
-a. Camera_Manager : This Class will read the images from the Camera when the image trigger for reading is invoked. The trigger for image reading shall be invoked in two conditions-
-                    I. When a customer presents an identification to the camera., and II. When the customer presents items to the camera.
-b. DataBase_Manager : It will receive callbacks from the different devices, viz Camera, weighing scales, etc. and retrieve & provide the requested information from the database.
-c. Display_manager : It will manage the display information on the screen.
-d. Weigh_Scale_Manager : It will manage the data received from the weighing scale.
