@@ -1,4 +1,5 @@
 #include "window.h"
+#include <QTimer>
 
 #include <iostream>
 
@@ -6,12 +7,12 @@
 {
 	
      setWindowTitle("MATAPOS v2.0");
-     setFixedSize(400,500);
+     //setFixedSize(600,800);
      QFont font("Courier New");
      font.setStyleHint(QFont::Monospace);
      QWidget::setFont(font);
      
-     stackedWidget = new QStackedWidget;
+     stackedWidget = new QStackedWidget(this);
      
      w = new WelcomeScreen;
 	
@@ -44,6 +45,9 @@
      
 	
      camera.start();
+    // this->addWidget(stackedWidget);		
+	
+	this->show();
 		
 
 }
@@ -55,13 +59,13 @@ void window::start() // start the initial screen here
 {
 
 
-
+	this->resize(400,600);
 	stackedWidget->setCurrentIndex(0);
 	c->stop();
 	w->start();
 
-			
-	stackedWidget->show();
+	
+	//stackedWidget->show();
 	
 	
 
@@ -84,6 +88,7 @@ void window::CartScreenCancel() // define here what happens if customer presses 
 	stackedWidget->setCurrentIndex(0);
 	stackedWidget->show();
 	c->stop();
+	this->resize(400,600);
 	w->start();
 }
 
@@ -92,9 +97,10 @@ void window::CartScreenCancel() // define here what happens if customer presses 
 
 void window::WelcomeScreenCustomerIdentified()
 {
-
+	this->resize(c->sizeHint());
 	stackedWidget->setCurrentIndex(1);
 	w->stop();
+	this->resize(550,600);
 	c->start();
 	
 
@@ -107,8 +113,18 @@ void window::PaymentScreenPayment() // define here what happens if customer pres
 {
 
 	
-	stackedWidget->setCurrentIndex(0);
+	QTimer *timer = new QTimer(this);
+	QMessageBox *messageBox = new QMessageBox(this);
+	messageBox->setText("Thank you for shopping with us");
 
+	connect(timer, &QTimer::timeout, [=]() {messageBox->hide();});
+	timer->start(1000);
+	
+	messageBox->show();
+	
+	stackedWidget->setCurrentIndex(0);
+	
+	this->resize(400,600);
 	w->start();
 
 			
@@ -123,7 +139,8 @@ void window::PaymentScreenBack() //define here what happens if customer presses 
 {
 
 	stackedWidget->setCurrentIndex(1);
-
+	
+	this->resize(550,600);
 	c->start();
 	std::cout<<" In the Windows PaymentScreenBack function ";
 
