@@ -11,7 +11,32 @@ MataPOS is a robust, compact and affordable Point of Sale (POS) device with a ta
 
 ## Follow us on
 
+
+## Install dependencies
+
+* Install pigpio
+```bash
+sudo apt-get install libpigpio-dev
+```
+
+* Install Qt
+```bash
+sudo apt-get install qtdeclarative5-dev-tools
+sudo apt-get install libqwt-qt5-dev
+```
+
+Install OpenCV
+```bash
+sudo apt install libopencv-dev
+```
+
+Install ZBar on your system which is used to read barcodes/qr codes
+```bash
+sudo apt-get install libzbar-dev libzbar0
+```
 ## Setup on Linux
+
+After installing all dependencies as described above, follow below instructions to get the project running.
 
 * Fork this repo to your github account.
 * Clone it to your local machine.
