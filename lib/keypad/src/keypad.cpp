@@ -1,42 +1,33 @@
-# include <numpad.h>
+#include <keypad.h>
 #include <stdio.h>
-#include <vector.h>
+#include <vector>
 
 
 #include <iostream>
 #include <thread>
 #include <pigpio.h>
 
-int NumpadDriver::wake(int data_pin)
-{
-    t = thread::(&NumpadDriver::Readnumpad, this);
-}
+//Setup interupts
+//Linked to * button
+// void NumpadDriver::backITR(int gpio, int level, unsigned int tick, void *userdata)
+// {
+//     if (level == 0)
+//     {
+        
+//     }
+// }
+// //linked to # button
+// void NumpadDriver::forwardITR(int gpio, int level, unsigned int tick, void *userdata)
+// {
+//     if (level == 0)
+//     {
+       
+//     }
+// }
 
-
-void NumpadDriver::registerCallback(NumpadCallback *np)
-{
-    numpadcallback.push_back(np);
-}
-
-vector<int> NumpadDriver::insertAtEnd(vector<int> v, int x){
-    v.push_back(x);
-    return v;
-}
-
-void NumpadDriver::readNumpad()
-{
-    int data = [0,0,0,0];
-
+//Class Contructor
+NumpadDriver::NumpadDriver(){//Setting GPIO Pins as Input
     int r1 = 7 ,r2 = 9 ,r3 = 11, r4 = 13 ,c1 = 15,c2 = 17 ,c3 = 19;
-
-    //Initialising GPIO Pins
-    if (gpioInitialise() < 0)
-    {
-        fprintf(stderr, "pigpio initialisation failed\n");
-        return 1;
-    }
-
-    //Setting GPIO Pins as Input
     gpioSetMode(r1, PI_INPUT);
     gpioSetMode(r2, PI_INPUT);
     gpioSetMode(r3, PI_INPUT);
@@ -54,6 +45,12 @@ void NumpadDriver::readNumpad()
     gpioSetPullUpDown(c2, PI_PUD_UP);
     gpioSetPullUpDown(c3, PI_PUD_UP);
 
+
+}
+void NumpadDriver::readNumpad()
+{
+    vector<int> data;
+
     int lookup[4][3] = {{1,2,3},{4,5,6},{7,8,9},{10,0,11}};
 
     while (1){
@@ -61,7 +58,7 @@ void NumpadDriver::readNumpad()
         {
             if (gpioRead(c1) == 0)
             {
-                data = insertAtEnd(data,lookup[0][0]);
+                data = NumpadDriver::insertAtEnd(data,lookup[0][0]);
             }
             else if (gpioRead(c2) == 0)
             {
@@ -129,8 +126,43 @@ void NumpadDriver::readNumpad()
 
     gpioTerminate();
 }
+int NumpadDriver::wake(int data_pin)
+{
+    std::thread t(&NumpadDriver::readNumpad, this);
+        //Initialising GPIO Pins
+    if (gpioInitialise() < 0)
+    {
+        fprintf(stderr, "pigpio initialisation failed\n");
+        return 1;
+    }
+    t.join();
+}
+
+
+void NumpadDriver::registerCallback(NumpadCallback *np)
+{
+    numpadcallback.push_back(np);
+}
+
+vector<int> NumpadDriver::insertAtEnd(vector<int> v, int x){
+    v.push_back(x);
+    return v;
+}
 
 void NumpadDriver::stop()
 {
-    running = false;
+    t.detach();
 }
+
+int main()
+{
+    NumpadDriver npd;
+
+    npd.wake(0);
+    npd.readNumpad();
+    stdout::cout << NumpadDriver::data;
+
+    return 0;
+}
+
+//Add function to go back and forward. 
