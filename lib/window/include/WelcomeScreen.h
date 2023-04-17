@@ -105,6 +105,7 @@ public:
 	
 	void start();
 	void stop();
+	void cleardata();
 	
 	
 	void customer_identified(Customer); // this function will call the callback for the next screen after the customer is identified

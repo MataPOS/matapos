@@ -107,3 +107,13 @@ void WelcomeScreen::customer_identified(Customer customer) // 15 April 2023 : pl
 }
 
 
+
+void WelcomeScreen::cleardata()
+{
+
+
+
+
+}
+
+

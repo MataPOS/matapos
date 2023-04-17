@@ -53,7 +53,9 @@ CartScreen::CartScreen()
 	hLayout_buttons = new QHBoxLayout;
 	hLayout_buttons->addWidget(cancel);
 	hLayout_buttons->addWidget(checkout);
+	
 	QString listHeader = "ITEM\t\tPRICE\n";
+	
 	item_list->addItem(listHeader);
 	vLayout_cart = new QVBoxLayout;
 	vLayout_cart->addWidget(item_list);
@@ -65,10 +67,6 @@ CartScreen::CartScreen()
 	hLayout_display->addLayout(vLayout_cart);
 	
 	
-	//hLayout_display->setSizeConstraint(QLayout::SetFixedSize);
-	//hLayout_display->addWidget(item_list);
-
-	//vLayout->setSizeConstraint(QLayout::SetFixedSize);
 	vLayout = new QVBoxLayout;
 	vLayout->addWidget(label_ScanMessage);
 	vLayout->addLayout(hLayout_display);
@@ -90,11 +88,17 @@ CartScreen::CartScreen()
 	
 	{
 		std::cout<<"Item adding to the list ";
+		
 		QString productInfo = itemData.itemName + "\t\t£" + itemData.price + "\n";
+		
 		item_list->addItem(productInfo);
-    	total += itemData.price.toDouble();
-    	QString totalDisplayed = "Total = £ " + QString::number(total);
-    	label_Price->setText(totalDisplayed);
+		
+    		total += itemData.price.toDouble();
+    		
+    		QString totalDisplayed = "Total = £ " + QString::number(total);
+    		
+    		label_Price->setText(totalDisplayed);
+    		
 		std::cout<<"Item name is "<<itemData.itemName.toStdString()<<"\n ";
 
 	}
@@ -120,7 +124,8 @@ CartScreen::CartScreen()
 		if (event->key() == Qt::Key_Escape){
 		cancel_pressed();
 		}
-		else if(event->key() == Qt::Key_Enter){
+		
+		 if(event->key() == Qt::Key_Enter){
 		checkout_pressed();
 		}
 	}
@@ -158,5 +163,17 @@ void CartScreen::stop()
 	mydatabasecallback.cartscreenptr = nullptr;
 	
 	//camera.stop();
+
+}
+
+
+
+void CartScreen::cleardata()
+{
+	item_list->clear();
+	label_Price->setText("£0.00");
+	total = 0;
+	
+
 
 }

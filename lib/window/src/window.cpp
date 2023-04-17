@@ -87,6 +87,7 @@ void window::CartScreenCancel() // define here what happens if customer presses 
 	std::cout<<"in window's cartscreen cancel function";
 	stackedWidget->setCurrentIndex(0);
 	stackedWidget->show();
+	c->cleardata();
 	c->stop();
 	this->resize(400,600);
 	w->start();
@@ -123,6 +124,8 @@ void window::PaymentScreenPayment() // define here what happens if customer pres
 	messageBox->show();
 	
 	stackedWidget->setCurrentIndex(0);
+	
+	c->cleardata();
 	
 	this->resize(400,600);
 	w->start();

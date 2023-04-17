@@ -166,6 +166,7 @@ public:
 	
 	void start(); // for starting the camera
 	void stop(); // for stopping the camera
+	void cleardata();
 	
 	void post_frames(const cv::Mat &mat); // this function recieves images and saves in QLabel varial "image", which is displayed on the screen
 	
