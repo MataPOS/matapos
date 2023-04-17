@@ -25,12 +25,13 @@ sudo apt-get install qtdeclarative5-dev-tools
 sudo apt-get install libqwt-qt5-dev
 ```
 
-Install OpenCV
+* Install OpenCV
 ```bash
 sudo apt install libopencv-dev
 ```
 
-Install ZBar on your system which is used to read barcodes/qr codes
+* Install ZBar on your system which is used to read barcodes/qr codes
+  Read more about ZBar on: https://zbar.sourceforge.net/
 ```bash
 sudo apt-get install libzbar-dev libzbar0
 ```
