@@ -33,33 +33,48 @@ Database::~Database() {
 /*
 Implement checkout process
 */
-void Database::checkoutCustomer(Cart cart) {
+std::string Database::checkoutCustomer(Cart cart) {
 	
 	//deduct credit
-	debitTotal(cart.customerId, cart.totalCost);
+	std::string debitTotalStatus = debitTotal(cart.customerId, cart.totalCost);
 	//update stock
-	updateStock(cart.itemList);
+	std::string updateStockStatus = updateStock(cart.itemList);
 	
-	for(auto dbCallback : databaseCallbackPtr) {
+	/*for(auto dbCallback : databaseCallbackPtr) {
 			dbCallback -> checkoutSuccess();
+	}*/
+	
+	
+	if(debitTotalStatus=="success" && updateStockStatus=="success"){
+		return "success";
+	}else {
+		return "error";
 	}
-		
 }
 
 
-void Database::updateStock(std::vector<CartItem> itemList) {
-	
-	connOpen();
-	
-	QSqlQuery query(mataposDb);
+std::string Database::updateStock(std::vector<Stock> itemList) {
 	
 	
-	for (CartItem item : itemList) {
+	for(Stock s : itemList)
+		{
+		std::cout<<s.id.toStdString()<<std::endl;
+		}
 	
-		QString uniqueIdQString = QString::fromStdString(item.uniqueId);
-		QString purchasedQty = QString::number(item.qty);
+	std::cout<<" ------------------------------- ";
+	
+	for (Stock item : itemList) {
 		
-		query.prepare("UPDATE stock SET qty=qty- '"+purchasedQty+"' WHERE unique_id like '"+uniqueIdQString+"' ");
+		std::cout<<item.uniqueId.toStdString()<<std::endl;
+		
+		connOpen();
+		
+		QSqlQuery query(mataposDb);
+		
+		QString uniqueIdQString = item.uniqueId;
+		//QString purchasedQty = QString::number(item.qty);
+		
+		query.prepare("UPDATE stock SET qty=qty-1 WHERE unique_id like '"+uniqueIdQString+"' ");
 
 		if(query.exec()) {
 			#ifdef DEBUG
@@ -67,25 +82,31 @@ void Database::updateStock(std::vector<CartItem> itemList) {
 			#endif
 
 			connClose();
+			
 
 		} else {
 			#ifdef DEBUG
 			std::cout << std::endl << "Could not update item qty..." << std::endl;
 			#endif
+			connClose();
+			return "error";
 		}
-
-		connClose();
+		
+		
 	}
 	
+	return "success";
 }
+
 
 /*
 Update customer credit after purchase
 */
-void Database::debitTotal(std::string customerId, float totalCost) {
+std::string Database::debitTotal(std::string customerId, float totalCost) {
 	connOpen();
-	
+	std::cout << std::endl << "inside debit total" << std::endl;
 	QSqlQuery query(mataposDb);
+	std::cout << std::endl << customerId << std::endl;
 	QString uniqueIdQString = QString::fromStdString(customerId);
 	query.prepare("UPDATE customer SET credit=credit-totalCost WHERE unique_id like '"+uniqueIdQString+"' ");
 
@@ -95,14 +116,18 @@ void Database::debitTotal(std::string customerId, float totalCost) {
 		#endif
 
 		connClose();
+		return "success";
 
 	} else {
 		#ifdef DEBUG
 		std::cout << std::endl << "Could not debit amount..." << std::endl;
 		#endif
+		connClose();
+		return "error";
+		
 	}
 
-	connClose();
+	
 }
 
 void Database::registerCallback(DatabaseCallback* clientCallbackPtr) {

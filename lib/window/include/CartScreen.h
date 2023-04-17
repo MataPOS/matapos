@@ -14,13 +14,16 @@
 #include <QPushButton>
 #include <QTimer>
 #include <QLineEdit>
+#include <iostream>
+#include <string>
+
 #include "camera.h"
 #include "stock.h"
 #include "database.h"
 #include "databasecallback.h"
-#include<iostream>
-#include<string>
-
+#include "cart.h"
+#include "cartitem.h"
+#include "customer.h"
 
 
 
@@ -28,6 +31,7 @@ class CartScreen : public QWidget
 {
 
 	//Q_OBJECT
+
 
 protected:
     void keyPressEvent(QKeyEvent *);
@@ -52,12 +56,20 @@ private:
 	
 	
 	
+	std::vector<CartItem> cartItem;
+	
+	
+	
+	
 	
 
 
 
 public:
 	
+	
+	Customer customer;
+	Cart customerCart;
 	
 	class myDatabaseCallback : public DatabaseCallback {
 	
@@ -66,11 +78,14 @@ public:
 	
 		public: 
 		
-		virtual void customerDataAvailable(Customer customerData) // Cartscreen do not need customer data
-		{
+		virtual void customerDataAvailable(Customer customerData) {
 			
-			std::cout<<"Inside Cartscreen customer data available function ";
-			return;
+			
+			if(nullptr != cartscreenptr)
+			{
+			std::cout<<"Inside cartscreen item data available function ";
+			cartscreenptr->customer_identified(customerData);
+			}
 		
 		}
 	
@@ -100,7 +115,7 @@ public:
 	
 	myDatabaseCallback mydatabasecallback;
 	void item_identified(Stock);
-
+	void customer_identified(Customer customer);
 	Database& Cdatabase = Database::getDatabaseInstance();
 	
 	
@@ -185,7 +200,6 @@ public:
 		{
 			
 			CScreen->post_frames(frame);
-
 		
 		}
 	
