@@ -83,9 +83,10 @@ CartScreen::CartScreen()
 	
 	}
 	
-	void CartScreen::customer_identified(Customer customer) {
+	void CartScreen::customer_identified(Customer customerdata) {
 	
-		customer = customer;
+		customer = customerdata;
+		std::cout<<customer.uniqueId.toStdString();
 	}
 	
 	void CartScreen::item_identified(Stock itemData)
