@@ -61,6 +61,8 @@ CartScreen::CartScreen()
 	hLayout_display = new QHBoxLayout;
 	hLayout_display->addWidget(image);
 	hLayout_display->addLayout(vLayout_cart);
+	QString listHeader = "S/N\tITEM\tPRICE\n";
+	item_list->addItem(listHeader);
 	hLayout_display->addWidget(item_list);
 
 
@@ -86,7 +88,8 @@ CartScreen::CartScreen()
 	
 	{
 		std::cout<<"Item adding to the list ";
-		item_list->addItem(itemData.itemName);
+		QString productInfo = itemData.itemName + "\t£" + itemData.price + "\n";
+		item_list->addItem(productInfo);
 		std::cout<<"Item name is "<<itemData.itemName.toStdString()<<"\n ";
 
 	}
