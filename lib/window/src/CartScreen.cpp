@@ -86,14 +86,13 @@ CartScreen::CartScreen()
 	}
 	
 	
-
 	void CartScreen::item_identified(Stock itemData)
 	
 	{
 		std::cout<<"Item adding to the list ";
 		QString productInfo = itemData.itemName + "\t\t£" + itemData.price + "\n";
 		item_list->addItem(productInfo);
-    	double total += itemData.price.toDouble();
+    	total += itemData.price.toDouble();
     	QString totalDisplayed = "Total = £ " + QString::number(total);
     	label_Price->setText(totalDisplayed);
 		std::cout<<"Item name is "<<itemData.itemName.toStdString()<<"\n ";
