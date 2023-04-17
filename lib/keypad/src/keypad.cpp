@@ -49,8 +49,7 @@ void backwards(backCallback* fwd)
 
 void NumpadDriver::readNumpad()
 {
-    //std::vector<long unsigned int> data;
-    *data dat
+    std::vector<long unsigned int> data;
 
     long unsigned int lookup[4][3] = {{1,2,3},{4,5,6},{7,8,9},{10,0,11}};
     int r1 = 7 ,r2 = 9 ,r3 = 11, r4 = 13 ,c1 = 15,c2 = 17 ,c3 = 19;
@@ -149,9 +148,9 @@ void NumpadDriver::readNumpad()
             data[0] = 0;
         }
     }
-    for (auto nums : NumpadCallback)
+    for (auto  : NumpadCallback)
     {
-        dat->nums(data);
+        data->nums(data);
     }
 
 }
