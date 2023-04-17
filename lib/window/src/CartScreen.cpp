@@ -100,7 +100,8 @@ CartScreen::CartScreen()
 		customerCart.itemList.push_back(itemData);
 		
     		total += itemData.price.toDouble();
-    		customerCart.totalCost += itemData.price.toDouble();
+    		//customerCart.totalCost += itemData.price.toDouble();
+    		std::cout<<"customer id "<<(customer.uniqueId).toStdString()<<std::endl;
     		customerCart.customerId = (customer.uniqueId).toStdString();
     		
     		QString totalDisplayed = "Total = £ " + QString::number(total);
@@ -122,7 +123,11 @@ CartScreen::CartScreen()
 	void CartScreen::checkout_pressed() // define all the actions here to be taken to verify if all conditions are meeting before checkout can be pressed, and then execute the callback function
 
 	{
-		
+		customerCart.totalCost = total;
+		for(Stock s : customerCart.itemList)
+		{
+		std::cout<<s.id.toStdString()<<std::endl;
+		}
 		Cdatabase.checkoutCustomer(customerCart);
 		checkoutPressed->checkoutpressed();
 		
@@ -182,7 +187,8 @@ void CartScreen::cleardata()
 	item_list->clear();
 	label_Price->setText("£0.00");
 	total = 0;
+	customerCart.itemList.clear();
+	customerCart.totalCost = 0;
 	
-
 
 }

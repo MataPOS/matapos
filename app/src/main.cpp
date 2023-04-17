@@ -7,7 +7,7 @@ int main(int argc, char *argv[])
 {
 	QApplication app(argc,argv);
 	
-	Database& db = Database::getDatabaseInstance();
+	/*Database& db = Database::getDatabaseInstance();
 	Stock stock;
 
 	std::vector<Stock> itemList;
@@ -27,6 +27,13 @@ int main(int argc, char *argv[])
 	cart.totalCost = 10.0;	
 	
 	db.checkoutCustomer(cart);
+	*/
+	
+	window *w;
+	w = new window();
+
+	w->start();
+	
 	
 	
 	

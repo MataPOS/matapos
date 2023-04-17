@@ -76,10 +76,22 @@ void window::start() // start the initial screen here
 void window::CartScreenCheckout() // define here what happens if customer presses checkout button in cartscreen. Modify this function to recieve customer data, and initiate the next screen
 {
 	std::cout<<"in window's cartscreen checkout function";
-	stackedWidget->setCurrentIndex(2);
+	
+	QTimer *timer = new QTimer(this);
+	QMessageBox *messageBox = new QMessageBox(this);
+	messageBox->setText("Thank you for shopping with us");
+
+	connect(timer, &QTimer::timeout, [=]() {messageBox->hide();});
+	timer->start(1000);
+	
+	messageBox->show();
+	
+	stackedWidget->setCurrentIndex(0);
 	stackedWidget->show();
+	c->cleardata();
 	c->stop();
-	w->stop();
+	this->resize(400,600);
+	w->start();
 }
 
 void window::CartScreenCancel() // define here what happens if customer presses cancel button in cartscreen. Modify this function to recieve customer data, and initiate the next screen
