@@ -1,6 +1,7 @@
 #include "PaymentScreen.h"
 #include "window.h"
 #include <iostream>
+#include <QEventKey>
 
 
 PaymentScreen::PaymentScreen()
@@ -94,3 +95,11 @@ void PaymentScreen::cleardata()
 
 }
 
+	void PaymentScreen::keyPressEvent(QKeyEvent *event){
+		if (event->key() == Qt::Key_Escape){
+		backpressed();
+		}
+		else if(event->key() == Qt::Key_Enter){
+		paymentpressed();
+		}
+	}
