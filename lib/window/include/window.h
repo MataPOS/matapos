@@ -4,8 +4,11 @@
 #include <QStackedWidget>
 #include"WelcomeScreen.h"
 #include "CartScreen.h"
-#include "PaymentScreen.h"
 #include<iostream>
+/**
+* The Class contains the various screens and controls the flow of MATAPOS program. The CartScreen and WelcomeScreen classes are instantiated in this class, and the two gives out all their event signals here. This enables window class to make decisions for next state.
+
+*/
 
 
 class window: public QWidget
@@ -15,7 +18,7 @@ private:
 
 	WelcomeScreen *w;
 	CartScreen *c;
-	PaymentScreen *p;
+	
 	
 	QStackedWidget *stackedWidget;
 	
@@ -30,8 +33,7 @@ public:
 	void CartScreenCheckout();
 	void CartScreenCancel();
 	void WelcomeScreenCustomerIdentified();
-	void PaymentScreenPayment();
-	void PaymentScreenBack();
+	
 	
 
 	struct mycheckout : CartScreen::CheckoutPressed
@@ -85,38 +87,7 @@ public:
 	mycustomeridentified welcomescreen_customeridentified;
 	
 	
-	
-	struct mypayment : PaymentScreen::PaymentPressed
-	{
-	
-		window* win = nullptr;
-		
-		virtual void paymentpressed()
-		{
-			win->PaymentScreenPayment();
-		
-		}
-	
-	};
-	
-	mypayment paymentscreen_mypayment;
-	
-	
-	
-	struct myback : PaymentScreen::BackPressed
-	{
-	
-		window* win = nullptr;
-		
-		virtual void backpressed()
-		{
-			win->PaymentScreenBack();
-		
-		}
-	
-	};
-	
-	myback paymentscreen_myback;
+
 	
 
 };

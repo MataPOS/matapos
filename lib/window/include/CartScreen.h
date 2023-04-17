@@ -26,6 +26,10 @@
 #include "customer.h"
 
 
+/**
+* The Class displays the window for the Cart screen where scanned item details are present
+
+*/
 
 class CartScreen : public QWidget
 {

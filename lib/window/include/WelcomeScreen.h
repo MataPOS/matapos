@@ -21,11 +21,15 @@
 #include "databasecallback.h"
 #include<iostream>
 
+/**
+* The Class displays the window for the Welcome screen which scans the code for customer
+
+*/
 
 
 class WelcomeScreen : public QWidget {
 
-//Q_OBJECT
+
 
 private:
 
@@ -99,7 +103,7 @@ public:
 	Camera& camera = Camera::getCamera();
 	WelcomeScreen();
 	~WelcomeScreen();
-	void qr_scanned();
+	
 	
 	void post_frames(const cv::Mat &mat);
 	

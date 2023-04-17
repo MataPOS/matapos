@@ -2,6 +2,10 @@
 #include <QTimer>
 
 #include <iostream>
+/**
+* This constructor sets the Welcome Screen and CartScreen
+
+*/
 
  window::window()
 {
@@ -18,14 +22,6 @@
 	
      c= new CartScreen;
      
-     p = new PaymentScreen;
-     
-     paymentscreen_mypayment.win = this;
-     p->registerPaymentPressed(&paymentscreen_mypayment);
-     
-     paymentscreen_myback.win = this;
-     p->registerBackPressed(&paymentscreen_myback);
-	
      cartscreen_mycheckout.win = this;
      c->registerCheckoutPressed(&cartscreen_mycheckout);
 	
@@ -40,12 +36,11 @@
      w->registerCustomerIdentified(&welcomescreen_customeridentified);
      
      
-     stackedWidget->addWidget(p);
-     
+   
      
 	
      camera.start();
-    // this->addWidget(stackedWidget);		
+    		
 	
 	this->show();
 		
@@ -53,6 +48,10 @@
 }
 
 
+/**
+* Starts the window
+
+*/
 
 
 void window::start() // start the initial screen here
@@ -65,15 +64,19 @@ void window::start() // start the initial screen here
 	w->start();
 
 	
-	//stackedWidget->show();
+	
 	
 	
 
 }
 
+/**
+* This is called when checkout is pressed in cartscreen
+
+*/
 
 
-void window::CartScreenCheckout() // define here what happens if customer presses checkout button in cartscreen. Modify this function to recieve customer data, and initiate the next screen
+void window::CartScreenCheckout() 
 {
 	std::cout<<"in window's cartscreen checkout function";
 	
@@ -94,6 +97,11 @@ void window::CartScreenCheckout() // define here what happens if customer presse
 	w->start();
 }
 
+/**
+* This is called when cancel is pressed in cartscreen
+
+*/
+
 void window::CartScreenCancel() // define here what happens if customer presses cancel button in cartscreen. Modify this function to recieve customer data, and initiate the next screen
 {
 	std::cout<<"in window's cartscreen cancel function";
@@ -106,7 +114,10 @@ void window::CartScreenCancel() // define here what happens if customer presses 
 }
 
 
+/**
+* This is called when customer is identified welcomescreen
 
+*/
 
 void window::WelcomeScreenCustomerIdentified()
 {
@@ -122,44 +133,5 @@ void window::WelcomeScreenCustomerIdentified()
 
 
 
-void window::PaymentScreenPayment() // define here what happens if customer presses the pay button in the paymentscreen.
-{
 
-	
-	QTimer *timer = new QTimer(this);
-	QMessageBox *messageBox = new QMessageBox(this);
-	messageBox->setText("Thank you for shopping with us");
-
-	connect(timer, &QTimer::timeout, [=]() {messageBox->hide();});
-	timer->start(1000);
-	
-	messageBox->show();
-	
-	stackedWidget->setCurrentIndex(0);
-	
-	c->cleardata();
-	
-	this->resize(400,600);
-	w->start();
-
-			
-	stackedWidget->show();
-	std::cout<<" In the Windows PaymentScreenPayment function ";
-
-}
-
-
-
-void window::PaymentScreenBack() //define here what happens if customer presses the back button in the paymentscreen.
-{
-
-	stackedWidget->setCurrentIndex(1);
-	
-	this->resize(550,600);
-	c->start();
-	std::cout<<" In the Windows PaymentScreenBack function ";
-
-}
-
-// Add more functions depending one the user actions.
 

@@ -4,6 +4,13 @@
 #include <iostream>
 
 
+/**
+
+This function should be called is someone wants to get the camera object to access camera. It is created as part of singleton pattern.
+
+
+*/
+
 Camera& Camera::getCamera()
 {
 
@@ -11,7 +18,12 @@ Camera& Camera::getCamera()
 	return singleCamera;
 }
 
+/**
 
+This function should be called is someone wants to get the camera object to access camera. It is created as part of singleton pattern. Only it facilitates to use custom device ID if available.
+
+
+*/
 
 Camera& Camera::getCamera(int deviceId, int apiId)
 {
@@ -40,6 +52,12 @@ Camera::Camera() {
 	
 }
 
+/**
+
+This function is called by the camera thread function threadloop. It reads the frame from camera and sends the frame to all registered callbacks
+
+
+*/
 
 void Camera::runCamera() {
 	
@@ -74,6 +92,13 @@ void Camera::runCamera() {
 }
 
 
+/**
+
+Camera thread function
+
+
+*/
+
 void Camera::threadloop()
 {
 
@@ -86,7 +111,12 @@ void Camera::threadloop()
 
 }
 
+/**
 
+Used to initialize and start the camera, and initialize the camera thread
+
+
+*/
 void Camera::start() {
 	
 	if(camera_open)
@@ -120,6 +150,13 @@ void Camera::start() {
 	
 }
 
+/**
+
+Stops the camera
+
+
+*/
+
 void Camera::stop() {
 	isRunning = 0;
 	camera_open = 0;
@@ -140,7 +177,12 @@ Camera::~Camera() {
 	this->stop();
 }
 
+/**
 
+Registers the client callback to recieve the frames
+
+
+*/
 
 
 void Camera::registerFrameAvailableCallback(CameraCallback* clientCallbackPtr) {

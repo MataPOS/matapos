@@ -1,4 +1,4 @@
-add_library(window src/window.cpp src/CartScreen.cpp src/WelcomeScreen.cpp src/PaymentScreen.cpp include/PaymentScreen.h include/CartScreen.h include/WelcomeScreen.h include/window.h)
+add_library(window src/window.cpp src/CartScreen.cpp src/WelcomeScreen.cpp  include/CartScreen.h include/WelcomeScreen.h include/window.h)
 
 target_include_directories(window PUBLIC include/)
 

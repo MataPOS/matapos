@@ -3,6 +3,10 @@
 #include <iostream>
 #include <QKeyEvent>
 
+/**
+* Constructor for the Cart Screen. It sets the Qt layout, and the various callback functions for different events such as button pressed, and item identified
+
+*/
 
 CartScreen::CartScreen()
 
@@ -83,11 +87,16 @@ CartScreen::CartScreen()
 	
 	}
 	
+	
+	
+	
 	void CartScreen::customer_identified(Customer customerdata) {
 	
 		customer = customerdata;
 		std::cout<<customer.uniqueId.toStdString();
 	}
+	
+	
 	
 	void CartScreen::item_identified(Stock itemData)
 	
@@ -113,14 +122,14 @@ CartScreen::CartScreen()
 	}
 	
 
-	void CartScreen::cancel_pressed() // define all the actions here to be taken to verify if all conditions are meeting before cancel can be pressed, and then execute the callback function
+	void CartScreen::cancel_pressed() 
 	{
 		
 		cancelPressed->cancelpressed();
 
 	}
 	
-	void CartScreen::checkout_pressed() // define all the actions here to be taken to verify if all conditions are meeting before checkout can be pressed, and then execute the callback function
+	void CartScreen::checkout_pressed() 
 
 	{
 		customerCart.totalCost = total;
@@ -144,7 +153,10 @@ CartScreen::CartScreen()
 		}
 	}
 
+/**
+* Recieves the camera live feed frames
 
+*/
 	
 	void CartScreen::post_frames(const cv::Mat &mat)
 
@@ -158,6 +170,11 @@ CartScreen::CartScreen()
 	}
 	
 	
+	/**
+* Start receiving data from camera and database
+
+*/
+	
 	void CartScreen::start()
 {
 	cartcameracallback.CScreen = this;
@@ -168,6 +185,11 @@ CartScreen::CartScreen()
 	//camera.start();
 
 }
+
+/**
+* Stop receiving data from camera and database
+
+*/
 
 void CartScreen::stop()
 {
@@ -180,6 +202,10 @@ void CartScreen::stop()
 
 }
 
+/**
+* Clears all the temporary data so that new customer can use the program
+
+*/
 
 
 void CartScreen::cleardata()

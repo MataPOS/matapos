@@ -14,6 +14,15 @@
 #include <QString>
 #include <memory>
 
+
+/**
+
+Database class interacts directly with the sqlite3 database and performs various database related functions. This implements singleton pattern to avoid thread conflicts.
+
+
+*/
+
+
 class Database {
 	
 	public:

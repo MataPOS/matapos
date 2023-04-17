@@ -3,6 +3,11 @@
 
 #include <QString>
 
+/**
+* Stock item details
+
+*/
+
 class Stock {
 
 public:

@@ -5,6 +5,10 @@
 
 #include <iostream>
 
+/**
+ * Cart class stores the cart data	
+**/
+
 class Cart {
 
 	public:

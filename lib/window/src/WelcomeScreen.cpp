@@ -3,6 +3,12 @@
 #include"WelcomeScreen.h"
 #include<iostream>
 
+/**
+* Constructor for the Welcome Screen. It sets the Qt layout, and the various callback functions for different events such as customer identified
+
+*/
+
+
  WelcomeScreen::WelcomeScreen()
 {
      setFixedSize(600,800);
@@ -60,11 +66,13 @@ WelcomeScreen::~WelcomeScreen()
 
 }
 
-void WelcomeScreen::qr_scanned()
-{
-	std::cout<<"QR Scanned";
-}
 
+
+
+/**
+* Recieves the camera live feed frames
+
+*/
 
 void WelcomeScreen::post_frames(const cv::Mat &mat)
 {
@@ -75,6 +83,10 @@ void WelcomeScreen::post_frames(const cv::Mat &mat)
 }
 
 
+	/**
+* Start receiving data from camera and database
+
+*/
 
 
 void WelcomeScreen::start()
@@ -89,6 +101,12 @@ void WelcomeScreen::start()
 
 }
 
+/**
+* Stop receiving data from camera and database
+
+*/
+
+
 void WelcomeScreen::stop()
 {
 
@@ -97,8 +115,13 @@ void WelcomeScreen::stop()
 
 }
 
+/**
+* Callback after customer is identified with database
 
-void WelcomeScreen::customer_identified(Customer customer) // 15 April 2023 : plan to do something with the customer data here.
+*/
+
+
+void WelcomeScreen::customer_identified(Customer customer) 
 {
 
 	customeridentifiedptr->customeridentifiedfunction();
@@ -112,7 +135,7 @@ void WelcomeScreen::cleardata()
 {
 
 
-
+// for future patches, if required, to enable data clear in WelcomeScreen
 
 }
 
