@@ -8,6 +8,12 @@ PaymentScreen::PaymentScreen()
 	
     label_PinMessage = new QLabel;
     label_PinMessage->setText("ENTER YOUR UNIQUE PIN");
+    label_PinMessage->setAlignment(Qt::AlignCenter);
+
+
+    label_TotalPrice = new QLabel;
+    label_TotalPrice->setText("£");
+    label_TotalPrice->setAlignment(Qt::AlignCenter);
 
 
     pinLabel = new QLabel;
@@ -45,6 +51,7 @@ PaymentScreen::PaymentScreen()
 
     vLayout = new QVBoxLayout;
     vLayout->addWidget(label_PinMessage);
+    vLayout->addWidget(label_TotalPrice);
     vLayout->addLayout(hLayout_pin);
     vLayout->addLayout(hLayout_buttons);
     this->setLayout(vLayout);

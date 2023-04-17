@@ -1,6 +1,7 @@
 #include "CartScreen.h"
 #include "window.h"
 #include <iostream>
+#include <QKeyEvent>
 
 
 CartScreen::CartScreen()
@@ -42,9 +43,11 @@ CartScreen::CartScreen()
 	checkout->setStyleSheet("background-color: green;"
                             "qproperty-icon: url(../lib/window/src/check.png);");
 
-	connect(checkout, &QPushButton::clicked, this, &CartScreen::checkout_pressed);
+
+
+	// connect(checkout, &QPushButton::clicked, this, &CartScreen::checkout_pressed);
 	
-	connect(cancel, &QPushButton::clicked, this, &CartScreen::cancel_pressed);
+	// connect(cancel, &QPushButton::clicked, this, &CartScreen::cancel_pressed);
 
 	hLayout_buttons = new QHBoxLayout;
 	hLayout_buttons->addWidget(cancel);
@@ -58,6 +61,8 @@ CartScreen::CartScreen()
 	hLayout_display = new QHBoxLayout;
 	hLayout_display->addWidget(image);
 	hLayout_display->addLayout(vLayout_cart);
+	QString listHeader = "S/N\tITEM\tPRICE\n";
+	item_list->addItem(listHeader);
 	hLayout_display->addWidget(item_list);
 
 
@@ -83,7 +88,8 @@ CartScreen::CartScreen()
 	
 	{
 		std::cout<<"Item adding to the list ";
-		item_list->addItem(itemData.itemName);
+		QString productInfo = itemData.itemName + "\t£" + itemData.price + "\n";
+		item_list->addItem(productInfo);
 		std::cout<<"Item name is "<<itemData.itemName.toStdString()<<"\n ";
 
 	}
@@ -103,6 +109,15 @@ CartScreen::CartScreen()
 		checkoutPressed->checkoutpressed();
 		
 
+	}
+
+	void CartScreen::keyPressEvent(QKeyEvent *event){
+		if (event->key() == Qt::Key_Escape){
+		cancel_pressed();
+		}
+		else if(event->key() == Qt::Key_Enter){
+		checkout_pressed();
+		}
 	}
 
 
@@ -140,7 +155,3 @@ void CartScreen::stop()
 	//camera.stop();
 
 }
-
-
-
-

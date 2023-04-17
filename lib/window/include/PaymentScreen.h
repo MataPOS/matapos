@@ -31,7 +31,7 @@ class PaymentScreen : public QWidget
 private:
 	
 
-	QLabel *label_PinMessage, *pinLabel;
+	QLabel *label_PinMessage, *pinLabel, *label_TotalPrice;
 	QLineEdit *pinEdit;
 	
 	QPushButton *back;
