@@ -55,13 +55,22 @@ std::string Database::checkoutCustomer(Cart cart) {
 
 std::string Database::updateStock(std::vector<Stock> itemList) {
 	
-	connOpen();
 	
-	QSqlQuery query(mataposDb);
+	for(Stock s : itemList)
+		{
+		std::cout<<s.id.toStdString()<<std::endl;
+		}
 	
+	std::cout<<" ------------------------------- ";
 	
 	for (Stock item : itemList) {
-	
+		
+		std::cout<<item.uniqueId.toStdString()<<std::endl;
+		
+		connOpen();
+		
+		QSqlQuery query(mataposDb);
+		
 		QString uniqueIdQString = item.uniqueId;
 		//QString purchasedQty = QString::number(item.qty);
 		
@@ -73,7 +82,7 @@ std::string Database::updateStock(std::vector<Stock> itemList) {
 			#endif
 
 			connClose();
-			return "success";
+			
 
 		} else {
 			#ifdef DEBUG
@@ -82,9 +91,11 @@ std::string Database::updateStock(std::vector<Stock> itemList) {
 			connClose();
 			return "error";
 		}
-
+		
 		
 	}
+	
+	return "success";
 }
 
 
@@ -93,8 +104,9 @@ Update customer credit after purchase
 */
 std::string Database::debitTotal(std::string customerId, float totalCost) {
 	connOpen();
-	
+	std::cout << std::endl << "inside debit total" << std::endl;
 	QSqlQuery query(mataposDb);
+	std::cout << std::endl << customerId << std::endl;
 	QString uniqueIdQString = QString::fromStdString(customerId);
 	query.prepare("UPDATE customer SET credit=credit-totalCost WHERE unique_id like '"+uniqueIdQString+"' ");
 
