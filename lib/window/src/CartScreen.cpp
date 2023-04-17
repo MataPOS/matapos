@@ -186,7 +186,8 @@ void CartScreen::cleardata()
 	item_list->clear();
 	label_Price->setText("£0.00");
 	total = 0;
+	customerCart.itemList.clear();
+	customerCart.totalCost = 0;
 	
-
 
 }
