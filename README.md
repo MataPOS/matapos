@@ -76,7 +76,7 @@ to discuss what you would like to change.
 
 Please make sure to update tests as appropriate.
 
-## Social Media 🌐
+# Social Media 🌐
 Keep up to date with Matapos! Find us on all our social channels:
 </br>
 
