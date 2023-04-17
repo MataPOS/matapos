@@ -27,7 +27,7 @@ class Database {
 		void queryCustomerDetails(std::string uniqueId);
 		void queryItemDetails(std::string uniqueId);
 		std::string checkoutCustomer(Cart cart);
-		std::string debitTotal(std::string customerId, float totalCost);
+		std::string debitTotal(std::string customerId, double totalCost);
 		std::string updateStock(std::vector<Stock> itemList);
 
 		void connOpen();

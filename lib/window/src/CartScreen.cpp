@@ -100,7 +100,7 @@ CartScreen::CartScreen()
 		customerCart.itemList.push_back(itemData);
 		
     		total += itemData.price.toDouble();
-    		//customerCart.totalCost += itemData.price.toDouble();
+    		customerCart.totalCost += itemData.price.toDouble();
     		std::cout<<"customer id "<<(customer.uniqueId).toStdString()<<std::endl;
     		customerCart.customerId = (customer.uniqueId).toStdString();
     		

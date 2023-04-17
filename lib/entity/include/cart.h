@@ -12,7 +12,7 @@ class Cart {
 		
 		std::string customerId;
 		std::vector<Stock> itemList;
-		float totalCost;
+		double totalCost;
 
 };	
 
