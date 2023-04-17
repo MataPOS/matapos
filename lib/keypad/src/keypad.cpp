@@ -1,7 +1,7 @@
 #include<keypad.h>
 #include<stdio.h>
 #include<vector>
-//#include<unistd.h>
+#include<unistd.h>
 #include<fcntl.h>
 
 
@@ -9,59 +9,13 @@
 #include<thread>
 #include<pigpio.h>
 
-//Setup interupts
-//Linked to * button
-// void NumpadDriver::backITR(int gpio, int level, unsigned int tick, void *userdata)
-// {
-//     if (level == 0)
-//     {
-        
-//     }
-// }
-// //linked to # button
-// void NumpadDriver::forwardITR(int gpio, int level, unsigned int tick, void *userdata)
-// {
-//     if (level == 0)
-//     {
-       
-//     }
-// }
+int NumpadDriver::wake(int data_pin)
+{
+    std::thread keypadthread(&NumpadDriver::readNumpad, this);
 
-//Class Contructor
-//NumpadDriver::NumpadDriver(){//Setting GPIO Pins as Input
-    
-    //int r1 = 7 ,r2 = 9 ,r3 = 11, r4 = 13 ,c1 = 15,c2 = 17 ,c3 = 19;
-    
-    //if (gpioInitialize()<0)
-    //{
-        //std::cout << "Keypad cannot be initialised";
-        
-    //}
-    
-    //gpioSetMode(r1, PI_INPUT);
-    //gpioSetMode(r2, PI_INPUT);
-    //gpioSetMode(r3, PI_INPUT);
-    //gpioSetMode(r4, PI_INPUT);
-    //gpioSetMode(c1, PI_INPUT);
-    //gpioSetMode(c2, PI_INPUT);
-    //gpioSetMode(c3, PI_INPUT);
-
-    ////Setting Pull Up Resistor
-    //gpioSetPullUpDown(r1, PI_PUD_UP);
-    //gpioSetPullUpDown(r2, PI_PUD_UP);
-    //gpioSetPullUpDown(r3, PI_PUD_UP);
-    //gpioSetPullUpDown(r4, PI_PUD_UP);
-    //gpioSetPullUpDown(c1, PI_PUD_UP);
-    //gpioSetPullUpDown(c2, PI_PUD_UP);
-    //gpioSetPullUpDown(c3, PI_PUD_UP);
-
-
-//}
-//vector<int> NumpadDriver::insertAtEnd(vector<int> v, int x){
- //   v.push_back(x);
- //   return v;
-//}
-
+    t.join();
+    return 1;
+}
 void NumpadDriver::readNumpad()
 {
     std::vector<long unsigned int> data;
@@ -75,24 +29,27 @@ void NumpadDriver::readNumpad()
        // return(0);
     }
     
-    gpioSetMode(7, PI_INPUT);
-    gpioSetMode(9, PI_INPUT);
-    gpioSetMode(11, PI_INPUT);
-    gpioSetMode(13, PI_INPUT);
-    gpioSetMode(15, PI_INPUT);
-    gpioSetMode(17, PI_INPUT);
-    gpioSetMode(19, PI_INPUT);
+    gpioSetMode(r1, PI_INPUT);
+    gpioSetMode(r2, PI_INPUT);
+    gpioSetMode(r3, PI_INPUT);
+    gpioSetMode(c1, PI_INPUT);
+    gpioSetMode(c2, PI_INPUT);
+    gpioSetMode(c3, PI_INPUT);
+    gpioSetMode(r4, PI_INPUT);
 
-    //Setting Pull Up Resistor
-    gpioSetPullUpDown(7, PI_PUD_UP);
-    gpioSetPullUpDown(9, PI_PUD_UP);
-    gpioSetPullUpDown(11, PI_PUD_UP);
-    gpioSetPullUpDown(13, PI_PUD_UP);
-    gpioSetPullUpDown(15, PI_PUD_UP);
-    gpioSetPullUpDown(17, PI_PUD_UP);
-    gpioSetPullUpDown(19, PI_PUD_UP);
+    //Setting Pull Down Resistor
+    gpioSetPullUpDown(r1, PI_PUD_UP);
+    gpioSetPullUpDown(r2, PI_PUD_UP);
+    gpioSetPullUpDown(r3, PI_PUD_UP);
+    gpioSetPullUpDown(c1, PI_PUD_UP);
+    gpioSetPullUpDown(c2, PI_PUD_UP);
+    gpioSetPullUpDown(c3, PI_PUD_UP);
+    gpioSetPullUpDown(r4, PI_PUD_UP);
 
-    
+    // Setting up the interupts
+    gpioSetISRFunc(r4, EITHER_EDGE, 0, interuptHandler);
+    gpioSetISRFunc(c1, EITHER_EDGE, 0, interuptHandler);
+    gpioSetISRFunc(c3, EITHER_EDGE, 0, interuptHandler);
 
     while (1){
         if (gpioRead(7) == 0)
@@ -160,47 +117,73 @@ void NumpadDriver::readNumpad()
             data[0] = 0;
         }
     }
-    for (auto np : numpadcallback)
+    for (auto np : NumpadCallback)
     {
-        np->hasData(data);
-    }
-    for (int i =0; i < data.size(); i++){
-        std::cout << data.at(i);
+        np->nums(data);
     }
 
-    gpioTerminate();
 }
-int NumpadDriver::wake(int data_pin)
+
+//Interrupt handler
+void void NumpadDriver::interuptHandler(int gpio, int level, uint32_t tick)
 {
-    //int gpioInitialise();
-    std::thread t(&NumpadDriver::readNumpad, this);
-        //Initialising GPIO Pins
-     
-    t.join();
-    return(1);
+    static int state_1 = -1;//Forwards
+    static int state_2 = -1;//Forwards
+    static int state_3 = -1;//Backwards
+
+    if (gpio == 13)
+    {
+        state_1 = level;
+
+    } else if (gpio == 15)
+    {
+        state_2 = level;
+    }else if (gpio == 19)
+    {
+        state_3 = level;
+
+    if (state_2 == 0 && state_1 == 0)
+    {
+        for (auto np : NumpadCallback)
+        {
+            np->backwards(0);
+        }
+    }
+    else if (state_1 == 0 && state_3 == 0)
+    {
+        for (auto np : NumpadCallback)
+        {
+            np->forwards(0);
+        }
+    }
 }
 
+// Callback registrations
 
-void NumpadDriver::registerCallback(NumpadCallback *np)
+void NumpadDriver::KeypadCallbacks(NumpadCallback* np)
 {
     numpadcallback.push_back(np);
 }
+//Add function to go back and forward.
 
-
-
-void NumpadDriver::stop()
+//Callback functions
+void NumpadDriver::backwards(int data)
 {
-    t.detach();
+    #ifdef DEBUG
+		std::cout << std::endl << "Back button has been pressed" << std::endl;
+	#endif
+
 }
 
-int main()
+void NumpadDriver::forwards(int data)
 {
-    NumpadDriver npd;
-
-    npd.wake(0);
-    npd.readNumpad();
-
-    return 0;
+    #ifdef DEBUG
+		std::cout << std::endl << "Back button has been pressed" << std::endl;
+	#endif
+    //forward = 1;
 }
 
-//Add function to go back and forward. 
+void stop()
+{
+    gpioTerminate();
+}
