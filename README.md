@@ -1,10 +1,3 @@
-<!-- PROJECT LOGO -->
-<br />
-<div align="center">
- <img src="https://github.com/MataPOS/matapos/blob/main/lib/window/src/Logo.png" alt="logo" width="400" div al ign=center />
- </br>
- Matapos is here to help you small businesses around the world with affordable payment solution!
- </br>
 # MataPOS
 
 MataPOS is a robust, compact and affordable Point of Sale (POS) device with a target market of small and medium scale retail outlets across the world. The project is part of a continous assessment for Real-time Embedded Programming course taken by masters students at the prestigious University of Glasgow in the United Kingdom. The design will demonstrate the power and dynamism of the Raspberry Pi with C++ codes in performing real-time operations that would be beneficial to the intended market.
@@ -16,9 +9,32 @@ MataPOS is a robust, compact and affordable Point of Sale (POS) device with a ta
 [Muktansh Chaturvedi](https://github.com/muktansh)  
 [Abubakar Yusuf](https://github.com/fatherofcamels)
 
-## Follow us on
 
+## Install dependencies
+
+* Install pigpio
+```bash
+sudo apt-get install libpigpio-dev
+```
+
+* Install Qt
+```bash
+sudo apt-get install qtdeclarative5-dev-tools
+sudo apt-get install libqwt-qt5-dev
+```
+
+Install OpenCV
+```bash
+sudo apt install libopencv-dev
+```
+
+Install ZBar on your system which is used to read barcodes/qr codes
+```bash
+sudo apt-get install libzbar-dev libzbar0
+```
 ## Setup on Linux
+
+After installing all dependencies as described above, follow below instructions to get the project running.
 
 * Fork this repo to your github account.
 * Clone it to your local machine.
@@ -41,12 +57,6 @@ make
 ctest
 ```
 
-## Usage
-
-```cpp
-
-```
-
 ## Contributing
 
 Pull requests are welcome. For major changes, please open an issue first
@@ -55,22 +65,3 @@ to discuss what you would like to change.
 Please make sure to update tests as appropriate.
 
 ## License
-
-## Social Media 🌐
-Keep up to date with Matapos! Find us on all our social channels:
-</br>
-
-<p align="center">
-<a href="https://twitter.com/MataPos" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/twitter.svg" alt="signups" height="150" width="100" /></a>·
-   <a href="https://www.instagram.com/matapos15" target="blank"><img align="center" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/1024px-Instagram_logo_2016.svg.png" alt="instagram" height="100" width="100" /></a> 
-
-</p>
-
-## Contact Us
-- 🔭This project is being completed by a team of students at the University of Glasgow :
-  * [Avinansh Krishnan](https://github.com/avinashkrishnan2020)
-  * [Oluwatobi Abass A.](https://github.com/Tobiabass11) 
-  * [Muktansh Chaturvedi](https://github.com/muktansh)
-  * [Abubakar Yusuf](https://github.com/fatherofcamels)
-- 📫 Email: **matapos.glasgow@gmail.com**
-
