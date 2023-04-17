@@ -83,6 +83,10 @@ CartScreen::CartScreen()
 	
 	}
 	
+	void CartScreen::customer_identified(Customer customer) {
+	
+		customer = customer;
+	}
 	
 	void CartScreen::item_identified(Stock itemData)
 	
@@ -92,8 +96,11 @@ CartScreen::CartScreen()
 		QString productInfo = itemData.itemName + "\t\t£" + itemData.price + "\n";
 		
 		item_list->addItem(productInfo);
+		customerCart.itemList.push_back(itemData);
 		
     		total += itemData.price.toDouble();
+    		customerCart.totalCost += itemData.price.toDouble();
+    		customerCart.customerId = (customer.uniqueId).toStdString();
     		
     		QString totalDisplayed = "Total = £ " + QString::number(total);
     		
@@ -115,6 +122,7 @@ CartScreen::CartScreen()
 
 	{
 		
+		Cdatabase.checkoutCustomer(customerCart);
 		checkoutPressed->checkoutpressed();
 		
 
