@@ -44,13 +44,6 @@ CartScreen::CartScreen()
                             "qproperty-icon: url(../lib/window/src/check.png);");
 
 
-	if (event->key() == Qt::Key_Escape){
-		cancel_pressed();
-	}
-
-	if (event->key() == Qt::Key_Enter){
-		checkout_pressed();
-	}
 
 	// connect(checkout, &QPushButton::clicked, this, &CartScreen::checkout_pressed);
 	
@@ -113,6 +106,15 @@ CartScreen::CartScreen()
 		checkoutPressed->checkoutpressed();
 		
 
+	}
+
+	void CartScreen::keyPressEvent(QKeyEvent *event){
+		if (event->key() == Qt::Key_Escape){
+		cancel_pressed();
+		}
+		else if(event->key() == Qt::Key_Enter){
+		checkout_pressed();
+		}
 	}
 
 
