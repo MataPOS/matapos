@@ -31,6 +31,7 @@ CartScreen::CartScreen()
 
 
 	item_list = new QListWidget;
+	item_list->setFixedSize(400,400);
 	
 	
 	// SETTING UP THE NECESSARY
@@ -45,14 +46,15 @@ CartScreen::CartScreen()
 
 
 
-	// connect(checkout, &QPushButton::clicked, this, &CartScreen::checkout_pressed);
+	connect(checkout, &QPushButton::clicked, this, &CartScreen::checkout_pressed);
 	
-	// connect(cancel, &QPushButton::clicked, this, &CartScreen::cancel_pressed);
+	connect(cancel, &QPushButton::clicked, this, &CartScreen::cancel_pressed);
 
 	hLayout_buttons = new QHBoxLayout;
 	hLayout_buttons->addWidget(cancel);
 	hLayout_buttons->addWidget(checkout);
-
+	QString listHeader = "ITEM\t\tPRICE\n";
+	item_list->addItem(listHeader);
 	vLayout_cart = new QVBoxLayout;
 	vLayout_cart->addWidget(item_list);
 	vLayout_cart->addWidget(label_Price);
@@ -61,17 +63,18 @@ CartScreen::CartScreen()
 	hLayout_display = new QHBoxLayout;
 	hLayout_display->addWidget(image);
 	hLayout_display->addLayout(vLayout_cart);
-	QString listHeader = "S/N\tITEM\tPRICE\n";
-	item_list->addItem(listHeader);
-	hLayout_display->addWidget(item_list);
+	
+	
+	//hLayout_display->setSizeConstraint(QLayout::SetFixedSize);
+	//hLayout_display->addWidget(item_list);
 
-
+	//vLayout->setSizeConstraint(QLayout::SetFixedSize);
 	vLayout = new QVBoxLayout;
 	vLayout->addWidget(label_ScanMessage);
 	vLayout->addLayout(hLayout_display);
 	vLayout->addLayout(hLayout_buttons);
 	
-
+	
 	this->setLayout(vLayout);
 	
 
@@ -88,7 +91,7 @@ CartScreen::CartScreen()
 	
 	{
 		std::cout<<"Item adding to the list ";
-		QString productInfo = itemData.itemName + "\t£" + itemData.price + "\n";
+		QString productInfo = itemData.itemName + "\t\t£" + itemData.price + "\n";
 		item_list->addItem(productInfo);
 		std::cout<<"Item name is "<<itemData.itemName.toStdString()<<"\n ";
 
