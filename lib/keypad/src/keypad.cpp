@@ -148,3 +148,12 @@ void NumpadDriver::stop()
     gpioTerminate();
     keypadthread.detach();
 }
+
+int main(){
+    NumpadDriver numpad;
+    numpad.wake(1);
+    numpad.readNumpad();
+    sleep(10);
+    numpad.stop();
+    return 0;
+}
