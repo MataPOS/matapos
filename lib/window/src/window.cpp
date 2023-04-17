@@ -100,7 +100,7 @@ void window::WelcomeScreenCustomerIdentified()
 	this->resize(c->sizeHint());
 	stackedWidget->setCurrentIndex(1);
 	w->stop();
-	this->resize(550,600);
+	this->resize(600,600);
 	c->start();
 	
 

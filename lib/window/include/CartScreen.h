@@ -48,6 +48,7 @@ private:
 	QVBoxLayout *vLayout;
 	
 	QLabel *image;
+	double total = 0;
 	
 	
 	
