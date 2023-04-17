@@ -22,6 +22,29 @@
 
 MataPOS is a robust, compact and affordable Point of Sale (POS) device with a target market of small and medium scale retail outlets across the world. The project is part of a continous assessment for Real-time Embedded Programming course taken by masters students at the prestigious University of Glasgow in the United Kingdom. The design will demonstrate the power and dynamism of the Raspberry Pi with C++ codes in performing real-time operations that would be beneficial to the intended market.
 
+## Install dependencies
+
+* Install pigpio
+```bash
+sudo apt-get install libpigpio-dev
+```
+
+* Install Qt
+```bash
+sudo apt-get install qtdeclarative5-dev-tools
+sudo apt-get install libqwt-qt5-dev
+```
+
+Install OpenCV
+```bash
+sudo apt install libopencv-dev
+```
+
+Install ZBar on your system which is used to read barcodes/qr codes
+```bash
+sudo apt-get install libzbar-dev libzbar0
+```
+
 ## Setup on Linux 👨‍💻
 
 * Fork this repo to your github account.
