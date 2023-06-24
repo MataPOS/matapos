@@ -80,6 +80,9 @@ MataPOS is a robust, compact and affordable Point of Sale (POS) device with a ta
   ```bash
   ctest
   ```
+# Note regarding QR codes
+Customer QR codes start with "cust"
+Item QR codes start with "stock"
 
 # Contributing
 
