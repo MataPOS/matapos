@@ -23,6 +23,9 @@
 
 MataPOS is a robust, compact and affordable Point of Sale (POS) device with a target market of small and medium scale retail outlets across the world. The project is part of a continous assessment for Real-time Embedded Programming course taken by masters students at the prestigious University of Glasgow in the United Kingdom. The design will demonstrate the power and dynamism of the Raspberry Pi with C++ codes in performing real-time operations that would be beneficial to the intended market.
 
+# Demo
+[Click for demo](https://drive.google.com/file/d/1S3Vxyk4MChpIfZUVnYMs5cbLSpI8QSzK/view?usp=drive_link)
+
 # Install Dependencies
 
 * Install pigpio
@@ -124,7 +127,7 @@ Distributed under the LGPL-2.1 License. See [`LICENSE`](https://github.com/MataP
 # Contact Us 📞
 
 - 🔭This project is being completed by a team of students at the University of Glasgow :
-  * [Avinansh Krishnan](https://github.com/avinashkrishnan2020)
+  * [Avinash Krishnan](https://github.com/avinashkrishnan2020)
   * [Oluwatobi Abass A.](https://github.com/Tobiabass11) 
   * [Muktansh Chaturvedi](https://github.com/muktansh)
   * [Abubakar Yusuf](https://github.com/fatherofcamels)
