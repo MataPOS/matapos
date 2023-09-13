@@ -1,18 +1,22 @@
 #ifndef CART_H
 #define CART_H
 
-#include "cartitem.h"
+#include "stock.h"
 
 #include <iostream>
+
+/**
+ * Cart class stores the cart data	
+**/
 
 class Cart {
 
 	public:
-		Cart();
+		Cart() {};
 		
 		std::string customerId;
-		std::vector<CartItem> itemList;
-		float totalCost;
+		std::vector<Stock> itemList;
+		double totalCost;
 
 };	
 

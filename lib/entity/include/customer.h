@@ -3,6 +3,11 @@
 
 #include <QString>
 
+/**
+Customer class holds customer data for program to process
+
+*/
+
 class Customer {
 
 	public:

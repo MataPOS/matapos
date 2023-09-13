@@ -20,7 +20,12 @@
 
 
 
-//Modify this constructor to differentiate whether the object is created to read customer data, or the item data - 12 April 2023
+/**
+
+Constructor of BarcodeReader class
+
+
+*/
 BarcodeReader::BarcodeReader() {
 
 
@@ -36,13 +41,37 @@ BarcodeReader::~BarcodeReader() {
 	
 }
 
+
+/**
+
+Configures the zbar library image scanner
+
+
+*/
+
 void BarcodeReader::configureZbarScanner() {
 	zbarImageScanner.set_config(zbar::ZBAR_NONE, zbar::ZBAR_CFG_ENABLE, 1);
 }
 
+
+/**
+
+Registers the client callback for the barcode reader
+
+
+*/
+
 void BarcodeReader::registerBarcodereaderCallback(BarcodeReaderCallback* clientCallbackPtr) {
 	barcodeReaderCallbackPtr = clientCallbackPtr;
 }
+
+
+/**
+
+Decodes the barcode image recieved and pushes the decoded data to the registered callbacks
+
+
+*/
 
 void BarcodeReader::decodeQRAndBarcode(cv::Mat& frame) {
 	configureZbarScanner();

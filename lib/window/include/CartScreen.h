@@ -14,20 +14,28 @@
 #include <QPushButton>
 #include <QTimer>
 #include <QLineEdit>
+#include <iostream>
+#include <string>
+
 #include "camera.h"
 #include "stock.h"
 #include "database.h"
 #include "databasecallback.h"
-#include<iostream>
-#include<string>
+#include "cart.h"
+
+#include "customer.h"
 
 
+/**
+* The Class displays the window for the Cart screen where scanned item details are present
 
+*/
 
 class CartScreen : public QWidget
 {
 
 	//Q_OBJECT
+
 
 protected:
     void keyPressEvent(QKeyEvent *);
@@ -48,8 +56,7 @@ private:
 	QVBoxLayout *vLayout;
 	
 	QLabel *image;
-	double total = 0;
-	
+	double total = 0;	
 	
 	
 	
@@ -59,6 +66,9 @@ private:
 public:
 	
 	
+	Customer customer;
+	Cart customerCart;
+	
 	class myDatabaseCallback : public DatabaseCallback {
 	
 		public : CartScreen* cartscreenptr = nullptr;
@@ -66,11 +76,14 @@ public:
 	
 		public: 
 		
-		virtual void customerDataAvailable(Customer customerData) // Cartscreen do not need customer data
-		{
+		virtual void customerDataAvailable(Customer customerData) {
 			
-			std::cout<<"Inside Cartscreen customer data available function ";
-			return;
+			
+			if(nullptr != cartscreenptr)
+			{
+			std::cout<<"Inside cartscreen item data available function ";
+			cartscreenptr->customer_identified(customerData);
+			}
 		
 		}
 	
@@ -100,29 +113,10 @@ public:
 	
 	myDatabaseCallback mydatabasecallback;
 	void item_identified(Stock);
-
+	void customer_identified(Customer);
 	Database& Cdatabase = Database::getDatabaseInstance();
 	
 	
-	/*
-	struct ItemIdentified
-	{
-		virtual void itemidentifiedfunction() = 0;
-		
-	
-	};
-	
-	ItemIdentified* itemidentifiedptr;
-	
-	
-	void registerItemIdentified(ItemIdentified* ii)
-	{
-		itemidentifiedptr = ii;
-	
-	}
-	*/
-	
-	///////////////////////////////////////
 	
 	
 	struct CheckoutPressed
@@ -185,7 +179,6 @@ public:
 		{
 			
 			CScreen->post_frames(frame);
-
 		
 		}
 	
